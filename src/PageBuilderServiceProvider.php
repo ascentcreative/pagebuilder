@@ -23,7 +23,7 @@ class PageBuilderServiceProvider extends ServiceProvider
   public function boot()
   {
 
-    $this->loadViewsFrom(__DIR__.'/../resources/views', 'donate');
+    $this->loadViewsFrom(__DIR__.'/../resources/views', 'pagebuilder');
 
     $this->loadRoutesFrom(__DIR__.'/../routes/pagebuilder-web.php');
 
@@ -40,6 +40,8 @@ class PageBuilderServiceProvider extends ServiceProvider
 
   // register the components
   public function bootComponents() {
+
+        Blade::component('pagebuilder', 'AscentCreative\PageBuilder\Components\PageBuilder');
 
 
   }
