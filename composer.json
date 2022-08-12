@@ -1,6 +1,6 @@
 {
-  "name": "ascentcreative/donate",
-  "description": "Donation Library",
+  "name": "ascentcreative/pagebuilder",
+  "description": "UI PageBuilder Library",
   "type": "library",
   "authors": [
     {
@@ -19,13 +19,13 @@
   },
   "autoload": {
     "psr-4": {
-      "AscentCreative\\Donate\\": "src"
+      "AscentCreative\\PageBuilder\\": "src"
     }
   },
   "extra": {
     "laravel": {
         "providers": [
-            "AscentCreative\\Donate\\DonateServiceProvider"
+            "AscentCreative\\PageBuilder\\PageBuilderServiceProvider"
         ]
     }
 }
