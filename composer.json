@@ -15,7 +15,7 @@
     "kalnoy/nestedset": "^6.0",
     "spatie/laravel-permission": "^4.0",
     "doctrine/dbal": "^3.0",
-    "stripe/stripe-php": "^7.75"
+    "livewire/livewire": "^2.0"
   },
   "autoload": {
     "psr-4": {
