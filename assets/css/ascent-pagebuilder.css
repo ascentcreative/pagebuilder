@@ -1,0 +1,46 @@
+
+body.pb-display {
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.pb-element .pb-element-label {
+    display:none;
+
+    position: absolute; 
+    top: 0px; 
+    left: 0px; 
+    background: rgba(0,0,0,0.7); 
+    color:white; 
+    padding: 4px 5px; 
+    text-transform: uppercase; ()
+    font-weight: 500; 
+    font-size: 11px;
+    z-index: 200;
+    line-height: 1.15;
+}
+
+.pb-element .pb-element-label a {
+    color:white; 
+}
+
+.pb-element.moused > .pb-element-label {
+    display: block;
+}
+
+.pb-rows {
+    position: relative;
+}
+
+.pb-element-settings {
+    display: none;
+}
+
+.pb-row > .pb-element-settings {
+    display: block;
+}
+
+.pb-sync {
+    display: none;
+}

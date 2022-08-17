@@ -43,6 +43,9 @@ class PageBuilderServiceProvider extends ServiceProvider
 
         Blade::component('pagebuilder', 'AscentCreative\PageBuilder\Components\PageBuilder');
 
+        Blade::component('pagebuilder-row', 'AscentCreative\PageBuilder\Components\Row');
+        Blade::component('pagebuilder-container', 'AscentCreative\PageBuilder\Components\Container');
+        Blade::component('pagebuilder-block', 'AscentCreative\PageBuilder\Components\Block');
 
   }
 

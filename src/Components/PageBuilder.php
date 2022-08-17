@@ -50,15 +50,15 @@ class PageBuilder extends Component
         $this->wrapper = $wrapper;
         $this->class = $class;
 
-        try {
-            if (!is_string($model)) {
-                $this->model = get_class($model);
-            } else {
-                $this->model = $model;
-            }
-        } catch (Exception $e) {
-            $this->model = null;
-        }
+        // try {
+        //     if (!is_string($model)) {
+        //         $this->model = get_class($model);
+        //     } else {
+        //         $this->model = $model;
+        //     }
+        // } catch (Exception $e) {
+        //     $this->model = null;
+        // }
        
 
 
