@@ -148,6 +148,7 @@ $.extend($.ascent.PageBuilder, {
 	
 }); 
 
+
 $(document).ready(function() {
     console.log('init PB');
     $('.pagebuilder').not('.initialised').pagebuilder();

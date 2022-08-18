@@ -4,6 +4,7 @@ namespace AscentCreative\PageBuilder\Forms;
 use AscentCreative\Forms\Form;
 
 use AscentCreative\Forms\Fields\Input;
+use AscentCreative\Forms\Fields\Checkbox;
 use AscentCreative\Forms\Fields\FileUpload;
 use AscentCreative\Forms\Fields\Options;
 use AscentCreative\Forms\Fields\CompoundDate;
@@ -62,36 +63,55 @@ class RowSettings extends Form {
 
                            
                         ]),
+
                     Tab::make('tab_bg', 'Background')
                         ->children([
-                            FileUpload::make($name . '[styles][background_image]', 'Image'),
-                            Options::make($name . '[styles][background_size]', 'Size')
-                                ->options([
-                                    'contain' => "Show the whole image",
-                                    'cover' => "Fill the background"
+                            HTML::make('<div class="border p-2"><strong>Image:</strong>', '</div>')
+                                ->children([
+                                    FileUpload::make($name . '[styles][background_image]', 'Image'),
+                                    Options::make($name . '[styles][background_size]', 'Size')
+                                        ->options([
+                                            'contain' => "Show the whole image",
+                                            'cover' => "Fill the background"
+                                        ]),
+                                    Checkbox::make($name . '[styles][background_repeat]', 'Repeat?')
+                                       ->checkedValue('repeat')->uncheckedValue('no-repeat'),
+                                    Options::make($name . '[styles][background_position]', 'Position')
+                                       ->options([
+                                           'center' => "Center",
+                                           'top' => "Top",
+                                           'bottom' => "Bottom",
+                                       ]),
+                                    Checkbox::make($name . '[options][curtain]', 'Darken?')
+                                       ->description('Darken the image so text will show more clearly')
+                                       ->checkedValue(1)->uncheckedValue(0),
+                                    Checkbox::make($name . '[options][parallax]', 'Parallax?')
+                                       ->description('If checked, the image will scroll at a diffrent rate to the rest of the page. Image position will change.')
+                                       ->checkedValue(1)->uncheckedValue(0),
+                            ]),
+
+                            HTML::make('<div class="border p-2"><strong>Colour:</strong>', '</div>')
+                                ->children([
+                                    Input::make($name . '[styles][background_color]', 'Colour')
+                                        ->description('The colour will be behind any image specified above.'),
                                 ]),
-                            Input::make($name . '[styles][background_repeat]', 'Repeat', 'hidden')
-                                ->value('norepeat')->wrapper('none'),
-                            Input::make($name . '[styles][background_color]', 'Background Colour'),
+                            
                         ]),
                 ]),
             
         ]);
 
-       
-        $data = [
-            'content' => [
-                'rows' =>
-                    [
-                        $data
-                    ]
-                
-            ]
-        ];
-        
-        // dump($data);
 
-        $this->populate($data);
+
+        $dot = collect(Arr::dot(json_decode(json_encode($data), true)))
+                    ->mapWithKeys(function($item, $key) use ($name) {
+                        return [dotname($name) . '.' . $key => $item];
+                    })->toArray();
+
+
+        $data = Arr::undot($dot);
+
+        $this->populate($data, $name);
     }
 
 }

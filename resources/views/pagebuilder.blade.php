@@ -27,7 +27,6 @@
         <button id="btn-add-row" class="button btn btn-primary btn-sm">Add</button>
     </div>
 
-
     <iframe src="/admin/pagebuilder/iframe/{{ @encrypt($value) }}" width="100%" border="0" height="400px" id="pb-iframe" style="border: 1px solid #ccc;">
 
 

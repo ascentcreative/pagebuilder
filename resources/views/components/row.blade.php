@@ -26,6 +26,7 @@
     
     {{ $slot }}
 
+
     <div class="pb-element-settings">
 
         {{-- NB - not a FORM modal as the form start and end tags interfere with the submission of updated values. --}}
@@ -41,31 +42,6 @@
             </x-slot>
 
         </x-cms-modal>
-
-        {{-- <div class="modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Modal title</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-
-                    <x-forms-fields-input name="{{$name}}[styles][padding_top]" label="Padding Top" type="text" value="{{ $value->styles->padding_top ?? '50px' }}"/>
-                    <x-forms-fields-input name="{{$name}}[styles][padding_bottom]" label="Padding Bottom" type="text" value="{{ $value->styles->padding_bottom ?? '50px' }}"/>
-
-                    <x-forms-fields-input type="text" label="Background Colour" name="{{ $name }}[styles][background_color]" :value="$value->styles->background_color ?? ($defaults['bgcolor'] ?? 'transparent')" elementClass="row-bgcolor"/>
-
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-primary">Save changes</button>
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-              </div>
-            </div>
-          </div> --}}
 
           
     </div>

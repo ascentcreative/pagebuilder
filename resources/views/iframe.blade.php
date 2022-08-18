@@ -11,6 +11,7 @@
 @push('scripts')
     @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-stack.js')
     @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-row.js')
+    @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-container.js')
 @endpush
 
 
