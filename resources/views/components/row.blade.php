@@ -1,4 +1,5 @@
 @php
+
     $styles = collect($value->styles ?? []);
     // dump($styles);
 
@@ -10,9 +11,12 @@
     $style = $styles->transform(function($item, $key) {
         return str_replace("_", '-', $key) . ': ' . $item;
     })->join('; ');
+
 @endphp
 
 <div class="pb-element pb-row" style="border: 1px solid rgba(0,0,0,0.1); position: relative; {{ $style }}">
+
+    <input type="hidden" name="{{ $name }}[unid]" value="{{ $value->unid ?? uniqid() }}" />
 
     <div class="pb-element-label">
         <div class="d-flex">

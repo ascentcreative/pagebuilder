@@ -26,9 +26,10 @@ var PageBuilderContainer = {
 
         $(obj).addClass('initialised');
 
-        $(this.element).on('click', '.pbc-settings', function() {
+        $(this.element).on('click', '.pbc-settings', function(e) {
             
             parent.$('.pagebuilder').trigger('show-modal', [$(obj).children('.pb-element-settings').children('.modal')]);
+            e.preventDefault();
 
         });
 

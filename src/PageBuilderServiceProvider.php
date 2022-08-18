@@ -10,13 +10,12 @@ class PageBuilderServiceProvider extends ServiceProvider
 {
   public function register()
   {
-    //
-
-    // Register the helpers php file which includes convenience functions:
-    
     $this->mergeConfigFrom(
         __DIR__.'/../config/pagebuilder.php', 'pagebuilder'
     );
+
+     // Register the helpers php file which includes convenience functions:
+     require_once (__DIR__.'/../helpers/pagebuilder-helpers.php');
 
   }
 

@@ -28,7 +28,7 @@ var PageBuilder = {
 
         // catch change events relayed from the iFrame:
         $(elm).on('pb-change', function() {
-            self.syncData();
+            // self.syncData(); // only on save
             $(this).change();
         });
 
@@ -38,6 +38,8 @@ var PageBuilder = {
             let clone = $(modal).clone(); 
 
             $(clone).find('.initialised').removeClass('initialised');
+
+           
         
             // $(clone).on('hidden.bs.modal', function(e) {
             $(clone).on('click', '.btn-ok', function(e) {
@@ -49,7 +51,7 @@ var PageBuilder = {
                 $(modal).replaceWith(clone);
 
                 // sync the data fields.
-                self.syncData();
+                // self.syncData(); // only on save
 
                 // refresh the UI
                 self.stack.parents('form').submit();
@@ -62,7 +64,14 @@ var PageBuilder = {
                 
                 // anything we need to do when the modal shows - possibly nothing...
 
+                // some widgets require manual initialisation
+            
+                // colour widget has display issues if init before modal shows.
+                $(clone).find('.colour').colourfield();
+
             }).modal(); // show the modal
+
+            
 
 
         });
@@ -122,6 +131,26 @@ var PageBuilder = {
 
         });
 
+
+        // Add row button:
+        $(this.element).on('click', '#btn-fullscreen', function(e) {
+
+            e.preventDefault();
+
+            $(self.element).toggleClass('fullscreen');
+
+        });
+
+
+
+         //capture the submit event of the form to serialise the stack data
+         $(this.element).parents('form').on('submit', function() {
+
+            self.syncData();
+
+        });
+
+
         
 
     },
@@ -134,7 +163,7 @@ var PageBuilder = {
         $(elmSync).html(''); // clear all old data
 
         $(this.stack).find('INPUT, SELECT, TEXTAREA').each(function() {
-            // console.log('sync: ' + $(this).attr('name'));
+            console.log('sync: ' + $(this).attr('name'));
             $(elmSync).append($(this).clone());
         });
 

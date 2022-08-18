@@ -26,9 +26,10 @@ var PageBuilderRow = {
 
         $(obj).addClass('initialised');
 
-        $(this.element).on('click', '.pbr-settings', function() {
+        $(this.element).on('click', '.pbr-settings', function(e) {
             
             parent.$('.pagebuilder').trigger('show-modal', [$(obj).children('.pb-element-settings').children('.modal')]);
+            e.preventDefault();
 
         });
 

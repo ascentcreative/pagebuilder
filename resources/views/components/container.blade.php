@@ -13,8 +13,10 @@
 @endphp
 
 
-<div class="pb-element pb-container" style="padding: 5px; margin: 0px auto; max-width: 800px; border: 1px dashed rgba(0,0,0,0.2); 
+<div class="pb-element pb-container centralise" style="padding: 5px; margin: 0px auto; border: 1px dashed rgba(0,0,0,1); 
                     display: grid; grid-template-columns: 1fr; gap: 1rem; position: relative; {{ $style }}">
+
+    <input type="hidden" name="{{ $name }}[unid]" value="{{ $value->unid ?? uniqid() }}" />
 
     <div class="pb-element-label">
         <div class="d-flex">
@@ -27,10 +29,19 @@
 
     <div class="pb-element-settings">
 
-        <x-forms-modal 
-            :form="\AscentCreative\PageBuilder\Forms\ContainerSettings::make($name, $value)"
+        {{-- NB - not a FORM modal as the form start and end tags interfere with the submission of updated values. --}}
+        <x-cms-modal modalid="form-modal" 
             title="Container Settings"
-        />
+        >
+            {{-- Only render the form body (fields etc) as it's really a subform --}}
+            @formbody(\AscentCreative\PageBuilder\Forms\ContainerSettings::make($name, $value))
+
+            <x-slot name="footer">
+                <button class="button btn btn-secondary btn-cancel" data-dismiss="modal">Cancel</button>
+                <button class="button btn btn-primary btn-ok">OK</button>
+            </x-slot>
+
+        </x-cms-modal>
 
     </div>
 

@@ -49,6 +49,11 @@ var PageBuilderStack = {
             e.stopPropagation(); // stop propagation so parents don't switch back on!
         });
 
+        // $(this.element).on('mousemove', '.pb-element', function(e) {
+        //     console.log(this);
+        //     // e.stopPropagation();
+        // });
+
         // hide all labels on mouseout
         $(this.element).on('mouseout', '.pb-element', function(e) {
             $(this).removeClass('moused');
@@ -68,7 +73,7 @@ var PageBuilderStack = {
 
         let type = 'type';
         let field  = 'content';
-        let idx = '0';
+        let idx = $(elm).find('.pb-row').length; 
 
         $.ajax({
             type: 'post',

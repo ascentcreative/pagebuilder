@@ -4,6 +4,7 @@ namespace AscentCreative\PageBuilder\Forms;
 use AscentCreative\Forms\Form;
 
 use AscentCreative\Forms\Fields\Input;
+use AscentCreative\Forms\Fields\Colour;
 use AscentCreative\Forms\Fields\Checkbox;
 use AscentCreative\Forms\Fields\FileUpload;
 use AscentCreative\Forms\Fields\Options;
@@ -78,7 +79,7 @@ class ContainerSettings extends Form {
                     Tab::make('tab_bg', 'Background')
                         ->children([
 
-                            HTML::make('<div class="border p-2"><strong>Image:</strong>', '</div>')
+                            HTML::make('<div class="border p-2 mb-2"><strong>Image:</strong>', '</div>')
                                 ->children([
                                     FileUpload::make($name . '[styles][background_image]', 'Image'),
                                     Options::make($name . '[styles][background_size]', 'Size')
@@ -92,14 +93,18 @@ class ContainerSettings extends Form {
                           
                             ]),
                             
-                            Input::make($name . '[styles][background_color]', 'Background Colour'),
+                            HTML::make('<div class="border p-2"><strong>Colour:</strong>', '</div>')
+                                ->children([
+                                    Colour::make($name . '[styles][background_color]', 'Colour')
+                                        ->description('This colour will be behind any image specified above.'),
+                                ]),
                         ]),
                 ]),
             
         ]);
 
         
-
+        if($data) {
         $dot = collect(Arr::dot(json_decode(json_encode($data), true)))
                     ->mapWithKeys(function($item, $key) use ($name) {
                         return [dotname($name) . '.' . $key => $item];
@@ -107,6 +112,10 @@ class ContainerSettings extends Form {
 
 
         $data = Arr::undot($dot);
+
+                } else {
+                    $data = [];
+                }
 
         $this->populate($data, $name);
     }

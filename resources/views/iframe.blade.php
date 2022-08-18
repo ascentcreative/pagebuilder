@@ -1,9 +1,47 @@
+@php 
+
+// dd($data)
+
+if(is_string($data)) {
+    $value = decrypt($data); 
+} else if(!is_null($data)) {
+    $value = json_decode(json_encode($data))->content;
+}
+
+if(is_null($value)) {
+    // load a default value:
+    $value = [
+    'rows' => [
+        [
+            'containers' => [
+                    [
+                        'blocks' => [
+                            [
+                                'template'=>'page-header',
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]   
+    ];
+
+    // fudge to deep-cast array to objects
+    $value = json_decode(json_encode($value));
+
+}
+
+$name = 'content'
+@endphp
+
 
 @push('styles')
 
     @style('/vendor/ascent/cms/css/bootstrap.min.css') 
     @style("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css") 
     @style('/vendor/ascent/pagebuilder/css/ascent-pagebuilder.css')
+    @style('/vendor/ascent/forms/dist/css/ascent-forms-bundle.css')
+
     @style('/css/screen.css')
 
 @endpush
@@ -24,57 +62,25 @@
 
 <body class="pb-display">
 
-    @php 
-
-        // dd($data)
-
-        if(is_string($data)) {
-            $value = decrypt($data); 
-        } else if(!is_null($data)) {
-            $value = json_decode(json_encode($data))->content;
-        }
-
-        if(is_null($value)) {
-            // load a default value:
-            $value = [
-            'rows' => [
-                [
-                    'containers' => [
-                            [
-                                'blocks' => [
-                                    [
-                                        'template'=>'page-header',
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]
-                ]   
-            ];
-
-            // fudge to deep-cast array to objects
-            $value = json_decode(json_encode($value));
-
-        }
-       
-        $name = 'content'
-    @endphp
+   
     <form method="post" action="/admin/pagebuilder/iframe">
         @csrf
         {{-- <x-forms-fields-input type="text" name="text" label="some test text" value="" placeholder="enter something"/> --}}
         <div class="pagebuilderstack">
             <div class="pb-rows themed">
                 @isset($value->rows)
+                    @php $iRow = 0; @endphp
                     @foreach($value->rows as $row)
-                        <x-pagebuilder-row fieldname="{{ $name }}" rowidx="0" :value="$row">
+
+                        <x-pagebuilder-row fieldname="{{ $name }}" :rowidx="$iRow" :value="$row">
         
                             @foreach($row->containers as $container)
                                 
-                                <x-pagebuilder-container fieldname="{{ $name }}" row="0" idx="0" :value="$container">
+                                <x-pagebuilder-container fieldname="{{ $name }}" :row="$iRow" idx="0" :value="$container">
                         
                                     @foreach($container->blocks as $block)
 
-                                        <x-pagebuilder-block fieldname="{{ $name }}" row="0" container="0" idx="0" :value="$block">
+                                        <x-pagebuilder-block fieldname="{{ $name }}" :row="$iRow" container="0" idx="0" :value="$block">
 
                                         </x-pagebuilder-block>
 
@@ -85,6 +91,8 @@
                             @endforeach
 
                         </x-pagebuilder-row>
+
+                        @php $iRow++; @endphp
                     @endforeach
                 @endisset
             </div>

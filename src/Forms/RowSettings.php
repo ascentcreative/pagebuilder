@@ -4,6 +4,7 @@ namespace AscentCreative\PageBuilder\Forms;
 use AscentCreative\Forms\Form;
 
 use AscentCreative\Forms\Fields\Input;
+use AscentCreative\Forms\Fields\Colour;
 use AscentCreative\Forms\Fields\Checkbox;
 use AscentCreative\Forms\Fields\FileUpload;
 use AscentCreative\Forms\Fields\Options;
@@ -24,6 +25,23 @@ class RowSettings extends Form {
             Tabs::make('tabs', 'tabs')
                 ->styled(false)
                 ->children([
+                    Tab::make('tab_size', 'Size')
+                        ->children([
+
+                            // ValueWithUnits::make($name . '[styles][max_width]', 'Width', ['px', '%'])
+                            //     ->description('The width of the screen to use for the content. Leave blank for the default centralised portion, or enter values in % or px. <br/>
+                            //     <strong>Examples:<br/></strong>
+                            //     <code>100%</code> will use the full screen width.<br/>
+                            //     <code>500px</code> will use the central 500px of the screen (or shrink if narrower)'),
+
+                            ValueWithUnits::make($name . '[styles][min_height]', 'Height', ['px', 'vh']),
+                                // ->description('The width of the screen to use for the content. Leave blank for the default centralised portion, or enter values in % or px. <br/>
+                                // <strong>Examples:<br/></strong>
+                                // <code>100%</code> will use the full screen width.<br/>
+                                // <code>500px</code> will use the central 500px of the screen (or shrink if narrower)'),
+
+                        ]),
+
                     Tab::make('tab_spacing', 'Spacing')
                         ->children([
                             HTML::make('<div class="border p-2"><strong>Padding:</strong>', '</div>')
@@ -66,7 +84,7 @@ class RowSettings extends Form {
 
                     Tab::make('tab_bg', 'Background')
                         ->children([
-                            HTML::make('<div class="border p-2"><strong>Image:</strong>', '</div>')
+                            HTML::make('<div class="border p-2 mb-2"><strong>Image:</strong>', '</div>')
                                 ->children([
                                     FileUpload::make($name . '[styles][background_image]', 'Image'),
                                     Options::make($name . '[styles][background_size]', 'Size')
@@ -86,13 +104,13 @@ class RowSettings extends Form {
                                        ->description('Darken the image so text will show more clearly')
                                        ->checkedValue(1)->uncheckedValue(0),
                                     Checkbox::make($name . '[options][parallax]', 'Parallax?')
-                                       ->description('If checked, the image will scroll at a diffrent rate to the rest of the page. Image position will change.')
+                                       ->description('If checked, the image will scroll at a different rate to the rest of the page. Image position will change.')
                                        ->checkedValue(1)->uncheckedValue(0),
                             ]),
 
                             HTML::make('<div class="border p-2"><strong>Colour:</strong>', '</div>')
                                 ->children([
-                                    Input::make($name . '[styles][background_color]', 'Colour')
+                                    Colour::make($name . '[styles][background_color]', 'Colour')
                                         ->description('The colour will be behind any image specified above.'),
                                 ]),
                             
@@ -102,14 +120,19 @@ class RowSettings extends Form {
         ]);
 
 
+        if($data) {
 
-        $dot = collect(Arr::dot(json_decode(json_encode($data), true)))
-                    ->mapWithKeys(function($item, $key) use ($name) {
-                        return [dotname($name) . '.' . $key => $item];
-                    })->toArray();
+            $dot = collect(Arr::dot(json_decode(json_encode($data), true)))
+                        ->mapWithKeys(function($item, $key) use ($name) {
+                            return [dotname($name) . '.' . $key => $item];
+                        })->toArray();
 
 
-        $data = Arr::undot($dot);
+            $data = Arr::undot($dot);
+
+        } else {
+            $data = [];
+        }
 
         $this->populate($data, $name);
     }

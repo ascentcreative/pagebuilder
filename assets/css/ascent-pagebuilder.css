@@ -5,6 +5,12 @@ body.pb-display {
     margin: 0;
 }
 
+
+body.pb-display form {
+    margin: 0;
+    padding: 0;
+}
+
 .pb-element .pb-element-label {
     display:none;
 
@@ -44,3 +50,42 @@ body.pb-display {
 .pb-sync {
     display: none;
 }
+
+
+.pagebuilder {
+    /* width: 100%; */
+  
+
+    position: relative;
+    /* top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; */
+
+    transition: left 1s;
+}
+
+.pagebuilder.fullscreen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
+    background: rgba(0,0,0,0.7);
+
+    /* width: 100%; */
+
+    /* width: 50%; */
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.pagebuilder.fullscreen iframe {
+    flex-grow: 1;
+    border: none !important;
+}
+
+

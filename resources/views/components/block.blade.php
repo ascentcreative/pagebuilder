@@ -9,6 +9,8 @@
 
 <div class="pb-element pb-block" style="position: relative; border: 1px dashed rgba(0,0,0,0.1)">
 
+    <input type="hidden" name="{{ $name }}[unid]" value="{{ $value->unid ?? uniqid() }}" />
+
     <div class="pb-element-label">
         <div class="d-flex">
             <span>Page Header</span>
@@ -24,8 +26,8 @@
 
     <div class="pb-element-settings">
 
-        <x-forms-fields-input name="{{$name}}[styles][padding_top]" label="Padding Top" type="text" value="{{ $value->styles->padding_top ?? '50px' }}"/>
-        <x-forms-fields-input name="{{$name}}[styles][padding_bottom]" label="Padding Bottom" type="text" value="{{ $value->styles->padding_bottom ?? '50px' }}"/>
+        {{-- <x-forms-fields-input name="{{$name}}[styles][padding_top]" label="Padding Top" type="text" value="{{ $value->styles->padding_top ?? '50px' }}"/>
+        <x-forms-fields-input name="{{$name}}[styles][padding_bottom]" label="Padding Bottom" type="text" value="{{ $value->styles->padding_bottom ?? '50px' }}"/> --}}
 
     </div>
     
