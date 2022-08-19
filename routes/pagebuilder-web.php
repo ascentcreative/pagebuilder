@@ -24,9 +24,15 @@ Route::middleware(['web'])->group(function() {
             return view('pagebuilder::iframe', ['data'=>$data]);
         });
 
+        Route::get('/pagebuilder/iframe-init', function() {
+            return view('pagebuilder::iframe-init');
+        });
+
         Route::post('/pagebuilder/iframe', function() {
             return view('pagebuilder::iframe', ['data'=>request()->all()]);
         });
+
+    
 
     });
 

@@ -14,7 +14,7 @@
 
 
 <div class="pb-element pb-container centralise" style="padding: 5px; margin: 0px auto; border: 1px dashed rgba(0,0,0,1); 
-                    display: grid; grid-template-columns: 1fr; gap: 1rem; position: relative; {{ $style }}">
+                    display: xgrid; xgrid-template-columns: 1fr; gap: 1rem; position: relative; {{ $style }}">
 
     <input type="hidden" name="{{ $name }}[unid]" value="{{ $value->unid ?? uniqid() }}" />
 
@@ -22,10 +22,15 @@
         <div class="d-flex">
             <span>Container</span>
             <a href="#" class="pbc-settings bi-gear-fill pl-2"></a>
+            <a href="#" class="pbc-split bi-layout-split pl-2"></a>
         </div>
     </div>
 
     {{ $slot }}
+
+    {{-- <div class="col xcol-md-6 bg-light" style="height: 300px">
+
+    </div> --}}
 
     <div class="pb-element-settings">
 

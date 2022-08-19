@@ -1,9 +1,10 @@
 @php 
 
-// dd($data)
-
-if(is_string($data)) {
-    $value = decrypt($data); 
+// dd($data['payload']);
+// 
+// if(is_string($data)) {
+if(isset($data['payload'])) {
+    $value = decrypt($data['payload']); 
 } else if(!is_null($data)) {
     $value = json_decode(json_encode($data))->content;
 }
@@ -65,6 +66,8 @@ $name = 'content'
    
     <form method="post" action="/admin/pagebuilder/iframe">
         @csrf
+        {{-- @dump(request()->all()) --}}
+        <input type="hidden" name="scroll_position" id="scrPos" value="{{ request()->scroll_position }}">
         {{-- <x-forms-fields-input type="text" name="text" label="some test text" value="" placeholder="enter something"/> --}}
         <div class="pagebuilderstack">
             <div class="pb-rows themed">
@@ -123,6 +126,16 @@ $name = 'content'
         $('.pagebuilderstack').on('change', function(e) {
             parent.$('.pagebuilder').trigger('pb-change');
         });
+
+        // $(document).ready(function() {
+            $('body')[0].scrollTop = $('#scrPos').val();
+        // });
+
+        $(document).on('scroll', function(e) {
+            $('#scrPos').val($(this).find('body')[0].scrollTop)
+            // console.log('scroll', ;
+        });
+
     </script>
 </body>
 

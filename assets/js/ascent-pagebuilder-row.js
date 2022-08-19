@@ -33,6 +33,17 @@ var PageBuilderRow = {
 
         });
 
+        $(this.element).on('click', '.pbr-delete', function(e) {
+            
+            // parent.$('.pagebuilder').trigger('show-modal', [$(obj).children('.pb-element-settings').children('.modal')]);
+            if(confirm("Delete this row?")) {
+                $(self.element).remove();
+            }
+
+            e.preventDefault();
+
+        });
+
     }
 
 }

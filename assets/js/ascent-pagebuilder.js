@@ -77,7 +77,6 @@ var PageBuilder = {
         });
         
 
-
         // register the event handlers to communicate with the iFrame.
         $(elm).find('#pb-iframe').on('load', function() {
 
@@ -88,6 +87,12 @@ var PageBuilder = {
             self.stack = stack;
 
             self.syncData();
+
+            // Can't do this... if a block has a 'vh' measurement, the body will height will immediately be wrong!
+            // (would need some pre-processing to convert a vh to a fixed px measurement in admin preview)
+            // for now, just live with it...
+            // $(this).css('height', this.contentWindow.document.body.scrollHeight + 'px');
+        
 
         });
 
@@ -130,14 +135,28 @@ var PageBuilder = {
             $(self.stack).pagebuilderstack('addRow');
 
         });
+        
+        $(this.element).on('click', '#btn-mobile', function(e) {
+            e.preventDefault();
+            
+            $(self.element).toggleClass('mobile');
 
+        });
 
         // Add row button:
         $(this.element).on('click', '#btn-fullscreen', function(e) {
 
             e.preventDefault();
 
-            $(self.element).toggleClass('fullscreen');
+            $(self.element).addClass('fullscreen');
+
+        });
+
+        $(this.element).on('click', '#btn-docked', function(e) {
+
+            e.preventDefault();
+
+            $(self.element).removeClass('fullscreen');
 
         });
 
@@ -150,6 +169,30 @@ var PageBuilder = {
 
         });
 
+
+        // now, we need to create a dummy form with the data to initialise the iframe:
+
+        // $(elm).find('#pb-iframe').contents().find('form').submit();
+        // $('body').append('<form id="pb-init-form" target="pb-frame" method="post" action="/admin/pagebuilder/iframe"><input name="xyz"></form>');
+
+        // console.log( $('#pb-init-form'));
+        // console.log($('#pb-init-form').submit());
+        $.ajax({
+            url: '/admin/pagebuilder/iframe',
+            method: 'post',
+            data: {
+                payload: $('#pb-init').val()
+            }
+        }).done(function(data) {
+            console.log('done');
+
+            page = $(data);
+            win = $(elm).find('#pb-iframe')[0].contentWindow;
+            win.document.open();
+            win.document.write(data); //.find('head').html(page.find('head').html());
+            win.document.close();
+            //$(elm).find('#pb-iframe').contents().find('body').html(page.find('body').html());
+        });
 
         
 

@@ -10,13 +10,14 @@
 <div class="pb-element pb-block" style="position: relative; border: 1px dashed rgba(0,0,0,0.1)">
 
     <input type="hidden" name="{{ $name }}[unid]" value="{{ $value->unid ?? uniqid() }}" />
+    <input type="hidden" name="{{ $name }}[template]" value="{{ $value->template ?? 'text' }}" />
 
     <div class="pb-element-label">
         <div class="d-flex">
-            <span>Page Header</span>
+            <span>{{ $template ?? '??' }}</span>
             <a href="#" class="bi-gear-fill pl-2"></a>
-            <a href="#" class="bi-trash pl-2"></a>
-            <a href="#" class="bi-arrows-move pl-2"></a>
+            {{-- <a href="#" class="bi-trash pl-2"></a> --}}
+            {{-- <a href="#" class="bi-arrows-move pl-2"></a> --}}
         </div>
     </div>
 

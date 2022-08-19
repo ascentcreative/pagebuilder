@@ -2,7 +2,7 @@
 
     @php $content = json_decode(json_encode($content)); @endphp
 
-    @dump($content)
+    {{-- @dump($content) --}}
 
     <style>
         {!! renderPageCSS($content) !!}

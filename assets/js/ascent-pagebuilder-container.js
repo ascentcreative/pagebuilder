@@ -33,6 +33,14 @@ var PageBuilderContainer = {
 
         });
 
+        $(this.element).on('click', '.pbc-split', function(e) {
+
+            // $(self.element).css('grid-template-columns', 'repeat(auto-fill, minmax(300px, 1fr) minmax(300px, 1fr))');
+
+            e.preventDefault();
+
+        });
+
     }
 
 }

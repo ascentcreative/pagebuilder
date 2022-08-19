@@ -10,6 +10,12 @@
     @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder.js')
     @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-stack.js')
 
+
+    <script>
+       
+        
+    </script>
+
     <SCRIPT>
 
         // $(document).ready(function() {
@@ -24,16 +30,39 @@
 <div class="pagebuilder">
 
     <div class="pb-actions pb-3">
-        <button id="btn-add-row" class="button btn btn-primary btn-sm">Add</button>
-        <button id="btn-fullscreen" class="button btn btn-primary btn-sm">Fullscreen</button>
+        <div class="flex flex-between">
+
+            <div class="pb-actions-left">
+                <button id="btn-add-row" class="button btn btn-primary btn-sm">Add</button>
+            </div>
+
+            <div class="pb-actions-mid">
+                <button id="btn-mobile" class="button btn btn-primary btn-sm">Mobile</button>
+               
+            </div>
+
+            <div class="pb-actions-right">
+                <button id="btn-fullscreen" class="button btn btn-primary btn-sm">Fullscreen</button>
+                <button id="btn-docked" class="button btn btn-primary btn-sm">Done</button>
+            </div>
+
+        </div>
+    
+        
+        
+       
     </div>
 
-    <iframe src="/admin/pagebuilder/iframe/{{ @encrypt($value) }}" width="100%" border="0" height="400px" id="pb-iframe" style="border: 1px solid #ccc;">
+    {{-- Can't do this... url too long --}}
+    {{-- Initial Load can't go to the DB as we'd reload old data on validation fail  --}}
+    <iframe src="" width="100%" border="0" height="400px" name="pb-iframe" id="pb-iframe" style="border: 1px solid #ccc;">
 
 
     </iframe>
 
-    <div class="pb-sync"></div>
+    <div class="pb-sync">
+        <input type="text" name="pb_init" id="pb-init" value="{{ @encrypt($value) }}" /> 
+    </div>
 
 </div>
 

@@ -16,6 +16,8 @@ class Block extends Component
     public $defaults;
 
     public $name;
+
+    public $template;
   
   //  public $wrapper;
   //  public $class;
@@ -27,7 +29,7 @@ class Block extends Component
      *
      * @return void
      */
-    public function __construct($fieldname, $row, $container, $idx, $value=null, $defaults=[])
+    public function __construct($fieldname, $row, $container, $idx, $template='text', $value=null, $defaults=[])
     {
        
     //    $this->type = $type;
@@ -36,6 +38,8 @@ class Block extends Component
         $this->container = $container;
         $this->idx = $idx;
         $this->value = $value;
+
+        $this->template = $template;
 
         $this->name = $fieldname . '[rows][' . $row . '][containers][' . $container .'][blocks][' . $idx . ']';
 

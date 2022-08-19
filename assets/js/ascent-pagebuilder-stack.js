@@ -26,7 +26,6 @@ var PageBuilderStack = {
 
         $(elm).addClass('initialised');
 
-
         // make the stack sortable (drag & drop)
         $(this.element).find('.pb-rows').sortable({
             axis: 'y',

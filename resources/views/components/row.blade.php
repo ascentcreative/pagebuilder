@@ -14,7 +14,7 @@
 
 @endphp
 
-<div class="pb-element pb-row" style="border: 1px solid rgba(0,0,0,0.1); position: relative; {{ $style }}">
+<div class="pb-element pb-row" style="border-bottom: 1px solid rgba(0,0,0,0.1); position: relative; {{ $style }}">
 
     <input type="hidden" name="{{ $name }}[unid]" value="{{ $value->unid ?? uniqid() }}" />
 
