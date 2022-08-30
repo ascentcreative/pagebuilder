@@ -1,1 +1,1 @@
-<x-forms-fields-wysiwyg :value="$value->content ?? ''" label="" wrapper="none" name="{{$name}}[content]" />
+<x-forms-fields-wysiwyg :value="$value->content ?? ''" placeholder="Enter some text" label="" wrapper="none" name="{{$name}}[content]" />
