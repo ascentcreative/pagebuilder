@@ -52,19 +52,19 @@ function renderPageCSS($content) {
     if(isset($rows)) {
         foreach($rows as $row) {
             // output the row's own CSS
-            $out .= view('pagebuilder::css', ['id'=>'row-' . $row->unid, 'data'=>$row]);
+            $out .= view('pagebuilder::css.row', ['id'=>'row-' . $row->unid, 'data'=>$row])->render();
 
             // for each block in the row:
             if(isset($row->containers)) {
                 foreach($row->containers as $container) {
                     // output the container's CSS
-                    $out .= view('pagebuilder::css', ['id'=>'container-' . $container->unid, 'data'=>$container]);
+                    $out .= view('pagebuilder::css.container', ['id'=>'container-' . $container->unid, 'data'=>$container])->render();
 
                     if(isset($container->blocks)) {
 
                         foreach($container->blocks as $block) {
                             // output the block's CSS
-                            $out .= view('pagebuilder::css', ['id'=>'block-' . $block->unid, 'data'=>$block]);
+                            $out .= view('pagebuilder::css', ['id'=>'block-' . $block->unid, 'data'=>$block])->render();
 
                         }
 
@@ -82,110 +82,111 @@ function renderPageCSS($content) {
 
 
 
+function pagebuilderBladePaths($template, $action) {
+
+    $paths = config('pagebuilder.blade_paths');
+
+    $out = collect($paths)->transform(function($item) use ($template, $action) {
+
+        return $item . '.' . $template . '.' . $action;
+
+    })->toArray();
+
+    return $out;
+
+}
+
+
+
 
 // old code from stack editor. Needs porting to pagebuilder...
 
-// /**
-//  * @param mixed $model - a model for use in the isApplicable($model) function of the block type descriptor classes
-//  * 
-//  * @return array - an associative arrary of block type info (keyed by categories)
-//  */
-// function discoverBlockTypes($model=null) : array {
+/**
+ * @param mixed $model - a model for use in the isApplicable($model) function of the block descriptor classes
+ * 
+ * @return array - an associative arrary of block info (keyed by categories)
+ */
+function discoverBlocks($model=null) : array {
 
-//     // first get the array of keys from the StackEditor config:
-//     $aryBlockTypes = collect(config('stackeditor.categories'))->mapWithKeys(function($item, $key) {
-//         return [$item => []];
-//     })->toArray();
+    // first get the array of keys from the StackEditor config:
+    $aryBlocks = collect(config('pagebuilder.categories'))->mapWithKeys(function($item, $key) {
+        return [$item => []];
+    })->toArray();
     
-//     foreach(discoverTypeDescriptors($model) as $class) {
+    foreach(discoverBlockDescriptors($model) as $class) {
 
-
-//         $ref = new  ReflectionClass($class);
+        $ref = new  ReflectionClass($class);
         
-//         // add the necessary data to the array - if:
+        // add the necessary data to the array - if:
 
-//         // - Not explicitly disabled:
+        // - Not explicitly disabled:
        
-//         if($class::isApplicable($model)) {
-//             // add the details to the relevent category in the array
-//             $aryBlockTypes[$class::getCategory()][] = [
-//                         'name'=>$class::getName(),
-//                         'description'=>$class::getDescription(),
-//                         'bladePath'=>$class::getBladePath(),
-//                 ];
+        if($class::isApplicable($model)) {
+            // add the details to the relevent category in the array
+            $aryBlocks[$class::getCategory()][] = [
+                        'name'=>$class::getName(),
+                        'description'=>$class::getDescription(),
+                        'bladePath'=>$class::getBladePath(),
+                ];
 
 
-//         }
+        }
     
-//     }
+    }
 
-//     // array_filter to only return the categories which have blocks
-//     return array_filter($aryBlockTypes);
+    // array_filter to only return the categories which have blocks
+    return array_filter($aryBlocks);
 
-// }
-
-
-// function discoverTypeDescriptors($model = null) : array {
-
-//     $types = [];
-
-//     // start discovering the classes:
-//     $paths = config('stackeditor.discovery_paths');
-
-//     $disabled = config('stackeditor.disabled_types');
-//     // dump($paths);
-
-//     foreach($paths as $path) {
-//         // if the folder exists, find all the classes there and instantiate (or maybe we're calling static functions... not sure yet)
-//         $files = glob($path.'/*.php');
-
-//         foreach ($files as $file) {
-
-//             $class = getClassFullNameFromFile($file);
-
-//             $ref = new  ReflectionClass($class);
-
-//             if(!in_array($class, $disabled)) {
-//                 // - Not an abstract class
-//                 if (!$ref->isAbstract()) {
-//                     // - Implements the correct interface (could be by extending the AbstractDescriptor class)
-//                     if($ref->implementsInterface(\AscentCreative\StackEditor\Contracts\TypeDescriptor::class)) {
-//                         // - is deemed applicable (perhaps to the supplied model, but there may be wider, global conditions coded in too)
-//                         $types[] = $class;
-//                     }
-//                 }
-//             }
-
-//         }
-
-//     }
-
-//      return $types;
-
-// }
+}
 
 
+function discoverBlockDescriptors($model = null) : array {
 
-// function stackeditorBladePaths($type, $action) {
+    $types = [];
 
-//     $paths = config('stackeditor.blade_paths');
+    // start discovering the classes:
+    $paths = config('pagebuilder.discovery_paths');
 
-//     return collect($paths)->transform(function($item) use ($type, $action) {
+    $disabled = config('pagebuilder.disabled_types');
+    // dump($paths);
 
-//         return $item . '.' . $type . '.' . $action;
+    foreach($paths as $path) {
+        // if the folder exists, find all the classes there and instantiate (or maybe we're calling static functions... not sure yet)
+        $files = glob($path.'/*.php');
 
-//     })->toArray();
+        foreach ($files as $file) {
 
-// }
+            $class = getClassFullNameFromFile($file);
+
+            $ref = new ReflectionClass($class);
+
+            if(!in_array($class, $disabled)) {
+                // - Not an abstract class
+                if (!$ref->isAbstract()) {
+                    // - Implements the correct interface (could be by extending the AbstractDescriptor class)
+                    if($ref->implementsInterface(\AscentCreative\PageBuilder\Contracts\BlockDescriptor::class)) {
+                        // - is deemed applicable (perhaps to the supplied model, but there may be wider, global conditions coded in too)
+                        $types[] = $class;
+                    }
+                }
+            }
+
+        }
+
+    }
+
+     return $types;
+
+}
 
 
-// function resolveDescriptor($type) {
+function resolveBlockDescriptor($type) {
 
-//     $map = collect(discoverTypeDescriptors())->mapWithKeys(function($item, $key) {
-//         $ref = new ReflectionClass($item);
-//         return [$item::getBladePath() => $item];
-//     })->toArray();
+    $map = collect(discoverBlockDescriptors())->mapWithKeys(function($item, $key) {
+        $ref = new ReflectionClass($item);
+        return [$item::getBladePath() => $item];
+    })->toArray();
 
-//     return ($map[$type]);
+    return ($map[$type]);
 
-// }
+}

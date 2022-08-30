@@ -11,12 +11,12 @@ class Container extends Component
   //  public $label;
   //  public $type;
     public $fieldname;
-    public $idx;
+    public $unid;
     public $value;
     public $defaults;
 
     public $name;
-  
+
   //  public $wrapper;
   //  public $class;
 
@@ -27,19 +27,39 @@ class Container extends Component
      *
      * @return void
      */
-    public function __construct($fieldname, $row, $idx, $value=null, $defaults=[])
+    public function __construct($fieldname, $unid=null, $value=null, $defaults=[])
     {
        
     //    $this->type = $type;
         $this->fieldname = $fieldname;
-        $this->row = $row;
-        $this->idx = $idx;
+        // $this->row = $row;
+        $this->unid = $unid;
+
+        if(is_null($this->unid) || $this->unid == '') {
+            $this->unid = uniqid();
+        }
+ 
         $this->value = $value;
 
-        $this->name = $fieldname . '[rows][' . $row . '][containers][' . $idx .']';
+        $this->name = $fieldname . '[containers][' . $this->unid .']';
 
         $this->defaults = $defaults;
+
+        view()->share('pb_container_unid', $this->unid);
     
+    }
+
+    public function getLayout() {
+
+        $layout = $this->value->options->container_layout ?? 'single';
+
+        $data = config('pagebuilder.container_layouts.' . $layout);
+
+        return $data;
+    }
+
+    public function getLayoutClass() {
+        return $this->value->options->container_layout ?? 'single';
     }
 
     /**

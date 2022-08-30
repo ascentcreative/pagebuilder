@@ -6,7 +6,7 @@
 
 $.ascent = $.ascent?$.ascent:{};
 
-var PageBuilderContainer = {
+var PageBuilderBlock = {
         
     rowCount: 0,
 
@@ -26,17 +26,26 @@ var PageBuilderContainer = {
 
         $(obj).addClass('initialised');
 
-        $(this.element).on('click', '.pbc-settings', function(e) {
+        $(this.element).on('click', '.pbb-settings', function(e) {
             
             parent.$('.pagebuilder').trigger('show-modal', [$(obj).children('.pb-element-settings').children('.modal')]);
             e.preventDefault();
 
         });
 
-        $(this.element).on('click', '.pbc-split', function(e) {
+        $(this.element).on('click', '.pbb-delete', function(e) {
+
+            if(confirm('Delete this block?', 'This action cannot be undone')) {
+
+                $(self.element).html('');
+
+                $(self.element).parents('form').submit();
 
             // $(self.element).css('grid-template-columns', 'repeat(auto-fill, minmax(300px, 1fr) minmax(300px, 1fr))');
 
+
+            }
+            
             e.preventDefault();
 
         });
@@ -64,14 +73,14 @@ var PageBuilderContainer = {
 }
 
 
-$.widget('ascent.pagebuildercontainer', PageBuilderContainer);
-$.extend($.ascent.PageBuilderContainer, {
+$.widget('ascent.pagebuilderblock', PageBuilderBlock);
+$.extend($.ascent.PageBuilderBlock, {
 	
 }); 
 
 $(document).ready(function() {
     console.log('init PB Container');
-    $('.pb-container').not('.initialised').pagebuildercontainer();
+    $('.pb-block').not('.initialised').pagebuilderblock();
 });
 
 
@@ -82,7 +91,7 @@ var observer = new MutationObserver(function(mutations, observer) {
     // fired when a mutation occurs
     // console.log(mutations, observer);
     // ...
-    $('.pb-container').not('.initialised').pagebuildercontainer();
+    $('.pb-block').not('.initialised').pagebuilderblock();
 });
 
 // define what element should be observed by the observer

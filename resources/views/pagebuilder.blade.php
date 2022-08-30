@@ -9,22 +9,6 @@
 @push('scripts')
     @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder.js')
     @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-stack.js')
-
-
-    <script>
-       
-        
-    </script>
-
-    <SCRIPT>
-
-        // $(document).ready(function() {
-        //     $(document).on('change', '#pb-iframe', function() {
-        //         console.log('external change detected');
-        //     });
-        // });
-
-    </SCRIPT>
 @endpush
 
 <div class="pagebuilder">
@@ -53,65 +37,53 @@
        
     </div>
 
-    {{-- Can't do this... url too long --}}
-    {{-- Initial Load can't go to the DB as we'd reload old data on validation fail  --}}
+    {{-- @dump($value) --}}
+
     <iframe src="" width="100%" border="0" height="400px" name="pb-iframe" id="pb-iframe" style="border: 1px solid #ccc;">
-
-
     </iframe>
 
+    {{-- The content unid - used to create the CSS file for this page --}}
+    <input type="hidden" name="{{ $name }}[unid]" value="{{ $value->unid ?? uniqid() }}"/>
+
     <div class="pb-sync">
+        {{-- Stores the initial value for the iframe on page load. 
+            PB then submits this for rendering, and this field is removed in the resulting syncData() call --}}
         <input type="text" name="pb_init" id="pb-init" value="{{ @encrypt($value) }}" /> 
     </div>
 
+
+    {{-- Block Picker Modal --}}
+    <x-cms-modal modalid="block-picker" title="Select a Block Type:">
+        {{-- Block types: --}}
+        @foreach(discoverBlocks($model) as $cat=>$blocks)
+
+            @if(!$loop->first)
+                <div class="dropdown-divider"></div>
+            @endif
+
+            <div class="block-group row">
+                <div class="block-group-name col-2 pt-2"><h5 style="font-weight: 300">{{ $cat }}</h5></div>
+                <div class="block-group-blocks col-10">
+
+                    @foreach($blocks as $block)
+
+                        <a class="stack-add-row dropdown-item text-sm btn-option display-block p-2 w-100" href="#" data-block-type="{{ $block['bladePath'] }}" data-block-field="{{ $name }}">
+                            <strong>{{ $block['name'] }}</strong><span class="text-muted"> - {{ $block['description'] }}</span>
+                        </a>
+
+                    @endforeach
+
+                </div>
+
+            </div>          
+
+        @endforeach
+
+        <x-slot name="footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
+        </x-slot>
+        
+    </x-cms-modal>
+
+
 </div>
-
-
-{{-- 
-    <x-iframetest label="test" name="iframetest" :value="$value" /> --}}
-
-
-
-    {{-- <div class="pb-rows themed"> --}}
-
-        {{-- <div class="pb-element pb-row" style="width: 100%; border: 1px solid rgba(0,0,0,0.1); position: relative;">
-
-            <div class="pb-element-label">Row</div>
-
-            <div class="pb-element pb-container" style="padding: 5px; margin: 0px auto; max-width: 800px; border: 1px dashed rgba(0,0,0,0.2); display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; position: relative;">
-
-                <div class="pb-element-label" style="position: absolute; top: 0px; left: 0px; background: rgba(0,0,0,0.7); color:white; padding: 2px 5px; text-transform: uppercase; font-weight: 500; font-size: 10px">Content</div>
-
-                <div class="pb-element pb-block" style="position: relative; border: 1px dashed rgba(0,0,0,0.1)">
-
-                    <div class="pb-element-label" style="position: absolute; top: 0px; left: 0px; background: rgba(0,0,0,0.7); color:white; padding: 2px 5px; text-transform: uppercase; font-weight: 500; font-size: 10px">Page Header</div>
-
-                    <x-forms-fields-wysiwyg value="<H1>HEADING</H1>" label="" wrapper="none" name="text" />
-            
-                </div>
-
-                <div class="pb_block" style="position: relative; border: 1px dashed rgba(0,0,0,0.1); background: rgba(0,0,0,0.05)">
-
-                   
-                </div>
-
-            </div>
-                
-        </div> --}}
-
-{{--         
-        @foreach($value->rows as $row)
-            <x-pagebuilder-row fieldname="{{ $name }}" rowidx="0" :value="$row">
-
-            </x-pagebuilder-row>
-        @endforeach --}}
-
-    {{-- </div> --}}
-
-{{-- </div> --}}
- 
-
-  {{-- @dd($value) --}}
-
-  {{-- <livewire:pagebuilder />  --}}
-   {{-- :blocks="(array) $value ?? []" /> --}}

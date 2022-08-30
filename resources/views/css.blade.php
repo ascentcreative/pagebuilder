@@ -1,25 +1,32 @@
-#{{$id}} {
-    @php
+@section('css')
 
-        $styles = collect($data->styles ?? []);
+    #{{$id}} {
+        @php
 
-        if(isset($styles['background_image'])) {
-            $img = \AscentCreative\CMS\Models\File::find($styles['background_image']);
-            $styles['background_image'] = "url('/storage/" . $img->filepath . "')";
-        }
+            $styles = collect($data->styles ?? []);
 
-        $style = $styles->transform(function($item, $key) {
-            if($item != '') {
-                return str_replace("_", '-', $key) . ': ' . $item;
-            } else {
-                return null;
+            if(isset($styles['background_image'])) {
+                $img = \AscentCreative\CMS\Models\File::find($styles['background_image']);
+                $styles['background_image'] = "url('/storage/" . $img->filepath . "')";
             }
-        })->filter()->join('; ');
 
-    @endphp
+            $style = $styles->transform(function($item, $key) {
+                if($item != '') {
+                    return str_replace("_", '-', $key) . ': ' . $item;
+                } else {
+                    return null;
+                }
+            })->filter()->join('; ');
 
-    position: relative;
-    border: 1px solid transparent;
-    {!! $style !!}
+        @endphp
 
-}
+        position: relative;
+        {{-- border: 1px solid transparent; --}}
+        {!! $style !!}
+
+    }
+
+@overwrite
+
+@yield('css')
+

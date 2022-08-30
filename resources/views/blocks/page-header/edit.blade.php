@@ -1,0 +1,1 @@
+<x-forms-fields-wysiwyg :value="$value->content ?? ''" label="" wrapper="none" name="{{$name}}[content]" />

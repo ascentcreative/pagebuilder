@@ -44,6 +44,8 @@ var PageBuilder = {
             // $(clone).on('hidden.bs.modal', function(e) {
             $(clone).on('click', '.btn-ok', function(e) {
 
+                e.preventDefault();
+
                 // This should be done on clicking OK, not on closing the modal (which may be a cancel event)
                 $(clone).modal('hide');
 
@@ -55,6 +57,41 @@ var PageBuilder = {
 
                 // refresh the UI
                 self.stack.parents('form').submit();
+
+                // submit via ajax - stops the page jumping to the top / retains scroll position.
+                // let fd = new FormData(self.stack.parents('form')[0]);
+
+                // console.log(fd.values());
+                // keys = fd.keys();
+                // item = keys.next();
+                // while(!item.done) {
+                //     console.log(item.value, fd.get(item.value));
+                //     item = keys.next();
+                //     // key = fd.values().next();
+                // }
+                
+
+                // alert('here');
+                // $.ajax({
+                //     url: '/admin/pagebuilder/iframe',
+                //     method: 'post',
+                //     data: fd,
+                //     contentType: false,
+                //     processData: false,
+                //     // headers: {
+                //     //     'Accept' : "application/json"
+                //     // },
+                // }).done(function(data) {
+                //     console.log('done');
+        
+                //     page = $(data);
+                //     win = $(elm).find('#pb-iframe')[0].contentWindow;
+                //     win.document.open();
+                //     win.document.write(data); //.find('head').html(page.find('head').html());
+                //     win.document.close();
+                //     // console.log(data);
+                //     // $(elm).find('#pb-iframe').contents().find('body').html(page.find('body').html());
+                // })
 
             }).on('hidden.bs.modal', function(e) {
 
@@ -79,6 +116,8 @@ var PageBuilder = {
 
         // register the event handlers to communicate with the iFrame.
         $(elm).find('#pb-iframe').on('load', function() {
+
+            console.log('iFrame onLoad');
 
             let stack = $(this).contents().find('.pagebuilderstack');
 
@@ -124,18 +163,48 @@ var PageBuilder = {
         });
 
 
-        // Add row button:
-        $(this.element).on('click', '#btn-add-row', function(e) {
 
-            // ** Currently we're just hard coding a specific content block template **
-            // Need to reinstate the block type selection that we have in the stack editor eventually.
+
+        // capture the click event of the add block button
+            // (test for now - adds a new row block. Will need to be coded to ask user what block to add)
+        $(this.element).on('click', '#btn-add-row', function(e) {
 
             e.preventDefault();
 
-            $(self.stack).pagebuilderstack('addRow');
+            $('#block-picker').modal();
 
+
+            var field = $(this).attr('data-block-field'); //'content';
+            var idx = $(self.element).find('.row-edit').length;
+
+            $('#block-picker').one('click', 'a', function(e) {
+
+                e.preventDefault();
+
+                var type = $(this).data('block-type');
+            
+                $('#block-picker').modal('hide');
+
+                // $.get('/admin/stack/make-row/' + type + '/' + field + '/' + idx, function(data) {
+                //     // $(self.element).find('.stack-output').before(data);
+                //     $(self.element).find('.stack-rows').append(data);
+                //     self.updateIndexes();                
+                // });
+
+                $(self.stack).pagebuilderstack('addRow', type);
+
+
+            });
+
+            // if the user clicks outside the modal, ensure the click handler is removed
+            $('#block-picker').on('hidden.bs.modal', function() {
+                $('#block-picker').off('click', 'button');
+            });
+
+      
         });
-        
+
+
         $(this.element).on('click', '#btn-mobile', function(e) {
             e.preventDefault();
             
@@ -143,7 +212,9 @@ var PageBuilder = {
 
         });
 
-        // Add row button:
+
+
+        // Go fullscreen
         $(this.element).on('click', '#btn-fullscreen', function(e) {
 
             e.preventDefault();
@@ -152,6 +223,7 @@ var PageBuilder = {
 
         });
 
+        // exit fullscreen
         $(this.element).on('click', '#btn-docked', function(e) {
 
             e.preventDefault();
@@ -164,7 +236,7 @@ var PageBuilder = {
 
          //capture the submit event of the form to serialise the stack data
          $(this.element).parents('form').on('submit', function() {
-
+            console.log('saving - final data sync');
             self.syncData();
 
         });
@@ -177,6 +249,7 @@ var PageBuilder = {
 
         // console.log( $('#pb-init-form'));
         // console.log($('#pb-init-form').submit());
+        console.log('firing ajax init');
         $.ajax({
             url: '/admin/pagebuilder/iframe',
             method: 'post',
@@ -184,7 +257,7 @@ var PageBuilder = {
                 payload: $('#pb-init').val()
             }
         }).done(function(data) {
-            console.log('done');
+            console.log('ajax init done');
 
             page = $(data);
             win = $(elm).find('#pb-iframe')[0].contentWindow;
@@ -192,6 +265,15 @@ var PageBuilder = {
             win.document.write(data); //.find('head').html(page.find('head').html());
             win.document.close();
             //$(elm).find('#pb-iframe').contents().find('body').html(page.find('body').html());
+        }).fail(function(data, c2, c3) {
+
+            console.log(data);
+            page = $(c3);
+            win = $(elm).find('#pb-iframe')[0].contentWindow;
+            win.document.open();
+            win.document.write("<h1>oops</h1>" + data.responseText); //.find('head').html(page.find('head').html());
+            win.document.close();
+
         });
 
         
@@ -201,12 +283,14 @@ var PageBuilder = {
     // extract fields from the stack so they can be submitted with the model form:
     syncData: function(){
 
+        console.log('started datasync');
+
         let elmSync = $(this.element).find('.pb-sync');
 
         $(elmSync).html(''); // clear all old data
 
         $(this.stack).find('INPUT, SELECT, TEXTAREA').each(function() {
-            console.log('sync: ' + $(this).attr('name'));
+            // console.log('sync: ' + $(this).attr('name'));
             $(elmSync).append($(this).clone());
         });
 

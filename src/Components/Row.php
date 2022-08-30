@@ -11,7 +11,7 @@ class Row extends Component
   //  public $label;
   //  public $type;
     public $fieldname;
-    public $rowidx;
+    public $unid;
     public $value;
     public $defaults;
 
@@ -27,17 +27,43 @@ class Row extends Component
      *
      * @return void
      */
-    public function __construct($fieldname, $rowidx, $value=null, $defaults=[])
+    public function __construct($fieldname, $unid=null, $value=null, $defaults=[])
     {
        
     //    $this->type = $type;
         $this->fieldname = $fieldname;
-        $this->rowidx = $rowidx;
+        $this->unid = $unid;
+        if(is_null($unid) || $unid == '') {
+            $this->unid = uniqid();
+        }
+        
+        // var_dump($this->rowidx);
+        
+        if(is_null($value)) {
+            $value = 
+            ['containers'=>
+                [
+                    [
+                        'blocks' => [
+                            ['template'=>'text']
+                        ]
+                    ]
+                ]
+            ];
+
+            $value = json_decode(json_encode($value));
+        }
+        
+        
         $this->value = $value;
 
-        $this->name = $fieldname . '[rows][' . $rowidx . ']';
+
+
+        $this->name = $fieldname . '[rows][' . $this->unid . ']';
 
         $this->defaults = $defaults;
+
+        view()->share('pb_row_unid', $this->unid);
     
     }
 

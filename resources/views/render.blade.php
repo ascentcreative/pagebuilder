@@ -2,11 +2,18 @@
 
     @php $content = json_decode(json_encode($content)); @endphp
 
-    {{-- @dump($content) --}}
+    {{-- 
+        Quick impl - renders the CSS to the header of the page 
+         - For better performance, this needs to output to minimised CSS files which get recreated when the page is saved.
+         - (i.e. what we had for the stackeditor package... see commented code at the bottom of the page!)
+        --}}
+    @push('styles')
+        <style>
+            {!! renderPageCSS($content) !!}
+        </style>
+    @endpush
 
-    <style>
-        {!! renderPageCSS($content) !!}
-    </style>
+    {{-- @dump($content); --}}
 
     <div>
 
@@ -16,13 +23,16 @@
 
                 @foreach($row->containers as $container)
 
-                    <div class="pb-container centralise" id="container-{{ $container->unid }}">
+                    <div class="pb-container centralise double" id="container-{{ $container->unid }}">
+
 
                         @foreach($container->blocks as $block)
 
                             <div class="pb-block" id="block-{{ $block->unid }}">
 
-                                    {!! $block->content !!}
+                                {{-- {{ $block->template }} --}}
+
+                                @includeFirst( array_merge( pagebuilderbladePaths($block->template, 'show'), ['pagebuilder::block.missing']), ['value'=>$block])
 
                             </div>
 
@@ -37,7 +47,6 @@
             </div>
 
         @endforeach
-
 
     </div>
 

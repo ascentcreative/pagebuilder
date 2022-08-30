@@ -61,7 +61,7 @@ class PageBuilderServiceProvider extends ServiceProvider
       ], 'public');
 
       $this->publishes([
-        __DIR__.'/config/pagebuilder.php' => config_path('pagebuilder.php'),
+        __DIR__.'/../config/pagebuilder.php' => config_path('pagebuilder.php'),
       ]);
 
     }

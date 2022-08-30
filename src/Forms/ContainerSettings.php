@@ -29,6 +29,19 @@ class ContainerSettings extends Form {
                     Tab::make('tab_size', 'Size')
                         ->children([
 
+                            Options::make($name . '[options][container_layout]', "Layout")
+                                // ->options([
+                                //     'single'=>'Single Column',
+                                //     '-2'=>'Two Columns (even)',
+                                //     'cols-40-60'=>'Two Columns (40/60 split)',
+                                //     'cols-3'=>'Three Columns'
+                                // ]),
+                                ->options(
+                                    collect(config('pagebuilder.container_layouts'))->mapWithKeys(function($item, $key) {
+                                        return [ $key => $item['title'] ];
+                                    })->toArray()
+                                )->includeNullItem(false),
+
                             ValueWithUnits::make($name . '[styles][max_width]', 'Width', ['px', '%'])
                                 ->description('The width of the screen to use for the content. Leave blank for the default centralised portion, or enter values in % or px. <br/>
                                 <strong>Examples:<br/></strong>

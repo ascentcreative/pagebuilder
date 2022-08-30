@@ -25,7 +25,7 @@ class RowSettings extends Form {
             Tabs::make('tabs', 'tabs')
                 ->styled(false)
                 ->children([
-                    Tab::make('tab_size', 'Size')
+                    Tab::make('tab_layout', 'Layout')
                         ->children([
 
                             // ValueWithUnits::make($name . '[styles][max_width]', 'Width', ['px', '%'])
@@ -39,6 +39,14 @@ class RowSettings extends Form {
                                 // <strong>Examples:<br/></strong>
                                 // <code>100%</code> will use the full screen width.<br/>
                                 // <code>500px</code> will use the central 500px of the screen (or shrink if narrower)'),
+
+                            Options::make($name . '[styles][justify_content]', 'Vertical Alignment')
+                                ->options(['flex-start' =>'Top', 'center' => 'Middle', 'flex-end' => 'Bottom'])
+                                ->includeNullItem(false)->default('center'),
+
+                            Options::make($name . '[styles][align_items]', 'Horizontal Alignment')
+                                ->options(['flex-start' =>'Left', 'center' => 'Center', 'flex-end' => 'Right'])
+                                ->includeNullItem(false)->default('center'),
 
                         ]),
 
@@ -91,7 +99,7 @@ class RowSettings extends Form {
                                         ->options([
                                             'contain' => "Show the whole image",
                                             'cover' => "Fill the background"
-                                        ]),
+                                        ])->default('cover'),
                                     Checkbox::make($name . '[styles][background_repeat]', 'Repeat?')
                                        ->checkedValue('repeat')->uncheckedValue('no-repeat'),
                                     Options::make($name . '[styles][background_position]', 'Position')
@@ -99,13 +107,13 @@ class RowSettings extends Form {
                                            'center' => "Center",
                                            'top' => "Top",
                                            'bottom' => "Bottom",
-                                       ]),
-                                    Checkbox::make($name . '[options][curtain]', 'Darken?')
-                                       ->description('Darken the image so text will show more clearly')
-                                       ->checkedValue(1)->uncheckedValue(0),
-                                    Checkbox::make($name . '[options][parallax]', 'Parallax?')
-                                       ->description('If checked, the image will scroll at a different rate to the rest of the page. Image position will change.')
-                                       ->checkedValue(1)->uncheckedValue(0),
+                                       ])->default('center'),
+                                    // Checkbox::make($name . '[options][curtain]', 'Darken?')
+                                    //    ->description('Darken the image so text will show more clearly')
+                                    //    ->checkedValue(1)->uncheckedValue(0),
+                                    // Checkbox::make($name . '[options][parallax]', 'Parallax?')
+                                    //    ->description('If checked, the image will scroll at a different rate to the rest of the page. Image position will change.')
+                                    //    ->checkedValue(1)->uncheckedValue(0),
                             ]),
 
                             HTML::make('<div class="border p-2"><strong>Colour:</strong>', '</div>')

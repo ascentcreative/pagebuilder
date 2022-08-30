@@ -11,7 +11,7 @@ class Block extends Component
   //  public $label;
   //  public $type;
     public $fieldname;
-    public $idx;
+    public $unid;
     public $value;
     public $defaults;
 
@@ -29,19 +29,31 @@ class Block extends Component
      *
      * @return void
      */
-    public function __construct($fieldname, $row, $container, $idx, $template='text', $value=null, $defaults=[])
+    public function __construct($fieldname, $unid=null, $template=null, $value=null, $defaults=[])
     {
        
     //    $this->type = $type;
         $this->fieldname = $fieldname;
-        $this->row = $row;
-        $this->container = $container;
-        $this->idx = $idx;
+
+        if(is_null($unid) || $unid == '') {
+            $unid = uniqid();
+        }
+
+        $this->unid = $unid;
+
         $this->value = $value;
 
-        $this->template = $template;
+        // 
+        if(is_null($template)) {
+            $this->template = $value->template ?? 'empty';
+        } else {
+            // dd($template);
+            $this->template = $template;
+        }
 
-        $this->name = $fieldname . '[rows][' . $row . '][containers][' . $container .'][blocks][' . $idx . ']';
+        $this->name = $fieldname . '[blocks][' . $unid . ']';
+
+        // var_dump($this->template);
 
         $this->defaults = $defaults;
     

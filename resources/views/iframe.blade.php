@@ -13,12 +13,12 @@ if(is_null($value)) {
     // load a default value:
     $value = [
     'rows' => [
-        [
+        uniqid() => [
             'containers' => [
-                    [
+                    uniqid() => [
                         'blocks' => [
-                            [
-                                'template'=>'page-header',
+                           uniqid() => [
+                                'template'=>'text',
                             ]
                         ]
                     ]
@@ -40,8 +40,15 @@ $name = 'content'
 
     @style('/vendor/ascent/cms/css/bootstrap.min.css') 
     @style("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css") 
+    @style('/vendor/ascent/cms/js/jquery-ui.min.css') 
+    
     @style('/vendor/ascent/pagebuilder/css/ascent-pagebuilder.css')
     @style('/vendor/ascent/forms/dist/css/ascent-forms-bundle.css')
+    @style('/vendor/ascent/cms/css/ascent-cms-core.css') 
+   
+    @foreach(config("pagebuilder.additional_css") as $path)
+        @style($path)
+    @endforeach
 
     @style('/css/screen.css')
 
@@ -51,6 +58,7 @@ $name = 'content'
     @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-stack.js')
     @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-row.js')
     @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-container.js')
+    @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-block.js')
 @endpush
 
 
@@ -63,7 +71,6 @@ $name = 'content'
 
 <body class="pb-display">
 
-   
     <form method="post" action="/admin/pagebuilder/iframe">
         @csrf
         {{-- @dump(request()->all()) --}}
@@ -73,26 +80,11 @@ $name = 'content'
             <div class="pb-rows themed">
                 @isset($value->rows)
                     @php $iRow = 0; @endphp
-                    @foreach($value->rows as $row)
+                    @foreach($value->rows as $unid=>$row)
 
-                        <x-pagebuilder-row fieldname="{{ $name }}" :rowidx="$iRow" :value="$row">
+                        <x-pagebuilder-row fieldname="{{ $name }}" :unid="$unid" :value="$row">
         
-                            @foreach($row->containers as $container)
-                                
-                                <x-pagebuilder-container fieldname="{{ $name }}" :row="$iRow" idx="0" :value="$container">
-                        
-                                    @foreach($container->blocks as $block)
-
-                                        <x-pagebuilder-block fieldname="{{ $name }}" :row="$iRow" container="0" idx="0" :value="$block">
-
-                                        </x-pagebuilder-block>
-
-                                    @endforeach
-
-                                </x-pagebuilder-container>
-
-                            @endforeach
-
+                           
                         </x-pagebuilder-row>
 
                         @php $iRow++; @endphp
@@ -124,6 +116,7 @@ $name = 'content'
     <script>
         // relay any change events up to the parent window
         $('.pagebuilderstack').on('change', function(e) {
+            console.log('pbs onChange');
             parent.$('.pagebuilder').trigger('pb-change');
         });
 
