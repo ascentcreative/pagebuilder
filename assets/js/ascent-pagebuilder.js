@@ -127,6 +127,8 @@ var PageBuilder = {
 
             self.syncData();
 
+            $(this).show();
+
             // Can't do this... if a block has a 'vh' measurement, the body will height will immediately be wrong!
             // (would need some pre-processing to convert a vh to a fixed px measurement in admin preview)
             // for now, just live with it...

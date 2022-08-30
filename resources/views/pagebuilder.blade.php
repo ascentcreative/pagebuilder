@@ -39,7 +39,7 @@
 
     {{-- @dump($value) --}}
 
-    <iframe src="" width="100%" border="0" height="400px" name="pb-iframe" id="pb-iframe" style="border: 1px solid #ccc;">
+    <iframe src="" width="100%" border="0" height="400px" name="pb-iframe" id="pb-iframe" style="display: none; border: 1px solid #ccc;">
     </iframe>
 
     {{-- The content unid - used to create the CSS file for this page --}}
