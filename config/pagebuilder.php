@@ -2,11 +2,6 @@
 
 return [
 
-    // CSS files to load in the editor (additional to screen.cs which loads automatically.)
-    'additional_css' => [
-        
-    ],
-
     // paths to search for TypeDescriptor classes
     'discovery_paths' => [
         app_path() . '/../vendor/ascentcreative/pagebuilder/src/BlockDescriptors',
