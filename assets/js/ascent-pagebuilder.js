@@ -33,14 +33,14 @@ var PageBuilder = {
         });
 
         
-        $(elm).on('show-modal', function(e, modal) {
+        $(elm).on('show-modal', function(e, modal, withDataAndEvents=false) {
 
-            let clone = $(modal).clone(); 
+            // alert(withDataAndEvents);
+
+            let clone = $(modal).clone(withDataAndEvents); 
 
             $(clone).find('.initialised').removeClass('initialised');
 
-           
-        
             // $(clone).on('hidden.bs.modal', function(e) {
             $(clone).on('click', '.btn-ok', function(e) {
 
