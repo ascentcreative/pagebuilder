@@ -1,6 +1,6 @@
 <div class="card">
 
-    <img class="card-image-top" style="width: 100%; height: 175px; sbackground: grey"/>
+    {{-- <img class="card-image-top" style="width: 100%; height: 175px; sbackground: grey"/> --}}
 
     <div class="card-body">
         
@@ -12,11 +12,11 @@
             {!! $value->body !!}    
         </div>
 
-        <div class="card-action">
+        {{-- <div class="card-action">
 
             <button class="btn btn-primary button">Action...</button>
 
-        </div>
+        </div> --}}
     </div>
 
 </div>
