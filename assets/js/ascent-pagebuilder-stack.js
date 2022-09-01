@@ -63,7 +63,7 @@ var PageBuilderStack = {
             $(this.element).change();
         });
 
-        $(this.element).on('bs.modal.show', function(e) {
+        $(this.element).on('show.bs.modal', function(e) {
             alert('incoming Modal!')
         });
 
