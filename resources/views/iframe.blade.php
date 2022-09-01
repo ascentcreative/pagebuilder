@@ -38,17 +38,25 @@ $name = 'content'
 
 @push('styles')
 
-    @style('/vendor/ascent/cms/css/bootstrap.min.css') 
+    {{-- @style('/vendor/ascent/cms/css/bootstrap.min.css')  --}}
+    {{-- @style('/css/bootstrap_custom.css')
     @style("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css") 
     @style('/vendor/ascent/cms/js/jquery-ui.min.css') 
     
+   
+    @style('/vendor/ascent/cms/css/ascent-cms-core.css')  --}}
+
     @style('/vendor/ascent/pagebuilder/css/ascent-pagebuilder.css')
     @style('/vendor/ascent/forms/dist/css/ascent-forms-bundle.css')
+
     @style('/vendor/ascent/cms/css/ascent-cms-core.css') 
-   
-    @foreach(config("pagebuilder.additional_css") as $path)
-        @style($path)
+    @foreach(packageAssets()->getStylesheets() as $style)
+        @style($style)
     @endforeach
+    @foreach(config('cms.theme_stylesheets') as $style)
+        @style($style)
+    @endforeach
+   
 
     @style('/css/screen.css')
 
@@ -59,6 +67,30 @@ $name = 'content'
     @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-row.js')
     @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-container.js')
     @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-block.js')
+
+    <script>
+        $(document).on('show.bs.modal', function(e) {
+            // alert('modal');
+
+            console.log(e);
+
+            let clone = $(e.target).clone(true); 
+
+            clone.addClass('modal-clone');
+
+            parent.$('body').append(clone);
+            
+            parent.$('body').find('.modal-clone').on('hidden.bs.modal', function() {
+                alert('proxy hidden');
+            }).modal(); //.modal('show'); //.show().addClass('show');
+
+            // parent.$('.pagebuilder').trigger('show-modal', [e.target, true]);
+            
+
+            return false;
+        });
+    </script>
+
 @endpush
 
 
