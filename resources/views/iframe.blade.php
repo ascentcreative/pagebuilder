@@ -57,9 +57,6 @@ $name = 'content'
         @style($style)
     @endforeach
    
-
-    @style('/css/screen.css')
-
 @endpush
 
 @push('scripts')
