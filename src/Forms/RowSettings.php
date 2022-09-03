@@ -34,6 +34,8 @@ class RowSettings extends Form {
                             //     <code>100%</code> will use the full screen width.<br/>
                             //     <code>500px</code> will use the central 500px of the screen (or shrink if narrower)'),
 
+                            Input::make($name . '[options][class]', 'Template'),
+
                             ValueWithUnits::make($name . '[styles][min_height]', 'Height', ['px', 'vh']),
                                 // ->description('The width of the screen to use for the content. Leave blank for the default centralised portion, or enter values in % or px. <br/>
                                 // <strong>Examples:<br/></strong>

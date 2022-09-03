@@ -19,7 +19,7 @@
 
         @foreach($content->rows as $row) 
 
-            <div class="pb-row" id="row-{{ $row->unid }}">
+            <div class="pb-row {{ $row->options->class ?? '' }}" id="row-{{ $row->unid }}">
 
                 @foreach($row->containers as $container)
 
