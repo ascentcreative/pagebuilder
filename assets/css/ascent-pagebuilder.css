@@ -125,12 +125,18 @@ body.pb-display form {
     transition: width 0.5s, margin 0.5s;
 }
 
+body.no-scroll {
+    overflow: hidden;
+}
+
 .pagebuilder.fullscreen {
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
+    /* right: 0;
+    bottom: 0; */
+    width: 100vw;
+    height: 100vh;
     /* padding: 20px; */
     background: rgba(0,0,0,0.7);
 

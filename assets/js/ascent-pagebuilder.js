@@ -221,7 +221,8 @@ var PageBuilder = {
 
             e.preventDefault();
 
-            $(self.element).addClass('fullscreen');
+            $(self.element).addClass('fullscreen').css('top', $(document).scrollTop() + 'px');
+            $('body').addClass('no-scroll');
 
         });
 
@@ -230,7 +231,8 @@ var PageBuilder = {
 
             e.preventDefault();
 
-            $(self.element).removeClass('fullscreen');
+            $(self.element).removeClass('fullscreen').css('top', 'auto');
+            $('body').removeClass('no-scroll');
 
         });
 
