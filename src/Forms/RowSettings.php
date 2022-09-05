@@ -102,6 +102,9 @@ class RowSettings extends Form {
                                             'contain' => "Show the whole image",
                                             'cover' => "Fill the background"
                                         ])->default('cover'),
+                                    Checkbox::make($name . '[options][parallax]', 'Parallax?')
+                                       ->checkedValue('1')->uncheckedValue('0')
+                                       ->description('Scrolls the background image at a different speed to the main page (no effect on mobile)'),
                                     Checkbox::make($name . '[styles][background_repeat]', 'Repeat?')
                                        ->checkedValue('repeat')->uncheckedValue('no-repeat'),
                                     Options::make($name . '[styles][background_position]', 'Position')

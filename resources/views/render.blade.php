@@ -1,3 +1,8 @@
+@push('scripts')
+    @script('/vendor/ascent/pagebuilder/vendor/parallax.min.js')
+@endpush
+
+
 @isset($content)
 
     @php $content = json_decode(json_encode($content)); @endphp
@@ -19,7 +24,18 @@
 
         @foreach($content->rows as $row) 
 
-            <div class="pb-row {{ $row->options->class ?? '' }}" id="row-{{ $row->unid }}">
+            <div class="pb-row {{ $row->options->class ?? '' }}" id="row-{{ $row->unid }}" 
+
+                @if(isset($row->styles->background_image) && isset($row->options->parallax) && $row->options->parallax == 1) 
+                    
+                    @php
+                        $img = \AscentCreative\CMS\Models\File::find($row->styles->background_image);
+                    @endphp
+                
+                    data-android-fix="false" class="parallax-window" data-parallax="scroll" data-image-src="/storage/{{ $img->filepath }}"
+
+                @endif
+                >
 
                 @foreach($row->containers as $container)
 
