@@ -8,7 +8,7 @@
             {!! $value->title !!}
         </h4>
 
-        <div class="card-text match-height pb-2">
+        <div class="card-text pb-2">
             {!! $value->body !!}    
         </div>
 
@@ -23,14 +23,18 @@
 
 @once
 
-    @push('scripts')
-    <script>
+  
 
-        $(document).ready(function() {
-            $('.card-text').matchHeight();
-        });
+    @push('styles')
 
-    </script>
+    <style>
+
+        .pb-block .card {
+            height: 100%;
+        }
+
+    </style>
+
     @endpush
 
 @endonce

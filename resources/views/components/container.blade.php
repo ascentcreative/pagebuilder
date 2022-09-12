@@ -14,10 +14,14 @@
 
      // add the container_layout styles
     $layout = $getLayout();
+    $contentstyles = [];
 
-    $contentstyles['display'] = 'grid';
-    $contentstyles['gap'] = '1rem';
-    $contentstyles['grid-template-columns'] = $layout['grid-template-columns']['lg'];
+
+    if(isset($layout['grid-template-columns'])) {
+        $contentstyles['display'] = 'grid';
+        $contentstyles['gap'] = '1rem';
+        $contentstyles['grid-template-columns'] = $layout['grid-template-columns']['lg'];
+    }
 
     $contentstyle = collect($contentstyles)->transform(function($item, $key) {
         return str_replace("_", '-', $key) . ': ' . $item;
