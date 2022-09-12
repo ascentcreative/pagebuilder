@@ -32,7 +32,7 @@
                         $img = \AscentCreative\CMS\Models\File::find($row->styles->background_image);
                     @endphp
                 
-                    data-android-fix="false" class="parallax-window" data-parallax="scroll" data-image-src="/storage/{{ $img->filepath }}"
+                    data-android-fix="true" class="parallax-window" data-parallax="scroll" data-image-src="/storage/{{ $img->filepath }}"
 
                 @endif
                 >
