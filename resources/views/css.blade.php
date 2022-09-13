@@ -10,7 +10,7 @@
             $styles = collect($data->styles ?? []);
 
 
-            if(isset($data->options->parallax) && $data->options->parallax == 1) {
+            if(!Agent::isMobile() && isset($data->options->parallax) && $data->options->parallax == 1) {
 
                 // BG colour and image will break the parallax (by obscuring it)
                 // the image wil be rendered to parallax in the main view, so we'll just unset / ignore both here
