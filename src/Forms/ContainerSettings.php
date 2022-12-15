@@ -109,6 +109,7 @@ class ContainerSettings extends Form {
                             HTML::make('<div class="border p-2"><strong>Colour:</strong>', '</div>')
                                 ->children([
                                     Colour::make($name . '[styles][background_color]', 'Colour')
+                                        ->manualInit(true)
                                         ->description('This colour will be behind any image specified above.'),
                                 ]),
                         ]),
