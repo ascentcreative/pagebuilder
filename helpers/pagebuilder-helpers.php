@@ -182,6 +182,9 @@ function discoverBlockDescriptors($model = null) : array {
 
 function resolveBlockDescriptor($type) {
 
+    if($type=='empty')
+        return null;
+
     $map = collect(discoverBlockDescriptors())->mapWithKeys(function($item, $key) {
         $ref = new ReflectionClass($item);
         return [$item::getBladePath() => $item];

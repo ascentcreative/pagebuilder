@@ -18,4 +18,11 @@ class Text extends AbstractDescriptor {
     
     ];
 
+
+    // public function extractText(array $block) {
+
+    //     return strip_tags_leaving_spaces($block['content']);
+
+    // }
+
 }
