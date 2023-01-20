@@ -22,15 +22,13 @@ class PageIndexer {
             $input = json_decode($input, true);
         }
 
-        dump($model->title);
-
         $out = [];
         if(is_array($input)) {
             // process each block - the BlockDescriptor will know which fields are text.
             foreach($input['rows'] as $row) {
                 foreach($row['containers'] as $container) {
                     foreach($container['blocks'] as $block) {
-                        dump($block);
+                      
                         $descriptor = resolveBlockDescriptor($block['template']);
 
                         if($descriptor) {
