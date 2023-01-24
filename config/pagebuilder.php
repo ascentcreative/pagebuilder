@@ -6,9 +6,9 @@ return [
     'discovery_paths' => [
         app_path() . '/../vendor/ascentcreative/pagebuilder/src/BlockDescriptors',
         app_path() . '/../vendor/ascentcreative/cms/src/PageBuilder/BlockDescriptors',
-        app_path() . '/../vendor/ascentcreative/blog/src/pagebuilder/BlockDescriptors',
-        app_path() . '/../vendor/ascentcreative/store/src/pagebuilder/BlockDescriptors',
-        app_path() . '/../vendor/ascentcreative/donate/src/pagebuilder/BlockDescriptors',
+        app_path() . '/../vendor/ascentcreative/blog/src/PageBuilder/BlockDescriptors',
+        app_path() . '/../vendor/ascentcreative/store/src/PageBuilder/BlockDescriptors',
+        app_path() . '/../vendor/ascentcreative/donate/src/PageBuilder/BlockDescriptors',
         app_path() .'/PageBuilder/BlockDescriptors',
     ],
 
