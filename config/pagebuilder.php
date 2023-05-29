@@ -34,6 +34,7 @@ return [
                 'padding_right' => '20px',
                 'padding_top' => '20px',
                 'padding_bottom' => '20px',
+                'align_items' => 'center',
             ]
         ]
     ],

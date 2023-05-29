@@ -242,6 +242,7 @@ var PageBuilder = {
          $(this.element).parents('form').on('submit', function() {
             console.log('saving - final data sync');
             self.syncData();
+            // return false;
 
         });
 
@@ -288,14 +289,22 @@ var PageBuilder = {
     syncData: function(){
 
         console.log('started datasync');
+        // return; 
 
         let elmSync = $(this.element).find('.pb-sync');
 
         $(elmSync).html(''); // clear all old data
 
         $(this.stack).find('INPUT, SELECT, TEXTAREA').each(function() {
-            // console.log('sync: ' + $(this).attr('name'));
-            $(elmSync).append($(this).clone());
+            console.log('sync: ' + $(this).attr('name'));
+            console.log($(this).prop('tagName').toLowerCase());
+            if($(this).prop('tagName').toLowerCase() == 'select') {
+                $(elmSync).append('<input type="hidden" name="' + $(this).attr('name') + '" value="' + $(this).val() + '">');
+            } else {
+                $(elmSync).append($(this).clone());
+            }
+            //
+            
         });
 
     }
