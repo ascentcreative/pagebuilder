@@ -288,7 +288,7 @@ var PageBuilder = {
     // extract fields from the stack so they can be submitted with the model form:
     syncData: function(){
 
-        console.log('started datasync');
+        // console.log('started datasync');
         // return; 
 
         let elmSync = $(this.element).find('.pb-sync');
@@ -296,8 +296,8 @@ var PageBuilder = {
         $(elmSync).html(''); // clear all old data
 
         $(this.stack).find('INPUT, SELECT, TEXTAREA').each(function() {
-            console.log('sync: ' + $(this).attr('name'));
-            console.log($(this).prop('tagName').toLowerCase());
+            // console.log('sync: ' + $(this).attr('name'));
+            // console.log($(this).prop('tagName').toLowerCase());
             if($(this).prop('tagName').toLowerCase() == 'select') {
                 $(elmSync).append('<input type="hidden" name="' + $(this).attr('name') + '" value="' + $(this).val() + '">');
             } else {

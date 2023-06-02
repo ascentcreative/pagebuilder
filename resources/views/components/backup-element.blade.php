@@ -1,6 +1,7 @@
 @php
 
     $styles = collect($value->styles ?? []);
+    // dump($styles);
 
     if(isset($styles['background_image'])) {
         $img = \AscentCreative\CMS\Models\File::find($styles['background_image']);
@@ -13,32 +14,20 @@
 
 @endphp
 
-<div class="pb-element pb-row {{ $value->options->class ?? ''}}" style="border-bottom: 1px solid rgba(0,0,0,0.1); position: relative; {{ $style }}">
+<div class="pb-element pb-section {{ $value->options->class ?? ''}}" style="border-bottom: 1px solid rgba(0,0,0,0.1); position: relative; {{ $style }}">
 
-    <input type="hidden" class="pb-row-unid" name="{{ $name }}[unid]" value="{{ $unid }}" />
+    {{-- <input type="hidden" class="pb-section-unid" name="{{ $name }}[unid]" value="{{ $unid }}" /> --}}
 
     <div class="pb-element-label">
         <div class="d-flex">
-            <span>Row</span>
+            <span>Section</span>
             <a href="#" class="pbr-settings bi-gear-fill pl-2"></a>
             <a href="#" class="pbr-delete bi-trash pl-2"></a>
             <span class="row-drag bi-arrows-move pl-2"></a>
         </div>
     </div>
 
-    
-    {{-- {{ $slot }} --}}
-
-    @foreach($value->containers as $unid=>$container)
-                                
-        <x-pagebuilder-container fieldname="{{ $name }}" unid="{{ $unid }}" :value="$container">
-
-            {{-- Block inclusion now handled by the container --}}
-
-        </x-pagebuilder-container>
-
-    @endforeach
-
+    <div>Type or choose content</div>
 
 
     <div class="pb-element-settings">

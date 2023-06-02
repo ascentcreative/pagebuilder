@@ -23,7 +23,7 @@ class PageIndexer {
         }
 
         $out = [];
-        if(is_array($input)) {
+        if(is_array($input) && isset($input['rows'])) {
             // process each block - the BlockDescriptor will know which fields are text.
             foreach($input['rows'] as $row) {
                 foreach($row['containers'] as $container) {

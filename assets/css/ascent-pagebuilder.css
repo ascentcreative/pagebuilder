@@ -27,16 +27,32 @@ body.pb-display form {
     line-height: 1.15;
 }
 
+.pb-element {
+    border: 1px dashed rgba(0,0,0,0.5);
+    padding: 5px;
+}
+
 .pb-element .pb-element-label a {
     color:white; 
 }
 
-.pb-element .wysiwyg-editor {
+.pb-element:hover, .pb-element:has(:focus) {
+    background: rgba(0,0,0,0.02);
+}
+
+.pb-element .wysiwyg-editor, .pb-element .wysiwyg-editor [contenteditable] {
     height: auto !important;
 }
 
-.pb-element.moused > .pb-element-label {
+.pb-element.moused > .pb-element-label { 
+/* , .pb-element:has(.moused) > .pb-element-label { */
     display: block;
+}
+
+.pb-columns > .pb-element-list {
+    display:grid; 
+    gap: 1rem; 
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .pb-rows {

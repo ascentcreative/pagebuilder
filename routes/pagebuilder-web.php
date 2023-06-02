@@ -6,6 +6,14 @@ use Illuminate\Support\Facades\Validator;
 
 
 Route::middleware(['web'])->group(function() {
+
+    Route::get('/pb-test', function() {
+        return view('pagebuilder::testform');
+    });
+
+    Route::post('/pb-test', function() {
+        dd(json_decode(json_encode(request()->all())));
+    });
   
 
     Route::prefix('admin')->namespace('Admin')->middleware(['auth', 'can:administer'])->group(function() {

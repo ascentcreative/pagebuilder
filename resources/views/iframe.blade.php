@@ -9,23 +9,119 @@ if(isset($data['payload'])) {
     $value = json_decode(json_encode($data))->content;
 }
 
+
 if(is_null($value)) {
-    // load a default value:
+
+    // $value = [
+    //     'stack-id' => uniqid(),
+    //     'elements' => [
+    //         uniqid() => [
+    //             'styles' => [
+    //                 'padding'=>'20px'
+    //             ],
+    //             'elements' => [
+
+    //             ]
+    //         ],
+    //         uniqid() => [
+    //             'styles' => [
+    //                 'padding'=>'20px'
+    //             ],
+    //             'elements' => [
+
+    //             ]
+    //         ]
+    //     ]
+    // ]   ;
+
     $value = [
-    'rows' => [
         uniqid() => [
-            'containers' => [
-                    uniqid() => [
-                        'blocks' => [
-                           uniqid() => [
-                                'template'=>'text',
+            't'=>'stack',
+            // 'o'=>[],
+            // 's' => [],
+            'e' => [
+                uniqid() => [
+                    't'=>'section',
+                    'o'=>[],
+                    's' => [
+                        'padding' => '20px',
+                        'border' => '1px solid #ccc',
+                    ],
+                    'e' => [
+                        uniqid() => [
+                            't'=>'htmltag',
+                            's' => [],
+                            'tag' => 'h1',
+                            'content' => 'Lorem ipsum...',
+                        ],
+                        uniqid() => [
+                            't'=>'htmltag',
+                            's' => [],
+                            'tag' => 'h1',
+                            'content' => '22222',
+                        ],
+                    //     uniqid() => [
+                    //         't' => 'htmltag',
+                    //         'tag'=>'p',
+                    //         's' => [],
+                    //         'content' => 'Dolor sit amet.',
+                    //     ]
+                    ]
+                ],
+                uniqid() => [
+                    't'=>'section',
+                    'o'=>[],
+                    's' => [
+                        'padding' => '20px',
+                        'border' => '1px solid #ccc',
+                    ],
+                    'e'=>[
+                        uniqid() => [
+                            't'=>'columns',
+                            'e'=>[
+                                uniqid()=>[
+                                    't'=>'column',
+                                    'e'=>[
+                                        uniqid() => [
+                                            't'=>'htmltag',
+                                            's' => [],
+                                            'tag' => 'h1',
+                                            'content' => 'Some Text',
+                                        ],
+                                    ],
+                                ],      
+                                uniqid()=>[
+                                    't'=>'column',
+                                    'e'=>[],
+                                ],
+                                uniqid()=>[
+                                    't'=>'column',
+                                    'e'=>[],
+                                ]
                             ]
                         ]
                     ]
                 ]
             ]
-        ]   
+        ]
     ];
+
+//     // load a default value:
+//     $value = [
+//     'rows' => [
+//         uniqid() => [
+//             'containers' => [
+//                     uniqid() => [
+//                         'blocks' => [
+//                            uniqid() => [
+//                                 'template'=>'text',
+//                             ]
+//                         ]
+//                     ]
+//                 ]
+//             ]
+//         ]   
+//     ];
 
     // fudge to deep-cast array to objects
     $value = json_decode(json_encode($value));
@@ -61,9 +157,10 @@ $name = 'content'
 
 @push('scripts')
     @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-stack.js')
-    @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-row.js')
-    @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-container.js')
-    @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-block.js')
+    @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-element.js')
+    {{-- @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-row.js') --}}
+    {{-- @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-container.js') --}}
+    {{-- @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-block.js') --}}
 
     <script>
         $(document).on('show.bs.modal', function(e) {
@@ -105,8 +202,29 @@ $name = 'content'
         {{-- @dump(request()->all()) --}}
         <input type="hidden" name="scroll_position" id="scrPos" value="{{ request()->scroll_position }}">
         {{-- <x-forms-fields-input type="text" name="text" label="some test text" value="" placeholder="enter something"/> --}}
+
+       
+
+
+
         <div class="pagebuilderstack">
-            <div class="pb-rows themed">
+
+            @foreach($value as $unid=>$element)
+            <x-pagebuilder-element :path="$name" :unid="$unid" :value="$element">
+    
+            </x-pagebuilder-element>
+            @endforeach
+{{-- 
+            @foreach($value->c as $unid=>$section)
+
+                <x-pagebuilder-section fieldname="{{ $name }}" :unid="$unid" :value="$section">
+                           
+                </x-pagebuilder-section>
+
+            @endforeach --}}
+
+            {{-- @dump($value); --}}
+            {{-- <div class="pb-rows themed">
                 @isset($value->rows)
                     @php $iRow = 0; @endphp
                     @foreach($value->rows as $unid=>$row)
@@ -119,7 +237,7 @@ $name = 'content'
                         @php $iRow++; @endphp
                     @endforeach
                 @endisset
-            </div>
+            </div> --}}
         </div>
 
     </form>

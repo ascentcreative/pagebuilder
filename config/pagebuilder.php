@@ -15,7 +15,7 @@ return [
     // paths to search for Edit and Show blades for the blocks. Searched in this order.
     'blade_paths' => [
         'pagebuilder',
-        'pagebuilder::blocks',
+        'pagebuilder::elements',
         'cms::pagebuilder',
         'blog::pagebuilder',
         'store::pagebuilder',
