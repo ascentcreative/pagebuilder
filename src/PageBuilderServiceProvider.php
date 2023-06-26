@@ -31,6 +31,11 @@ class PageBuilderServiceProvider extends ServiceProvider
     $this->bootComponents();
 
     $this->bootPublishes();
+    
+
+    packageAssets()->addStylesheet('/vendor/ascent/pagebuilder/dist/css/ascent-pagebuilder-bundle.css', 'admin');
+    packageAssets()->addScript('/vendor/ascent/pagebuilder/dist/js/ascent-pagebuilder-bundle.js', 'admin');
+   
 
     
   }

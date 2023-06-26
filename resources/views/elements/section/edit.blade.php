@@ -1,7 +1,11 @@
-@extends('pagebuilder::components.element')
+@extends('pagebuilder::components.element.edit')
+
+@php
+    $formclass = \AscentCreative\PageBuilder\Forms\SectionSettings::class;
+@endphp
 
 @section('content')
-    <section>
+    <section style="display: flex; {{ $style }}">    
         <div class="centralise">
             @include('pagebuilder::elements')
         </div>

@@ -1,3 +1,18 @@
+.image-element.empty .image-element-image:before {
+    content: 'Click to insert image';
+}
+
+.image-element .fileupload {
+    display:none;
+}
+
+.image-element-image img {
+    display: block;
+    max-width: 100%;
+}
+
+
+
 
 body.pb-display {
     border: 0;

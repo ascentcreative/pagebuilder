@@ -1,0 +1,58 @@
+<?php 
+
+namespace AscentCreative\PageBuilder\Contracts;
+
+use Illuminate\Database\Eloquent\Model;
+
+interface ElementDescriptor {
+
+
+    /**
+     * @return boolean
+     */
+    public static function getName() : string;
+
+
+    /**
+     * @return string
+     */
+    public static function getBladePath() : string;
+    
+
+    /**
+     * @return string
+     */
+    public static function getDescription() : string;
+
+
+    /**
+     * @return array
+     */
+    public static function getDefaults() : array;
+
+
+
+    /**
+     * @param Model $model
+     * 
+     * @return boolean
+     */
+    public static function isApplicable(Model $model=null) : bool;
+
+
+    /**
+     * Return validation rules for the fields on the edit screen
+     * @return array
+     */
+    public static function rules() : array;
+
+    /**
+     * Return validation failure messages for the fields on the edit screen
+     * @return array
+     */
+    public static function messages() : array;
+
+
+
+
+}

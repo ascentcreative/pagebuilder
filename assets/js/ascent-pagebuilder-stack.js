@@ -26,19 +26,19 @@ var PageBuilderStack = {
         $(elm).addClass('initialised');
 
         // make the stack sortable (drag & drop)
-        $(this.element).find('.pb-rows').sortable({
-            axis: 'y',
-            handle: '.row-drag',
+        // $(this.element).find('.pb-rows').sortable({
+        //     axis: 'y',
+        //     handle: '.row-drag',
             
-            start: function(event, ui) {
-                $(ui.placeholder).css('height', $(ui.item).outerHeight() + 'px');
-            },
-            update: function(event, ui) {
+        //     start: function(event, ui) {
+        //         $(ui.placeholder).css('height', $(ui.item).outerHeight() + 'px');
+        //     },
+        //     update: function(event, ui) {
                 
-                // self.updateIndexes();
+        //         // self.updateIndexes();
 
-            }
-        });
+        //     }
+        // });
 
         // show/hide labels on mouseover
         $(this.element).on('mouseover', '.pb-element', function(e) {
@@ -70,6 +70,17 @@ var PageBuilderStack = {
         $(this.element).on('click', '.pb-block-empty', function() {
             self.addBlock(this);
         });
+
+        $(this.element).on('fieldorderdirty', function() {
+            self.reindexFields();
+        });
+     
+
+        console.log('Stack INIT');
+
+        // alert('stack init');
+
+        // $(document).trigger('fieldorderdirty');
 
         
     },
@@ -157,7 +168,27 @@ var PageBuilderStack = {
 
         console.log(block);
 
-    }
+    },
+
+    // reindexFields: function() {
+    //     console.log('fwefewfwef');
+    //     // alert('reiindex');
+
+    //     this.reindexTraverse($(this.element).children('.pb-stack'), 'content');
+
+    // },
+
+    // reindexTraverse: function(elm, path) {
+
+    //     console.log('elm:', elm);
+
+    //     let unid = $(elm).data('unid');
+    //     console.log('unid', unid);
+
+    //     let fields = $(elm).find('INPUT[name^="' + unid + '"], SELECT[name^="' + unid + '"], TEXTAREA[name^="' + unid + '"]');
+    //     console.log(fields);
+
+    // }
 
 }
 

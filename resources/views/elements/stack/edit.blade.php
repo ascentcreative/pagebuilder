@@ -1,5 +1,5 @@
-@extends('pagebuilder::components.element')
+@extends('pagebuilder::components.element.edit')
 
 @section('content')
-    @include('pagebuilder::elements')
+    @include('pagebuilder::elements', ['listtype'=>'stack'])
 @overwrite

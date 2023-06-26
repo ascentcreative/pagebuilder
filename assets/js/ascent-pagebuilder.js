@@ -9,6 +9,7 @@ $.ascent = $.ascent?$.ascent:{};
 var PageBuilder = {
         
     rowCount: 0,
+    fieldName: '',
 
     _init: function () {
 
@@ -21,6 +22,9 @@ var PageBuilder = {
         var thisID = (this.element)[0].id;
         
         var fldName = idAry[1];
+        this.fieldName = idAry[1];
+
+        console.log(idAry);
         
         var elm = this.element;
 
@@ -30,6 +34,38 @@ var PageBuilder = {
         $(elm).on('pb-change', function() {
             // self.syncData(); // only on save
             $(this).change();
+        });
+
+
+
+
+        $(elm).on('create-element', function(e, context) {
+            
+            console.log(context);
+
+            $('#element-picker').modal();
+
+            $('#element-picker').one('click', 'a', function(e) {
+
+                e.preventDefault();
+
+                let type = $(this).data('element-type');
+
+                $('#element-picker').modal('hide');
+
+                self.buildElement(type, context);
+
+                // $(self.stack).pagebuilderstack('addRow', type);
+
+
+            });
+
+            // if the user clicks outside the modal, ensure the click handler is removed
+            $('#element-picker').on('hidden.bs.modal', function() {
+                $('#element-picker').off('click', 'button');
+            });
+
+
         });
 
         
@@ -129,6 +165,31 @@ var PageBuilder = {
 
             $(this).show();
 
+            $(this).contents().find('.pb-elementlist').not('.pb-elementlist-initialised').pagebuilderelementlist();
+
+
+            MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+
+            var observer = new MutationObserver(function(mutations, observer) {
+                // fired when a mutation occurs
+                // console.log(mutations, observer);
+                // ...
+                // alert('mutated');
+                // console.log('mutate');
+                $('.pb-elementllist').not('.pb-elementlist-initialised').pagebuilderelementlist();
+            });
+
+            // define what element should be observed by the observer
+            // and what types of mutations trigger the callback
+            observer.observe($(this).contents()[0], {
+                subtree: true,
+                childList: true
+                //...
+            });
+
+            // consol
+            // console.log($(this).contents()[0]);
+
             // Can't do this... if a block has a 'vh' measurement, the body will height will immediately be wrong!
             // (would need some pre-processing to convert a vh to a fixed px measurement in admin preview)
             // for now, just live with it...
@@ -171,37 +232,41 @@ var PageBuilder = {
             // (test for now - adds a new row block. Will need to be coded to ask user what block to add)
         $(this.element).on('click', '#btn-add-row', function(e) {
 
+            let win = $(elm).find('#pb-iframe')[0].contentWindow;
+
+            self.buildElement('section', win.$('.pb-stack').find('.pb-elementlist').first());
+           
             e.preventDefault();
 
-            $('#block-picker').modal();
+            // $('#block-picker').modal();
 
 
-            var field = $(this).attr('data-block-field'); //'content';
-            var idx = $(self.element).find('.row-edit').length;
+            // var field = $(this).attr('data-block-field'); //'content';
+            // var idx = $(self.element).find('.row-edit').length;
 
-            $('#block-picker').one('click', 'a', function(e) {
+            // $('#block-picker').one('click', 'a', function(e) {
 
-                e.preventDefault();
+            //     e.preventDefault();
 
-                var type = $(this).data('block-type');
+            //     var type = $(this).data('block-type');
             
-                $('#block-picker').modal('hide');
+            //     $('#block-picker').modal('hide');
 
-                // $.get('/admin/stack/make-row/' + type + '/' + field + '/' + idx, function(data) {
-                //     // $(self.element).find('.stack-output').before(data);
-                //     $(self.element).find('.stack-rows').append(data);
-                //     self.updateIndexes();                
-                // });
+            //     // $.get('/admin/stack/make-row/' + type + '/' + field + '/' + idx, function(data) {
+            //     //     // $(self.element).find('.stack-output').before(data);
+            //     //     $(self.element).find('.stack-rows').append(data);
+            //     //     self.updateIndexes();                
+            //     // });
 
-                $(self.stack).pagebuilderstack('addRow', type);
+            //     $(self.stack).pagebuilderstack('addRow', type);
 
 
-            });
+            // });
 
-            // if the user clicks outside the modal, ensure the click handler is removed
-            $('#block-picker').on('hidden.bs.modal', function() {
-                $('#block-picker').off('click', 'button');
-            });
+            // // if the user clicks outside the modal, ensure the click handler is removed
+            // $('#block-picker').on('hidden.bs.modal', function() {
+            //     $('#block-picker').off('click', 'button');
+            // });
 
       
         });
@@ -307,7 +372,128 @@ var PageBuilder = {
             
         });
 
+    },
+
+    // Performs an Ajax call to return the element HTML and
+    // inserts it into the stack, relative to the context
+    buildElement: function(type, context) {
+
+
+        $.ajax({
+            url: '/admin/pagebuilder/makeelement',
+            type: 'post',
+            // cache: false,
+            // contentType: false,
+            // processData: false,
+            data: {
+                // need to populate this:
+                // fieldname: 'content[rows][' + row_unid + '][containers][' + container_unid + ']',
+                // row: row_unid,
+                // container: container_unid,
+                // template: $(this).data('block-type')
+                // type: 'htmltag',
+                type: type,
+                path: '',
+
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+
+        }).done(function(data) {
+            console.log('OK', data);
+            // if($(context).hasClass('.pb-element')) {
+                // $(context).after(data);
+            // }
+
+            if($(context).hasClass('pb-elementlist')) {
+                console.log('appending');
+                $(context).append(data);
+            }
+
+        }).fail(function(data) {
+            console.log("fail:", data);
+        });
+
     }
+
+    // new version - builds the heirarchy of the fields so we don't have to worry about them in the builder UI
+    // rather tha just getting a list of all INPUT elements, we need to traverse the DOM using known classes
+    //  - get each element, add unid to the path, copythe fields in the element etc
+
+    // NOT NEEDED - rather, heirarchy updated as needed by stack.
+    // NewSyncData: function() {
+
+    //     let elmSync = $(this.element).find('.pb-sync');
+
+    //     $(elmSync).html(''); // clear all old data
+        
+    //     let syncFields = this.syncTraverse($(this.stack).children('.pb-stack')[0], 'content'); //this.fieldName);
+
+    //     // console.log('syncFields', syncFields);
+
+    //     syncFields.forEach(function(fld) {
+    //         // console.log('fld', fld);
+    //         if($(fld).prop('tagName').toLowerCase() == 'select') {
+    //             $(elmSync).append('<input type="hidden" name="' + $(fld).attr('name') + '" value="' + $(fld).val() + '">');
+    //         } else {
+    //             $(elmSync).append($(fld));
+    //         }
+    //     });
+
+    //     // $(this.stack).find('INPUT, SELECT, TEXTAREA').each(function() {
+    //     //     // console.log('sync: ' + $(this).attr('name'));
+    //     //     // console.log($(this).prop('tagName').toLowerCase());
+    //     //     if($(this).prop('tagName').toLowerCase() == 'select') {
+    //     //         $(elmSync).append('<input type="hidden" name="' + $(this).attr('name') + '" value="' + $(this).val() + '">');
+    //     //     } else {
+    //     //         $(elmSync).append($(this).clone());
+    //     //     }
+    //     //     //
+            
+    //     // });
+
+    // },
+
+    // syncTraverse: function(elm, path) {
+
+    //     console.log('path', path);
+        
+    //     let self = this;
+        
+    //     console.log(elm);
+
+    //     let unid = $(elm).data('unid');
+    //     console.log('unid', unid);
+
+    //     let fields = $(elm).find('INPUT[name^="' + unid + '"], SELECT[name^="' + unid + '"], TEXTAREA[name^="' + unid + '"]');
+    //     console.log('fields: ', fields);
+
+    //     let syncFields = [];
+    //     fields.each(function(idx) { 
+    //         let fld = $(fields[idx]).clone();
+
+    //         console.log('old name', fld.attr('name'));
+    //         console.log('new name', fld.attr('name').replace(unid, path + '[' + unid + ']'));
+
+    //         fld.attr('name', fld.attr('name').replace(unid, path + '[' + unid + ']'));
+    //         syncFields.push(fld);
+
+    //     });
+
+    //     let children = $($(elm).find('.pb-elementlist')[0]).children('.pb-element'); 
+    //     children.each(function(idx) {
+    //         child = children[idx];
+    //         // let unid = $(child).data('unid');
+    //         // console.log(unid + ": " + $(child).find('INPUT[name=' + unid + '\\[t\\]]').val());
+    //         // let fields = 
+    //         syncFields = syncFields.concat(self.syncTraverse(child, path + '[' + unid + '][e]'));
+    //     });
+
+    //     return syncFields;
+
+
+    // }
 
 }
 

@@ -1,7 +1,7 @@
-@extends('pagebuilder::components.element')
+@extends('pagebuilder::components.element.edit')
 
 @section('content')
-    <div style="">
+    {{-- <div style=""> --}}
         @include('pagebuilder::elements')
-    </div>
+    {{-- </div> --}}
 @overwrite

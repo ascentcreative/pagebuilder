@@ -55,6 +55,10 @@ Route::middleware(['web'])->group(function() {
             return view('pagebuilder::iframe', ['data'=>request()->all()]);
         });
 
+        Route::post('/pagebuilder/makeelement', function() {
+            return view('pagebuilder::make.element');
+        });
+
     
 
     });

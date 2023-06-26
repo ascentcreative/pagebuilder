@@ -19,6 +19,8 @@ class Element extends Component
 
     public $element;
 
+    public $mode;
+
 
     // public $name;
   
@@ -32,10 +34,10 @@ class Element extends Component
      *
      * @return void
      */
-    public function __construct($path, $unid=null, $value=null)
+    public function __construct($path, $unid=null, $value=null, $mode='edit')
     {
 
-       
+       $this->mode = $mode;
        
     //    $this->type = $type;
         $this->path = $path;
@@ -49,17 +51,24 @@ class Element extends Component
 
 
         $styles = collect($value->s ?? []);
-        // dump($styles);
+        // dd($styles);   
 
         if(isset($styles['background_image'])) {
-            $img = \AscentCreative\CMS\Models\File::find($styles['background_image']);
-            $styles['background_image'] = "url('/storage/" . $img->filepath . "')";
+            // dd($styles);
+            // $img = \AscentCreative\CMS\Models\File::find($styles['background_image']);
+            $styles['background_image'] = "url('/image/max/" . $styles['background_image']->hashed_filename . "');";
+            // "url('/storage/" . $img->filepath . "')";
         }
 
+        // dump($styles);
+
         $this->style = $styles->transform(function($item, $key) {
-            return str_replace("_", '-', $key) . ': ' . $item;
+            if(trim($item) != '') {
+                return str_replace("_", '-', $key) . ': ' . $item;
+            }
         })->join('; ');
 
+        // dump($this->styles);
 
         $this->path = $path . '[' . $this->unid . ']';
 
@@ -80,8 +89,8 @@ class Element extends Component
     {
         // Allows for block blades to be in either the main project or loaded from the cms package
         // return view('pagebuilder::components.element.edit'); //, ['element'=>$this]); 
-
-        foreach(pagebuilderBladePaths($this->value->t, 'edit') as $path) {
+        // dump($this->value);
+        foreach(pagebuilderBladePaths($this->value->t, $this->mode) as $path) {
             if(view()->exists($path)) {
                 return view($path);
             }

@@ -22,7 +22,7 @@
         </div>
     @endif
 
-    {{-- @dump($value); --}}
+    {{-- @dump($value) --}}
     @includeFirst( array_merge( pagebuilderbladePaths($template, 'edit'), ['pagebuilder::block.missing']), ['template'=>$template])
 
     <div class="pb-element-settings">

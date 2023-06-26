@@ -9,6 +9,9 @@
 @push('scripts')
     @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder.js')
     @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-stack.js')
+
+    {{-- @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-element.js') --}}
+    {{-- @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-elementlist.js') --}}
 @endpush
 
 <div class="pagebuilder">
@@ -52,10 +55,11 @@
     </div>
 
 
-    {{-- Block Picker Modal --}}
-    <x-cms-modal modalid="block-picker" title="Select a Block Type:">
+    {{-- Element Picker Modal --}}
+    <x-cms-modal modalid="element-picker" title="Select an Element Type:">
         {{-- Block types: --}}
-        @foreach(discoverBlocks($model) as $cat=>$blocks)
+        
+        @foreach(discoverElements($model) as $cat=>$elements)
 
             @if(!$loop->first)
                 <div class="dropdown-divider"></div>
@@ -65,10 +69,10 @@
                 <div class="block-group-name col-2 pt-2"><h5 style="font-weight: 300">{{ $cat }}</h5></div>
                 <div class="block-group-blocks col-10">
 
-                    @foreach($blocks as $block)
+                    @foreach($elements as $element)
 
-                        <a class="stack-add-row dropdown-item text-sm btn-option display-block p-2 w-100" href="#" data-block-type="{{ $block['bladePath'] }}" data-block-field="{{ $name }}">
-                            <strong>{{ $block['name'] }}</strong><span class="text-muted"> - {{ $block['description'] }}</span>
+                        <a class="stack-add-row dropdown-item text-sm btn-option display-block p-2 w-100" href="#" data-element-type="{{ $element['bladePath'] }}" data-block-field="{{ $name }}">
+                            <strong>{{ $element['name'] }}</strong><span class="text-muted"> - {{ $element['description'] }}</span>
                         </a>
 
                     @endforeach

@@ -18,67 +18,10 @@
         </style>
     @endpush
 
-    {{-- @dump($content); --}}
+    {{-- @dump($content) --}}
 
 
-    <div>
-
-        @foreach($content->rows as $row) 
-
-            <div class="pb-row {{ $row->options->class ?? '' }}" id="row-{{ $row->unid }}" 
-
-                @if(isset($row->styles->background_image))
-
-                    @if(!Agent::isMobile() && isset($row->options->parallax) && $row->options->parallax == 1) 
-
-                        {{-- NOT mobile AND Set to do Parallax --}}
-                        @php
-                            $img = \AscentCreative\CMS\Models\File::find($row->styles->background_image);
-                        @endphp
-                
-                        data-android-fix="false" 
-                        class="parallax-window" 
-                        data-parallax="scroll" 
-                        data-image-src="/storage/{{ $img->filepath }}"
-
-                    @else
-
-
-
-                    @endif
-
-                @endif
-                
-                >
-
-                @foreach($row->containers as $container)
-
-                    <div class="pb-container centralise double" id="container-{{ $container->unid }}">
-
-
-                        @foreach($container->blocks as $block)
-
-                            <div class="pb-block" id="block-{{ $block->unid }}">
-
-                                {{-- {{ $block->template }} --}}
-
-                                @includeFirst( array_merge( pagebuilderbladePaths($block->template, 'show'), ['pagebuilder::block.missing']), ['value'=>$block])
-
-                            </div>
-
-                        @endforeach
-
-
-                    </div>
-
-
-                @endforeach
-
-            </div>
-
-        @endforeach
-
-    </div>
+    @include('pagebuilder::render.elements', ['elements' => $content])
 
 @endisset
 

@@ -5,12 +5,13 @@
 
             $ignore = [];
 
-           
-
-            $styles = collect($data->styles ?? []);
 
 
-            if(!Agent::isMobile() && isset($data->options->parallax) && $data->options->parallax == 1) {
+            $styles = collect($element->s ?? []);
+            $options = collect($element->o ?? []);
+
+
+            if(!Agent::isMobile() && isset($options->parallax) && $options->parallax == 1) {
 
                 // BG colour and image will break the parallax (by obscuring it)
                 // the image wil be rendered to parallax in the main view, so we'll just unset / ignore both here
@@ -22,8 +23,9 @@
             } else {
 
                 if(isset($styles['background_image'])) {
-                    $img = \AscentCreative\CMS\Models\File::find($styles['background_image']);
-                     $styles['background_image'] = "url('/storage/" . $img->filepath . "')";
+                    // $img = \AscentCreative\CMS\Models\File::find($styles['background_image']);
+                    //  $styles['background_image'] = "url('/storage/" . $img->filepath . "')";
+                    $styles['background_image'] = "url('/image/max/" . $styles['background_image']->hashed_filename . "');";
                 }
 
             }

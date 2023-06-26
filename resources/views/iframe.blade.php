@@ -1,6 +1,7 @@
+<!DOCTYPE html>
 @php 
 
-// dd($data['payload']);
+// dd($data);
 // 
 // if(is_string($data)) {
 if(isset($data['payload'])) {
@@ -41,67 +42,108 @@ if(is_null($value)) {
             // 's' => [],
             'e' => [
                 uniqid() => [
-                    't'=>'section',
-                    'o'=>[],
-                    's' => [
-                        'padding' => '20px',
-                        'border' => '1px solid #ccc',
-                    ],
-                    'e' => [
-                        uniqid() => [
-                            't'=>'htmltag',
-                            's' => [],
-                            'tag' => 'h1',
-                            'content' => 'Lorem ipsum...',
+                    uniqid() => [
+                        't'=>'section',
+                        'o'=>[],
+                        's' => [
+                            'padding_top' => '20px',
+                            'padding_bottom' => '20px',
+                            // 'border' => '1px solid #ccc',
                         ],
-                        uniqid() => [
-                            't'=>'htmltag',
-                            's' => [],
-                            'tag' => 'h1',
-                            'content' => '22222',
-                        ],
-                    //     uniqid() => [
-                    //         't' => 'htmltag',
-                    //         'tag'=>'p',
-                    //         's' => [],
-                    //         'content' => 'Dolor sit amet.',
-                    //     ]
-                    ]
-                ],
-                uniqid() => [
-                    't'=>'section',
-                    'o'=>[],
-                    's' => [
-                        'padding' => '20px',
-                        'border' => '1px solid #ccc',
-                    ],
-                    'e'=>[
-                        uniqid() => [
-                            't'=>'columns',
-                            'e'=>[
-                                uniqid()=>[
-                                    't'=>'column',
-                                    'e'=>[
-                                        uniqid() => [
-                                            't'=>'htmltag',
-                                            's' => [],
-                                            'tag' => 'h1',
-                                            'content' => 'Some Text',
-                                        ],
-                                    ],
-                                ],      
-                                uniqid()=>[
-                                    't'=>'column',
-                                    'e'=>[],
+                        'e' => [
+                            uniqid() => [
+                                uniqid() => [
+                                    't'=>'text',
+                                    's' => [],
+                                    'tag' => 'h1',
+                                    'content' => 'Lorem ipsum...',
                                 ],
-                                uniqid()=>[
-                                    't'=>'column',
-                                    'e'=>[],
-                                ]
+                            ],
+                            uniqid() => [
+                                uniqid() => [
+                                    't'=>'text',
+                                    's' => [],
+                                    'tag' => 'h1',
+                                    'content' => 'Col 2 ipsum...',
+                                ],
                             ]
                         ]
-                    ]
-                ]
+                    ],
+                ],
+                // uniqid() => [
+                //     't'=>'section',
+                //     'o'=>[],
+                //     's' => [
+                //         'padding' => '20px',
+                //         'border' => '1px solid #ccc',
+                //     ],
+                //     'e'=>[
+                //         uniqid() => [
+                //             't'=>'columns',
+                //             'e'=>[
+                //                 uniqid()=>[
+                //                     't'=>'column',
+                //                     'e'=>[
+                //                         uniqid() => [
+                //                             't'=>'htmltag',
+                //                             's' => [],
+                //                             'tag' => 'h1',
+                //                             'content' => 'Some Text',
+                //                         ],
+                //                     ],
+                //                 ],      
+                //                 uniqid()=>[
+                //                     't'=>'column',
+                //                     'e'=>[],
+                //                 ],
+                //                 uniqid()=>[
+                //                     't'=>'column',
+                //                     'e'=>[],
+                //                 ]
+                //             ]
+                //         ]
+                //     ]
+                // ],
+                // uniqid() => [
+                //     't'=>'section',
+                //     'o'=>[],
+                //     's' => [
+                //         'padding' => '20px',
+                //         'border' => '1px solid #ccc',
+                //     ],
+                //     'e'=>[
+                //     ]
+                // ],
+                // uniqid() => [
+                //     't'=>'section',
+                //     'o'=>[],
+                //     's' => [
+                //         'padding' => '20px',
+                //         'border' => '1px solid #ccc',
+                //     ],
+                //     'e'=>[
+                //         uniqid() => [
+                //             't'=>'columns',
+                //             'e'=>[
+                //                 uniqid()=>[
+                //                     't'=>'column',
+                //                     'e'=>[
+                //                         uniqid() => [
+                //                             't'=>'htmltag',
+                //                             's' => [],
+                //                             'tag' => 'h1',
+                //                             'content' => 'Some Text',
+                //                         ],
+                //                     ],
+                //                 ],      
+                //                 uniqid()=>[
+                //                     't'=>'column',
+                //                     'e'=>[],
+                //                 ]
+                //             ]
+                //         ]
+                //     ]
+                // ]
             ]
         ]
     ];
@@ -149,6 +191,10 @@ $name = 'content'
     @foreach(packageAssets()->getStylesheets() as $style)
         @style($style)
     @endforeach
+
+    @foreach(packageAssets()->getStylesheets('admin') as $style)
+        @style($style)
+    @endforeach
     @foreach(config('cms.theme_stylesheets') as $style)
         @style($style)
     @endforeach
@@ -156,8 +202,11 @@ $name = 'content'
 @endpush
 
 @push('scripts')
-    @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-stack.js')
-    @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-element.js')
+    {{-- @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-stack.js') --}}
+    {{-- @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-element.js') --}}
+    {{-- @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-elementlist.js') --}}
+
+
     {{-- @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-row.js') --}}
     {{-- @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-container.js') --}}
     {{-- @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-block.js') --}}
@@ -192,7 +241,7 @@ $name = 'content'
 <html>
 
 <head>
-    @stack('styles')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body class="pb-display">
@@ -204,7 +253,6 @@ $name = 'content'
         {{-- <x-forms-fields-input type="text" name="text" label="some test text" value="" placeholder="enter something"/> --}}
 
        
-
 
 
         <div class="pagebuilderstack">
@@ -239,7 +287,7 @@ $name = 'content'
                 @endisset
             </div> --}}
         </div>
-
+       
     </form>
 
     @script('/vendor/ascent/cms/js/jquery-3.5.1.min.js')
@@ -253,11 +301,17 @@ $name = 'content'
     @script('/vendor/ascent/cms/dist/js/ascent-cms-bundle.js')
     @script('/vendor/ascent/forms/dist/js/ascent-forms-bundle.js')
 
+    @foreach(packageAssets()->getScripts() as $script)
+        @script($script)
+    @endforeach
 
+    @foreach(packageAssets()->getScripts('admin') as $script)
+        @script($script)
+    @endforeach
 
     @stack('lib')
     @stack('scripts')
-
+    @stack('styles')
 
 
     <script>

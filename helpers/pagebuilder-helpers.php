@@ -11,7 +11,9 @@ function getPageCSSFile($content, $model) {
     } else {
         $data = $content;
     }
- 
+
+    // dd($data);
+
     // check if we need to re-create the CSS (based on file date and model->updated_at)
     $path = '/storage/stackeditor/' . $data->unid . '.css';
     $fullpath = $_SERVER['DOCUMENT_ROOT'] . $path;
@@ -35,8 +37,39 @@ function getPageCSSFile($content, $model) {
     
 }
 
-
 function renderPageCSS($content) {
+
+    $out = '';
+ 
+    if(is_string($content)) {
+        $data = json_decode($content);
+    } else {
+        $data = $content;
+    }
+
+    foreach($content as $unid=>$element) {
+        $out .= renderElementCSS($unid, $element);
+    }
+    return $out;
+
+    // dd($data);
+
+}
+
+function renderElementCSS($unid, $element) {
+
+    $out = view('pagebuilder::css', ['id'=>'elm-' . $unid, 'element'=>$element])->render();
+
+    if(isset($element->e)) {
+        foreach($element->e as $unid=>$element) {
+            $out .= renderElementCSS($unid, $element);
+        }
+    }
+    return $out;
+
+}
+
+function oldRenderPageCSS($content) {
 
     $out = '';
     // foreach row:
@@ -99,21 +132,19 @@ function pagebuilderBladePaths($template, $action) {
 
 
 
-// old code from stack editor. Needs porting to pagebuilder...
-
 /**
  * @param mixed $model - a model for use in the isApplicable($model) function of the block descriptor classes
  * 
  * @return array - an associative arrary of block info (keyed by categories)
  */
-function discoverBlocks($model=null) : array {
+function discoverElements($model=null) : array {
 
     // first get the array of keys from the StackEditor config:
-    $aryBlocks = collect(config('pagebuilder.categories'))->mapWithKeys(function($item, $key) {
+    $aryElements = collect(config('pagebuilder.categories'))->mapWithKeys(function($item, $key) {
         return [$item => []];
     })->toArray();
     
-    foreach(discoverBlockDescriptors($model) as $class) {
+    foreach(discoverElementDescriptors($model) as $class) {
 
         $ref = new  ReflectionClass($class);
         
@@ -123,7 +154,7 @@ function discoverBlocks($model=null) : array {
        
         if($class::isApplicable($model)) {
             // add the details to the relevent category in the array
-            $aryBlocks[$class::getCategory()][] = [
+            $aryElements[$class::getCategory()][] = [
                         'name'=>$class::getName(),
                         'description'=>$class::getDescription(),
                         'bladePath'=>$class::getBladePath(),
@@ -135,12 +166,12 @@ function discoverBlocks($model=null) : array {
     }
 
     // array_filter to only return the categories which have blocks
-    return array_filter($aryBlocks);
+    return array_filter($aryElements);
 
 }
 
 
-function discoverBlockDescriptors($model = null) : array {
+function discoverElementDescriptors($model = null) : array {
 
     $types = [];
 
@@ -164,7 +195,7 @@ function discoverBlockDescriptors($model = null) : array {
                 // - Not an abstract class
                 if (!$ref->isAbstract()) {
                     // - Implements the correct interface (could be by extending the AbstractDescriptor class)
-                    if($ref->implementsInterface(\AscentCreative\PageBuilder\Contracts\BlockDescriptor::class)) {
+                    if($ref->implementsInterface(\AscentCreative\PageBuilder\Contracts\ElementDescriptor::class)) {
                         // - is deemed applicable (perhaps to the supplied model, but there may be wider, global conditions coded in too)
                         $types[] = $class;
                     }
