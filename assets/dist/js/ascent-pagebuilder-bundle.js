@@ -32,6 +32,7 @@ var PageBuilderElement = {
       e.preventDefault();
       e.stopPropagation();
     });
+    $(this.element).parents('.pb-elementlist').first().trigger('elements-changed');
     $(this.element).on('callback-test', function (e) {
       alert('cqllback event');
     });
@@ -45,7 +46,8 @@ var PageBuilderElement = {
       // console.log(parent);
 
       e.preventDefault();
-      parent.$('.pagebuilder').trigger('create-element', [$(self.element).find('.pb-elementlist')]);
+      parent.$('.pagebuilder').trigger('create-element', [$(self.element).find('.pb-elementlist').first()]);
+      console.log('list = ', $(self.element).find('.pb-elementlist').first());
       return;
 
       // TODO - wrap this in a call to the element picker
@@ -88,6 +90,7 @@ var PageBuilderElement = {
       if (confirm("Delete this?")) {
         $(self.element).remove();
       }
+      $(this.element).parents('.pb-elementlist').first().trigger('elements-changed');
       e.preventDefault();
     });
     if ($(this.element).find('.pb-element-type').attr('name').startsWith('new')) {
@@ -114,7 +117,7 @@ var PageBuilderElement = {
   },
 
   select: function select() {
-    console.log($(this.element).pagebuilderelement('instance'));
+    // console.log($(this.element).pagebuilderelement('instance'));
     $('.pb-element.selected').removeClass('selected');
     $(this.element).toggleClass('selected');
   },
@@ -191,6 +194,7 @@ observer.observe(document, {
 $.ascent = $.ascent ? $.ascent : {};
 var PageBuilderElementList = {
   rowCount: 0,
+  listObserver: null,
   _init: function _init() {
     var self = this;
     this.widget = this;
@@ -199,9 +203,29 @@ var PageBuilderElementList = {
     var fldName = idAry[1];
     var obj = this.element;
     $(obj).addClass('pb-elementlist-initialised');
+    MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+    this.listObserver = new MutationObserver(function (mutations, observer) {
+      console.log('change detected');
+      self.elementsChanged();
+    });
+
+    // define what element should be observed by the observer
+    // and what types of mutations trigger the callback
+    this.listObserver.observe(this.element[0], {
+      subtree: false,
+      childList: true
+    });
+
+    // $(this.element).on('elements-changed', function() {
+    // self.elementsChanged();
+    // })
+
+    self.elementsChanged();
     $(this.element).sortable({
       connectWith: '.pb-elementlist-' + $(this.element).data('listtype'),
       handle: '.element-drag',
+      forcePlaceholderSize: true,
+      forceHelperSize: true,
       receive: function receive(event, ui) {
         // let path = ''; //'content';
         // let parents = $(this).parents(".pb-element");
@@ -235,19 +259,31 @@ var PageBuilderElementList = {
         console.log($('#element-' + $(ui.item).attr('data-unid'))); //.css('background', 'blue'); //.pagebuilderelement('updatePath');
 
         console.log(ui.item.trigger('path-changed'));
+        self.elementsChanged();
 
         // alert("sortabel stop");
         // console.log($(ui.item).parents('.pagebuilderstack'));
         // $(ui.item).parents('.pagebuilderstack').pagebuilderstack('reindexFields');
+      },
+
+      out: function out() {
+        self.elementsChanged();
       }
     });
-
     console.log('ElementList INIT');
 
     // $(this.element).on()
+  },
+
+  elementsChanged: function elementsChanged() {
+    console.log($(this.element).find('.pb-element').length);
+    if ($(this.element).find('.pb-element').length == 0) {
+      $(this.element).addClass('empty');
+    } else {
+      $(this.element).removeClass('empty');
+    }
   }
 };
-
 $.widget('ascent.pagebuilderelementlist', PageBuilderElementList);
 $.extend($.ascent.PageBuilderElementList, {});
 $(document).ready(function () {
@@ -271,7 +307,6 @@ observer.observe(document, {
   //...
 });
 
-console.log($('#pb-iframe').contents());
 // ******
 
 // ******
@@ -530,6 +565,9 @@ var PageBuilder = {
     });
     $(elm).on('create-element', function (e, context) {
       console.log(context);
+
+      // return;
+
       $('#element-picker').modal();
       $('#element-picker').one('click', 'a', function (e) {
         e.preventDefault();
@@ -811,10 +849,10 @@ var PageBuilder = {
       }
     }).done(function (data) {
       console.log('OK', data);
-      // if($(context).hasClass('.pb-element')) {
-      // $(context).after(data);
-      // }
-
+      console.log('context', context);
+      if ($(context).hasClass('.pb-element')) {
+        $(context).after(data);
+      }
       if ($(context).hasClass('pb-elementlist')) {
         console.log('appending');
         $(context).append(data);

@@ -37,7 +37,7 @@ body.pb-display form {
 }
 
 .pb-element {
-    outline: 1px solid rgba(255,255,255, 0.5);;
+    /* outline: 1px solid rgba(255,255,255, 0.5);; */
     position: relative;
         /* 1px solid white; */
     /* padding: 5px; */
@@ -46,13 +46,53 @@ body.pb-display form {
     /* margin: 5px 0; */
 }
 
+.pb-elementlist {
+    /* padding: 5px; */
+    min-height: 1rem;
+}
+
+
+
+.pb-elementlist.empty {
+    background: #ececec;
+} 
+
+.pb-elementlist.empty:after {
+    content: "I'm empty - double click to add content";
+    padding: 0.5rem;
+    opacity: 0.5;
+    text-align: center;
+    display: block;
+}
+
+/* .pb-elementlist { 
+    min-height: 50px;
+    background: pink;
+} */
+
+/* .pb-elementlist:has(.pb-element) {
+    min-height: auto;
+    background: none;
+} */
+
+.pb-element {
+    border-bottom: 1px solid rgba(255,255,255,0.4);
+}
+
 .pb-element:before {
     content: '';
-    border: 1px dashed rgba(0,0,0, 0.5);
+    /* border: 1px dashed rgba(0,0,0, 0.5); */
     position: absolute;
     inset: -1px;
     z-index: 2;
     pointer-events: none;
+
+    border-bottom:    1px dashed rgba(0,0,0, 0.2); 
+
+}
+
+.pb-element .wysiwyg-editor.active [contenteditable] {
+    outline: none !important;
 }
 
 .pb-element .pb-element-label a {
@@ -65,6 +105,7 @@ body.pb-display form {
 }
 
 .pb-elementlist .pb-elementlist {
+    height: 100%;
     border: 1px solid white;
     position: relative;
 }
@@ -92,8 +133,10 @@ body.pb-display form {
 /* , .pb-element:has(.moused) > .pb-element-label { */
     display: block;
  
-    /* position: fixed; */
-    /* top:0; */
+    /* position: sticky; */
+    /* top:-20px; */
+    /* position: absolute; */
+    /* top: -1rem; */
 }
 
 .pb-elementlist:empty:after {
@@ -109,7 +152,7 @@ body.pb-display form {
 }
 
 
-.pb-columns {
+.pb-columns > .pb-elementlist {
     display:grid; 
     gap: 1rem; 
     grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); 

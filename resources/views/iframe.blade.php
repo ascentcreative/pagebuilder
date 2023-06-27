@@ -42,108 +42,32 @@ if(is_null($value)) {
             // 's' => [],
             'e' => [
                 uniqid() => [
-                    uniqid() => [
-                        't'=>'section',
-                        'o'=>[],
-                        's' => [
-                            'padding_top' => '20px',
-                            'padding_bottom' => '20px',
-                            // 'border' => '1px solid #ccc',
-                        ],
-                        'e' => [
-                            uniqid() => [
-                                uniqid() => [
-                                    't'=>'text',
-                                    's' => [],
-                                    'tag' => 'h1',
-                                    'content' => 'Lorem ipsum...',
-                                ],
-                            ],
-                            uniqid() => [
-                                uniqid() => [
-                                    't'=>'text',
-                                    's' => [],
-                                    'tag' => 'h1',
-                                    'content' => 'Col 2 ipsum...',
-                                ],
-                            ]
-                        ]
+                    't'=>'section',
+                    'o'=>[],
+                    's' => [
+                        'padding_top' => '20px',
+                        'padding_bottom' => '20px',
+                        // 'border' => '1px solid #ccc',
                     ],
+                    'e' => [
+                        
+                        uniqid() => [
+                            't'=>'text',
+                            's' => [],
+                            'tag' => 'h1',
+                            'content' => 'Lorem ipsum...',
+                        ],
+                        
+                        uniqid() => [
+                            't'=>'text',
+                            's' => [],
+                            'tag' => 'h1',
+                            'content' => 'Col 2 ipsum...',
+                        ],
+                        
+                    ]
                 ],
-                // uniqid() => [
-                //     't'=>'section',
-                //     'o'=>[],
-                //     's' => [
-                //         'padding' => '20px',
-                //         'border' => '1px solid #ccc',
-                //     ],
-                //     'e'=>[
-                //         uniqid() => [
-                //             't'=>'columns',
-                //             'e'=>[
-                //                 uniqid()=>[
-                //                     't'=>'column',
-                //                     'e'=>[
-                //                         uniqid() => [
-                //                             't'=>'htmltag',
-                //                             's' => [],
-                //                             'tag' => 'h1',
-                //                             'content' => 'Some Text',
-                //                         ],
-                //                     ],
-                //                 ],      
-                //                 uniqid()=>[
-                //                     't'=>'column',
-                //                     'e'=>[],
-                //                 ],
-                //                 uniqid()=>[
-                //                     't'=>'column',
-                //                     'e'=>[],
-                //                 ]
-                //             ]
-                //         ]
-                //     ]
-                // ],
-                // uniqid() => [
-                //     't'=>'section',
-                //     'o'=>[],
-                //     's' => [
-                //         'padding' => '20px',
-                //         'border' => '1px solid #ccc',
-                //     ],
-                //     'e'=>[
-                //     ]
-                // ],
-                // uniqid() => [
-                //     't'=>'section',
-                //     'o'=>[],
-                //     's' => [
-                //         'padding' => '20px',
-                //         'border' => '1px solid #ccc',
-                //     ],
-                //     'e'=>[
-                //         uniqid() => [
-                //             't'=>'columns',
-                //             'e'=>[
-                //                 uniqid()=>[
-                //                     't'=>'column',
-                //                     'e'=>[
-                //                         uniqid() => [
-                //                             't'=>'htmltag',
-                //                             's' => [],
-                //                             'tag' => 'h1',
-                //                             'content' => 'Some Text',
-                //                         ],
-                //                     ],
-                //                 ],      
-                //                 uniqid()=>[
-                //                     't'=>'column',
-                //                     'e'=>[],
-                //                 ]
-                //             ]
-                //         ]
-                //     ]
-                // ]
+            
             ]
         ]
     ];

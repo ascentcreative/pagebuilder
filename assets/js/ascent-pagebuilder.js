@@ -43,6 +43,8 @@ var PageBuilder = {
             
             console.log(context);
 
+            // return;
+
             $('#element-picker').modal();
 
             $('#element-picker').one('click', 'a', function(e) {
@@ -402,9 +404,10 @@ var PageBuilder = {
 
         }).done(function(data) {
             console.log('OK', data);
-            // if($(context).hasClass('.pb-element')) {
-                // $(context).after(data);
-            // }
+            console.log('context', context);
+            if($(context).hasClass('.pb-element')) {
+                $(context).after(data);
+            }
 
             if($(context).hasClass('pb-elementlist')) {
                 console.log('appending');

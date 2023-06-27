@@ -9,6 +9,7 @@ $.ascent = $.ascent?$.ascent:{};
 var PageBuilderElementList = {
         
     rowCount: 0,
+    listObserver: null,
 
     _init: function () {
 
@@ -26,9 +27,34 @@ var PageBuilderElementList = {
 
         $(obj).addClass('pb-elementlist-initialised');  
 
+
+        MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+
+        this.listObserver = new MutationObserver(function(mutations, observer) {
+            console.log('change detected');
+            self.elementsChanged();
+        });
+
+        // define what element should be observed by the observer
+        // and what types of mutations trigger the callback
+        this.listObserver.observe(this.element[0], {
+            subtree: false,
+            childList: true
+        });
+    
+
+        // $(this.element).on('elements-changed', function() {
+            // self.elementsChanged();
+        // })
+
+        self.elementsChanged();
+
+
         $(this.element).sortable({
             connectWith: '.pb-elementlist-' + $(this.element).data('listtype'),
             handle: '.element-drag',
+            forcePlaceholderSize: true,
+            forceHelperSize: true,
             receive: function(event, ui) {
 
                 // let path = ''; //'content';
@@ -64,9 +90,14 @@ var PageBuilderElementList = {
 
                 console.log(ui.item.trigger('path-changed'));
 
+                self.elementsChanged();
+
                 // alert("sortabel stop");
                 // console.log($(ui.item).parents('.pagebuilderstack'));
                 // $(ui.item).parents('.pagebuilderstack').pagebuilderstack('reindexFields');
+            },
+            out: function() {
+                self.elementsChanged();
             }
         });
 
@@ -76,6 +107,15 @@ var PageBuilderElementList = {
 
         // $(this.element).on()
 
+    },
+
+    elementsChanged: function() {
+        console.log($(this.element).find('.pb-element').length);
+        if($(this.element).find('.pb-element').length == 0) {
+            $(this.element).addClass('empty');
+        } else {
+            $(this.element).removeClass('empty');
+        }
     }
 
 }
@@ -113,4 +153,3 @@ observer.observe(document, {
 });
 
 
-console.log($('#pb-iframe').contents());
