@@ -207,15 +207,17 @@ var PageBuilderElement = {
         fields.each(function(idx) {
             let fld = fields[idx];
             // console.log(fld);
+            
+            if($(fld).attr('name')) {
+                console.log('old name: ', $(fld).attr('name'));
 
-            console.log('old name: ', $(fld).attr('name'));
+                let split = $(fld).attr('name').split($(element).data('unid'));
+                console.log(split);
+                split[0] = path + '[';
+                $(fld).attr('name', split.join($(element).data('unid')));
 
-            let split = $(fld).attr('name').split($(element).data('unid'));
-            console.log(split);
-            split[0] = path + '[';
-            $(fld).attr('name', split.join($(element).data('unid')));
-
-            console.log('new name: ', $(fld).attr('name'));
+                console.log('new name: ', $(fld).attr('name'));
+            }
         });
 
 

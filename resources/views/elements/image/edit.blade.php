@@ -5,14 +5,14 @@
 @endphp
 
 @section('content')
-    <div class="image-element" style="{{ $style }}">
-        <div class="image-element-image">
+    {{-- <div class="image-element" style="{{ $style }}"> --}}
+        {{-- <div class="image-element-image"> --}}
             @if($value->image->hashed_filename ?? false)
-                <img src="/image/max/{{ $value->image->hashed_filename }}" class="preview"/>
+                <img src="/image/max/{{ $value->image->hashed_filename }}" class="preview image-element" style="{{ $inner_style ?? '' }}"/>
             @endif
-        </div>
+        {{-- </div> --}}
         <x-files-fields-fileupload :value="$value->image ?? ''" placeholder="Enter some text" label="" wrapper="none" name="{{$path}}[image]" />
-    </div>
+    {{-- </div> --}}
 @overwrite
 
 {{-- @once

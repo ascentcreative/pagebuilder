@@ -17,6 +17,8 @@ class Element extends Component
 
     public $style;
 
+    public $inner_style;
+
     public $element;
 
     public $mode;
@@ -63,6 +65,15 @@ class Element extends Component
         // dump($styles);
 
         $this->style = $styles->transform(function($item, $key) {
+            if(trim($item) != '') {
+                return str_replace("_", '-', $key) . ': ' . $item;
+            }
+        })->join('; ');
+
+
+        $innerstyles = collect($value->i ?? []);
+      
+        $this->inner_style = $innerstyles->transform(function($item, $key) {
             if(trim($item) != '') {
                 return str_replace("_", '-', $key) . ': ' . $item;
             }

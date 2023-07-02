@@ -5,9 +5,9 @@
 @endphp
 
 @section('content')
-    <section style="display: flex; {{ $style }}">    
+    {{-- <section style="display: flex; {{ $style }}">     --}}
         <div class="centralise">
             @include('pagebuilder::elements')
         </div>
-    </section>
+    {{-- </section> --}}
 @overwrite

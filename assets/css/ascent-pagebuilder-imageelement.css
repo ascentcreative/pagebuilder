@@ -2,13 +2,22 @@
     content: 'Click to insert image';
 }
 
-.image-element .fileupload {
+.pb-element.pb-image .fileupload {
     display:none;
 }
 
-.image-element-image img {
+.pb-element.pb-image {
+    height: 100%;
+}
+
+img.image-element {
     display: block;
     max-width: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
+
+
 
 

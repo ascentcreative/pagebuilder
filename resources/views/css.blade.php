@@ -8,6 +8,7 @@
 
 
             $styles = collect($element->s ?? []);
+            $innerstyles = collect($element->i ?? []);
             $options = collect($element->o ?? []);
 
 
@@ -39,11 +40,33 @@
                 }
             })->filter()->join('; ');
 
+           
+
         @endphp
 
         position: relative;
         {{-- border: 1px solid transparent; --}}
-        {!! $style !!}
+        {!! $style !!};
+
+        @isset($options['custom_css'])
+            {!! $options['custom_css'] !!}
+        @endisset
+       
+
+    }
+
+    #{{$id}}-inner {
+
+        @php 
+         $innerstyle = $innerstyles->transform(function($item, $key) use ($ignore) {
+                if($item != '' && in_array($key, $ignore) === false) {
+                    return str_replace("_", '-', $key) . ': ' . $item;
+                } else {
+                    return null;
+                }
+            })->filter()->join('; ');
+        @endphp
+         {!! $innerstyle !!}
 
     }
 

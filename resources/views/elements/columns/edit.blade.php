@@ -15,6 +15,10 @@
 
 @endphp
 
+@php
+    $formclass = \AscentCreative\PageBuilder\Forms\ColumnsSettings::class;
+@endphp
+
 @section('content')
     {{-- @dd($value) --}}
     @include('pagebuilder::elements', ['listtype'=>'columns'])

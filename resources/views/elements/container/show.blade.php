@@ -1,9 +1,10 @@
 @extends('pagebuilder::components.element.show')
 
 @section('content')
-    {{-- <div class="pb-column" id="elm-{{ $unid }}-inner"> --}}
+    <div id="elm-{{ $unid }}-innerr" xstyle="display: flex; flex-direction: column;">
         @isset($value->e)
             @include('pagebuilder::render.elements', ['elements'=>$value->e, 'unid'=>$unid])
         @endisset
-    {{-- </div> --}}
+    </div>
+    
 @overwrite

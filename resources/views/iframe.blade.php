@@ -168,7 +168,7 @@ $name = 'content'
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
-<body class="pb-display">
+<body class="pb-edit">
 
     <form method="post" action="/admin/pagebuilder/iframe">
         @csrf

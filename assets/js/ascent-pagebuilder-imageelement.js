@@ -33,7 +33,8 @@ var ImageElement = {
             $(this.element).addClass('empty');
         }
 
-        $(this.element).on('dblclick', '.image-element-image', function() {
+        $(this.element).on('dblclick', function() {
+            console.log(self.element);
             $(self.element).find('.fileupload').fileupload('start');
         });
         // 
@@ -48,11 +49,11 @@ var ImageElement = {
             console.log(e);
             
             let holder = $(self.element).find('.image-element-image');
-            let img = $(holder).find('img');
+            let img = $(self.element).find('img.image-element');
 
             if(img.length == 0) {
-                img = $('<IMG src="" class="preview">');
-                $(holder).append(img);
+                img = $('<IMG src="" class="preview image-element">');
+                $(self.element).append(img);
                 $(self.element).removeClass('empty');
             }
 
@@ -81,7 +82,7 @@ $.extend($.ascent.ImageElement, {
 
 $(document).ready(function() {
     console.log('init PB Image Element');
-    $('.image-element').not('.image-element-initialised').imageelement();
+    $('.pb-image').not('.image-element-initialised').imageelement();
 });
 
 
@@ -92,7 +93,7 @@ var observer = new MutationObserver(function(mutations, observer) {
     // fired when a mutation occurs
     // console.log(mutations, observer);
     // ...
-    $('.image-element').not('.image-element-initialised').imageelement();
+    $('.pb-image').not('.image-element-initialised').imageelement();
 });
 
 // define what element should be observed by the observer

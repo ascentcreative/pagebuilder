@@ -1,5 +1,5 @@
 <div class="pb-element pb-{{ $value->t }} {{ $value->o->class ?? ''}}" 
-    style="position: relative; "
+    style="position: relative; {{ $style ?? '' }}"
     data-unid="{{ $unid }}"
     id="element-{{ $unid }}"
     >
@@ -9,21 +9,8 @@
             <a href="#" class="bi-arrow-90deg-up xbi-arrow-up-square pr-1 pbe-selparent"></a>
             <span>{{ $value->t }}</span>
 
-            <div class="dropdown">
-               
-                <a href="#" class="pbe-addchild bi-plus-square pl-2 dropdown-toggle" id="pbe-addchild-{{ $unid }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
-                {{-- <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Dropdown button
-                </button> --}}
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </div>
+            <a href="#" class="pbe-addchild bi-plus-square pl-2" id="pbe-addchild-{{ $unid }}" aria-haspopup="true" aria-expanded="false"></a>
 
-
-            
             <a href="#" class="pbe-settings bi-gear-fill pl-2"></a>
             <a href="#" class="pbe-delete bi-trash pl-2" id="pbe-delete-{{ $unid }}"></a>
             <span class="element-drag bi-arrows-move pl-2"></a>

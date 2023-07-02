@@ -20,7 +20,6 @@
 
     {{-- @dump($content) --}}
 
-
     @include('pagebuilder::render.elements', ['elements' => $content])
 
 @endisset

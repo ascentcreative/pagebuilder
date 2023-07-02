@@ -29,12 +29,24 @@ class ImageSettings extends Form {
                     Tab::make('tab_layout', 'Layout')
                         ->children([
 
-                            ValueWithUnits::make($name . '[s][max_width]', 'Width', ['px', '%'])
+                            ValueWithUnits::make($name . '[s][width]', 'Width', ['px', '%'])
                                 ->description('The width of the screen to use for the image. Leave blank to match the container size. <br/>
                                 <strong>Examples:<br/></strong>
                                 <code>100%</code> will use the full screen width.<br/>
                                 <code>500px</code> will use the central 500px of the screen (or shrink if narrower)'),
 
+                            ValueWithUnits::make($name . '[s][height]', 'Height', ['px', '%'])
+                                ->description('The width of the screen to use for the image. Leave blank to match the container size. <br/>
+                                <strong>Examples:<br/></strong>
+                                <code>100%</code> will use the full screen width.<br/>
+                                <code>500px</code> will use the central 500px of the screen (or shrink if narrower)'),
+
+                            Options::make($name . '[i][object_fit]', 'Display')
+                                ->options([
+                                    'contain'=>'Scale to fit',
+                                    'fill'=>'Stretch to fit',
+                                    'cover'=>'Crop to fit',
+                                ]),
                           
 
                         ]),

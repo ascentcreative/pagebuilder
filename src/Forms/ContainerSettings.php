@@ -6,7 +6,8 @@ use AscentCreative\Forms\Form;
 use AscentCreative\Forms\Fields\Input;
 use AscentCreative\Forms\Fields\Colour;
 use AscentCreative\Forms\Fields\Checkbox;
-use AscentCreative\Forms\Fields\FileUpload;
+// use AscentCreative\Forms\Fields\FileUpload;
+use AscentCreative\Files\Fields\FileUpload;
 use AscentCreative\Forms\Fields\Options;
 use AscentCreative\Forms\Fields\CompoundDate;
 use AscentCreative\Forms\Structure\Tabs;
@@ -42,7 +43,7 @@ class ContainerSettings extends Form {
                                     })->toArray()
                                 )->includeNullItem(false),
 
-                            ValueWithUnits::make($name . '[styles][max_width]', 'Width', ['px', '%'])
+                            ValueWithUnits::make($name . '[s][max_width]', 'Width', ['px', '%'])
                                 ->description('The width of the screen to use for the content. Leave blank for the default centralised portion, or enter values in % or px. <br/>
                                 <strong>Examples:<br/></strong>
                                 <code>100%</code> will use the full screen width.<br/>
@@ -58,13 +59,13 @@ class ContainerSettings extends Form {
                                         ->children([
                                             HTML::make('<div style="flex-grow: 1">', '</div>')
                                                 ->children([
-                                                    ValueWithUnits::make($name . '[styles][padding_top]', 'Top', ['px', '%', 'em']),
-                                                    ValueWithUnits::make($name . '[styles][padding_bottom]', 'Bottom', ['px', '%', 'em']),
+                                                    ValueWithUnits::make($name . '[s][padding_top]', 'Top', ['px', '%', 'em']),
+                                                    ValueWithUnits::make($name . '[s][padding_bottom]', 'Bottom', ['px', '%', 'em']),
                                                 ]),
                                             HTML::make('<div style="flex-grow: 1">', '</div>')
                                                 ->children([
-                                                    ValueWithUnits::make($name . '[styles][padding_left]', 'Left', ['px', '%', 'em']),
-                                                    ValueWithUnits::make($name . '[styles][padding_right]', 'Right', ['px', '%', 'em']),
+                                                    ValueWithUnits::make($name . '[s][padding_left]', 'Left', ['px', '%', 'em']),
+                                                    ValueWithUnits::make($name . '[s][padding_right]', 'Right', ['px', '%', 'em']),
                                                 ])
                                         ])
                                    
@@ -75,13 +76,13 @@ class ContainerSettings extends Form {
                                         ->children([
                                             HTML::make('<div style="flex-grow: 1">', '</div>')
                                                 ->children([
-                                                    ValueWithUnits::make($name . '[styles][margin_top]', 'Top', ['px', '%', 'em']),
-                                                    ValueWithUnits::make($name . '[styles][margin_bottom]', 'Bottom', ['px', '%', 'em']),
+                                                    ValueWithUnits::make($name . '[s][margin_top]', 'Top', ['px', '%', 'em']),
+                                                    ValueWithUnits::make($name . '[s][margin_bottom]', 'Bottom', ['px', '%', 'em']),
                                                 ]),
                                             HTML::make('<div style="flex-grow: 1">', '</div>')
                                                 ->children([
-                                                    ValueWithUnits::make($name . '[styles][margin_left]', 'Left', ['px', '%', 'em']),
-                                                    ValueWithUnits::make($name . '[styles][margin_right]', 'Right', ['px', '%', 'em']),
+                                                    ValueWithUnits::make($name . '[s][margin_left]', 'Left', ['px', '%', 'em']),
+                                                    ValueWithUnits::make($name . '[s][margin_right]', 'Right', ['px', '%', 'em']),
                                                 ])
                                         ])
                                    
@@ -94,13 +95,13 @@ class ContainerSettings extends Form {
 
                             HTML::make('<div class="border p-2 mb-2"><strong>Image:</strong>', '</div>')
                                 ->children([
-                                    FileUpload::make($name . '[styles][background_image]', 'Image'),
-                                    Options::make($name . '[styles][background_size]', 'Size')
+                                    FileUpload::make($name . '[s][background_image]', 'Image'),
+                                    Options::make($name . '[s][background_size]', 'Size')
                                         ->options([
                                             'contain' => "Show the whole image",
                                             'cover' => "Fill the background"
                                         ]),
-                                    Checkbox::make($name . '[styles][background_repeat]', 'Repeat')
+                                    Checkbox::make($name . '[s][background_repeat]', 'Repeat')
                                        ->checkedValue('repeat')->uncheckedValue('no-repeat'),
 
                           
@@ -108,7 +109,7 @@ class ContainerSettings extends Form {
                             
                             HTML::make('<div class="border p-2"><strong>Colour:</strong>', '</div>')
                                 ->children([
-                                    Colour::make($name . '[styles][background_color]', 'Colour')
+                                    Colour::make($name . '[s][background_color]', 'Colour')
                                         ->manualInit(true)
                                         ->description('This colour will be behind any image specified above.'),
                                 ]),

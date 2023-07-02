@@ -153,12 +153,14 @@ var PageBuilderElement = {
       var fld = fields[idx];
       // console.log(fld);
 
-      console.log('old name: ', $(fld).attr('name'));
-      var split = $(fld).attr('name').split($(element).data('unid'));
-      console.log(split);
-      split[0] = path + '[';
-      $(fld).attr('name', split.join($(element).data('unid')));
-      console.log('new name: ', $(fld).attr('name'));
+      if ($(fld).attr('name')) {
+        console.log('old name: ', $(fld).attr('name'));
+        var split = $(fld).attr('name').split($(element).data('unid'));
+        console.log(split);
+        split[0] = path + '[';
+        $(fld).attr('name', split.join($(element).data('unid')));
+        console.log('new name: ', $(fld).attr('name'));
+      }
     });
   }
 };
@@ -327,7 +329,8 @@ var ImageElement = {
     if ($(this.element).find('img.preview').length == 0) {
       $(this.element).addClass('empty');
     }
-    $(this.element).on('dblclick', '.image-element-image', function () {
+    $(this.element).on('dblclick', function () {
+      console.log(self.element);
       $(self.element).find('.fileupload').fileupload('start');
     });
     // 
@@ -339,10 +342,10 @@ var ImageElement = {
     $(this.element).on('upload-complete', function (e) {
       console.log(e);
       var holder = $(self.element).find('.image-element-image');
-      var img = $(holder).find('img');
+      var img = $(self.element).find('img.image-element');
       if (img.length == 0) {
-        img = $('<IMG src="" class="preview">');
-        $(holder).append(img);
+        img = $('<IMG src="" class="preview image-element">');
+        $(self.element).append(img);
         $(self.element).removeClass('empty');
       }
       console.log('hldr', holder);
@@ -358,14 +361,14 @@ $.widget('ascent.imageelement', ImageElement);
 $.extend($.ascent.ImageElement, {});
 $(document).ready(function () {
   console.log('init PB Image Element');
-  $('.image-element').not('.image-element-initialised').imageelement();
+  $('.pb-image').not('.image-element-initialised').imageelement();
 });
 MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 var observer = new MutationObserver(function (mutations, observer) {
   // fired when a mutation occurs
   // console.log(mutations, observer);
   // ...
-  $('.image-element').not('.image-element-initialised').imageelement();
+  $('.pb-image').not('.image-element-initialised').imageelement();
 });
 
 // define what element should be observed by the observer
