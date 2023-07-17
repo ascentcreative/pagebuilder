@@ -102,18 +102,18 @@ body.pb-display form {
 } */
 
 .pb-edit .pb-element {
-    border-bottom: 1px solid rgba(255,255,255,0.4);
+    /* border-bottom: 1px solid rgba(255,255,255,0.4); */
 }
 
 .pb-edit .pb-element:before {
     content: '';
     /* border: 1px dashed rgba(0,0,0, 0.5); */
     position: absolute;
-    inset: -1px;
+    inset: 0px;
     z-index: 2;
     pointer-events: none;
 
-    border-bottom:    1px dashed rgba(0,0,0, 0.2); 
+    /* outline:    1px dashed rgba(0,0,0, 0.2);  */
 
 }
 
@@ -138,21 +138,22 @@ body.pb-display form {
 }
 
 .pb-edit  .pb-element:hover, .pb-element:has(:focus) {
-    background: rgba(0,0,0,0.02);
+    /* background: rgba(0,0,0,0.02); */
     /* outline: 1px dashed rgba(0,0,0,0.5); */
 }
 
 .pb-edit .pb-elementlist .pb-elementlist {
     height: 100%;
-    border: 1px solid white;
+    outline: 1px solid white;
     position: relative;
+    z-index: 2;
 }
 
 .pb-edit .pb-elementlist .pb-elementlist:before {
     content: '';
-    border: 1px dashed rgba(0,0,0, 0.5);
+    outline: 1px dashed rgb(128, 128, 128);
     position: absolute;
-    inset: -1px;
+    inset: 0px;
     z-index: 2;
     pointer-events: none;
 }
