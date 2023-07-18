@@ -10,7 +10,7 @@ class ThirdPartyCode extends AbstractDescriptor {
 
     public static $bladePath = 'third-party-code';
 
-    public static $description = "Code from a third-party site - such as YouTube video embed code";
+    public static $description = "Code from a third-party site - often used for embedded content";
 
     public static $category = "General";
 
