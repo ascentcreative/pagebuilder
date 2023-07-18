@@ -10,7 +10,7 @@ class Container extends AbstractDescriptor {
 
     public static $bladePath = 'container';
 
-    public static $description = "Containerr Block";
+    public static $description = "Container Block";
 
     public static $category = "Structure";
 

@@ -166,6 +166,7 @@ $name = 'content'
 
 <head>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @stack('styles')
 </head>
 
 <body class="pb-edit">
@@ -235,7 +236,7 @@ $name = 'content'
 
     @stack('lib')
     @stack('scripts')
-    @stack('styles')
+    {{-- @stack('styles') --}}
 
 
     <script>

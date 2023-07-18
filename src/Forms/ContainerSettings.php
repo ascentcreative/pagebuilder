@@ -90,30 +90,12 @@ class ContainerSettings extends Form {
 
                            
                         ]),
-                    Tab::make('tab_bg', 'Background')
-                        ->children([
+                    
 
-                            HTML::make('<div class="border p-2 mb-2"><strong>Image:</strong>', '</div>')
-                                ->children([
-                                    FileUpload::make($name . '[s][background_image]', 'Image'),
-                                    Options::make($name . '[s][background_size]', 'Size')
-                                        ->options([
-                                            'contain' => "Show the whole image",
-                                            'cover' => "Fill the background"
-                                        ]),
-                                    Checkbox::make($name . '[s][background_repeat]', 'Repeat')
-                                       ->checkedValue('repeat')->uncheckedValue('no-repeat'),
-
-                          
+                        Tab::make('tab_bg', 'Background')
+                            ->children([
+                                Subforms\Background::make($name)
                             ]),
-                            
-                            HTML::make('<div class="border p-2"><strong>Colour:</strong>', '</div>')
-                                ->children([
-                                    Colour::make($name . '[s][background_color]', 'Colour')
-                                        ->manualInit(true)
-                                        ->description('This colour will be behind any image specified above.'),
-                                ]),
-                        ]),
                 ]),
             
         ]);

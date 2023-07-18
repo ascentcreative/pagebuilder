@@ -16,6 +16,8 @@ use AscentCreative\Forms\Structure\Tab;
 use AscentCreative\Forms\Structure\HTML;
 use AscentCreative\Forms\Fields\ValueWithUnits;
 
+use AscentCreative\PageBuilder\Forms\Subforms\Background;
+
 use Illuminate\Support\Arr;
 
 class SectionSettings extends Form {
@@ -96,41 +98,7 @@ class SectionSettings extends Form {
 
                     Tab::make('tab_bg', 'Background')
                         ->children([
-                            HTML::make('<div class="border p-2 mb-2"><strong>Image:</strong>', '</div>')
-                                ->children([
-                                    FileUpload::make($name . '[s][background_image]', 'Image'),
-
-                                    Options::make($name . '[s][background_size]', 'Size')
-                                        ->options([
-                                            'contain' => "Show the whole image",
-                                            'cover' => "Fill the background"
-                                        ])->default('cover'),
-                                    Checkbox::make($name . '[o][parallax]', 'Parallax?')
-                                       ->checkedValue('1')->uncheckedValue('0')
-                                       ->description('Scrolls the background image at a different speed to the main page (no effect on mobile)'),
-                                    Checkbox::make($name . '[s][background_repeat]', 'Repeat?')
-                                       ->checkedValue('repeat')->uncheckedValue('no-repeat'),
-                                    Options::make($name . '[s][background_position]', 'Position')
-                                       ->options([
-                                           'center' => "Center",
-                                           'top' => "Top",
-                                           'bottom' => "Bottom",
-                                       ])->default('center'),
-                                    // Checkbox::make($name . '[options][curtain]', 'Darken?')
-                                    //    ->description('Darken the image so text will show more clearly')
-                                    //    ->checkedValue(1)->uncheckedValue(0),
-                                    // Checkbox::make($name . '[options][parallax]', 'Parallax?')
-                                    //    ->description('If checked, the image will scroll at a different rate to the rest of the page. Image position will change.')
-                                    //    ->checkedValue(1)->uncheckedValue(0),
-                            ]),
-
-                            HTML::make('<div class="border p-2"><strong>Colour:</strong>', '</div>')
-                                ->children([
-                                    Colour::make($name . '[s][background_color]', 'Colour')
-                                        ->manualInit(true)
-                                        ->description('The colour will be behind any image specified above.'),
-                                ]),
-                            
+                            Background::make($name)
                         ]),
 
                     Tab::make('tab_adv', 'Advanced')
