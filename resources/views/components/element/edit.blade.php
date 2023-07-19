@@ -5,7 +5,6 @@
     >
 
     <div class="pb-element-label">
-        {{-- <div class="d-flex"> --}}
             <a href="#" class="bi-arrow-90deg-up xbi-arrow-up-square pbe-selparent"></a>
             <span>{{ $value->t }}</span>
 
@@ -14,7 +13,6 @@
             <a href="#" class="pbe-settings bi-gear-fill"></a>
             <a href="#" class="pbe-delete bi-trash" id="pbe-delete-{{ $unid }}"></a>
             <span class="element-drag bi-arrows-move"></a>
-        {{-- </div> --}}
     </div>
 
     <div class="pb-element-settings">

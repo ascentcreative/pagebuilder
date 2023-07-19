@@ -114,6 +114,12 @@ var PageBuilderElement = {
     //         // $(ui).css('background', 'blue');
     //     }
     // });
+
+    var elmlist = $(this.element).find('.pb-elementlist').first();
+    if (elmlist.length > 0) {
+      $(this.element).addClass('has-elementlist');
+    }
+    // console.log($(this.element).attr('class'), elmlist);
   },
 
   select: function select() {
@@ -125,14 +131,12 @@ var PageBuilderElement = {
     alert('callback');
   },
   updatePath: function updatePath() {
-    console.log('update path');
     var elmlist = $(this.element).parents('.pb-elementlist').first();
     var element = this.element;
     var path = ''; //'content';
     // let parents = $(elmlist).parents(".pb-element");
 
     var parents = $(this.element).parents(".pb-element, .pb-column");
-    console.log(parents);
     parents.each(function (idx) {
       var elm = parents[idx];
       if ($(elm).hasClass('pb-element')) {
@@ -144,11 +148,8 @@ var PageBuilderElement = {
       path = segment + path;
     });
     path = 'content' + path;
-    console.log('path: ', path);
     var fields = $(element).find('INPUT, SELECT, TEXTAREA');
     var unid = $(element).data('unid');
-    console.log($(element).data());
-    console.log('unid = ', unid);
     fields.each(function (idx) {
       var fld = fields[idx];
       // console.log(fld);

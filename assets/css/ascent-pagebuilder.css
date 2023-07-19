@@ -28,6 +28,14 @@ body.pb-display form {
 
 }
 
+.pbe-addchild {
+    display: none;
+}
+
+.pb-element.has-elementlist > .pb-element-label > .pbe-addchild {
+    display: initial;
+}
+
 .pb-element.selected {
     outline: 3px solid lightskyblue !important;
    

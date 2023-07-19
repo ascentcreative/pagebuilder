@@ -154,6 +154,11 @@ var PageBuilderElement = {
         //     }
         // });
 
+        let elmlist = $(this.element).find('.pb-elementlist').first();
+        if(elmlist.length > 0) {
+            $(this.element).addClass('has-elementlist');
+        }
+        // console.log($(this.element).attr('class'), elmlist);
 
     },
 
@@ -169,8 +174,6 @@ var PageBuilderElement = {
 
     updatePath: function() {
 
-        console.log('update path');
-
         let elmlist = $(this.element).parents('.pb-elementlist').first();
 
         let element = this.element;
@@ -179,8 +182,6 @@ var PageBuilderElement = {
         // let parents = $(elmlist).parents(".pb-element");
         
         let parents = $(this.element).parents(".pb-element, .pb-column");
-
-        console.log(parents);
 
         parents.each(function(idx) {
             let elm = parents[idx];
@@ -194,15 +195,9 @@ var PageBuilderElement = {
         });
         path = 'content' + path;
 
-        console.log('path: ', path);
-
         let fields = $(element).find('INPUT, SELECT, TEXTAREA');
 
         let unid = $(element).data('unid');
-
-        console.log($(element).data());
-
-        console.log('unid = ', unid);
         
         fields.each(function(idx) {
             let fld = fields[idx];
