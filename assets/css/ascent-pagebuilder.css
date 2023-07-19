@@ -149,19 +149,13 @@ body.pb-display form {
 }
 
 .pb-element.moused {
-    outline-color: orange;
-    outline-width: 2px;
-    /* outline-offset: -1px; */
+    outline: 2px solid orange;
+    outline-offset: -2px;;
 }
 
 .pb-element.selected > .pb-element-label { 
-/* , .pb-element:has(.moused) > .pb-element-label { */
-    display: block;
- 
-    /* position: sticky; */
-    /* top:-20px; */
-    /* position: absolute; */
-    /* top: -1rem; */
+    display: flex;
+    gap: 0.5rem;
 }
 
 .pb-elementlist:empty:after {
