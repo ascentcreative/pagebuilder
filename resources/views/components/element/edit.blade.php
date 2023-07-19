@@ -5,16 +5,16 @@
     >
 
     <div class="pb-element-label">
-        <div class="d-flex">
-            <a href="#" class="bi-arrow-90deg-up xbi-arrow-up-square pr-1 pbe-selparent"></a>
+        {{-- <div class="d-flex"> --}}
+            <a href="#" class="bi-arrow-90deg-up xbi-arrow-up-square pbe-selparent"></a>
             <span>{{ $value->t }}</span>
 
-            <a href="#" class="pbe-addchild bi-plus-square pl-2" id="pbe-addchild-{{ $unid }}" aria-haspopup="true" aria-expanded="false"></a>
+            <a href="#" class="pbe-addchild bi-plus-square" id="pbe-addchild-{{ $unid }}" aria-haspopup="true" aria-expanded="false"></a>
 
-            <a href="#" class="pbe-settings bi-gear-fill pl-2"></a>
-            <a href="#" class="pbe-delete bi-trash pl-2" id="pbe-delete-{{ $unid }}"></a>
-            <span class="element-drag bi-arrows-move pl-2"></a>
-        </div>
+            <a href="#" class="pbe-settings bi-gear-fill"></a>
+            <a href="#" class="pbe-delete bi-trash" id="pbe-delete-{{ $unid }}"></a>
+            <span class="element-drag bi-arrows-move"></a>
+        {{-- </div> --}}
     </div>
 
     <div class="pb-element-settings">
