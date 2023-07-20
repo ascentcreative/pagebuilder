@@ -63,9 +63,9 @@ var PageBuilderStack = {
             $(this.element).change();
         });
 
-        $(this.element).on('show.bs.modal', function(e) {
-            alert('incoming Modal!')
-        });
+        // $(this.element).on('show.bs.modal', function(e) {
+        //     alert('incoming Modal!')
+        // });
 
         $(this.element).on('click', '.pb-block-empty', function() {
             self.addBlock(this);

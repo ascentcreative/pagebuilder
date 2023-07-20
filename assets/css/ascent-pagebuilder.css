@@ -72,6 +72,11 @@ body.pb-display form {
 }
 
 
+.pb-stack .modal {
+    display: block !important;
+    opacity: 1 !important;
+}
+
 
 .pb-elementlist.empty {
     background: #ececec;

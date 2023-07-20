@@ -1,7 +1,7 @@
 <div class="pb-element pb-{{ $value->t }} {{ $value->o->class ?? ''}}" 
     style="position: relative; {{ $style ?? '' }}"
     data-unid="{{ $unid }}"
-    id="element-{{ $unid }}"
+    id="elm-{{ $unid }}"
     >
 
     <div class="pb-element-label">
@@ -10,7 +10,7 @@
 
             <a href="#" class="pbe-addchild bi-plus-square" id="pbe-addchild-{{ $unid }}" aria-haspopup="true" aria-expanded="false"></a>
 
-            <a href="#" class="pbe-settings bi-gear-fill"></a>
+            <a href="#" class="pbe-settings bi-gear-fill" data-toggle="modal" data-target="#settings{{ $unid }}"></a>
             <a href="#" class="pbe-delete bi-trash" id="pbe-delete-{{ $unid }}"></a>
             <span class="element-drag bi-arrows-move"></a>
     </div>
@@ -18,7 +18,7 @@
     <div class="pb-element-settings">
 
         {{-- NB - not a FORM modal as the form start and end tags interfere with the submission of updated values. --}}
-        <x-cms-modal modalid="form-modal" 
+        <x-cms-modal modalid="settings{{ $unid }}" 
             title="{{ $value->t }} Settings"
         >
           

@@ -59,6 +59,11 @@ Route::middleware(['web'])->group(function() {
             return view('pagebuilder::make.element');
         });
 
+
+        Route::post('/pagebuilder/refreshcss', function() {
+            // dump(request()->content);
+            return renderPageCSS(json_decode(json_encode(request()->content)));
+        });
     
 
     });

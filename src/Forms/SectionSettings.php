@@ -32,13 +32,13 @@ class SectionSettings extends Form {
                     Tab::make('tab_layout', 'Layout')
                         ->children([
 
-                            // ValueWithUnits::make($name . '[styles][max_width]', 'Width', ['px', '%'])
-                            //     ->description('The width of the screen to use for the content. Leave blank for the default centralised portion, or enter values in % or px. <br/>
-                            //     <strong>Examples:<br/></strong>
-                            //     <code>100%</code> will use the full screen width.<br/>
-                            //     <code>500px</code> will use the central 500px of the screen (or shrink if narrower)'),
+                            ValueWithUnits::make($name . '[i][max_width]', 'Content Width', ['px', '%'])
+                                ->description('The width of the screen to use for the content. Leave blank for the default centralised portion, or enter values in % or px. <br/>
+                                <strong>Examples:<br/></strong>
+                                <code>100%</code> will use the full screen width.<br/>
+                                <code>500px</code> will use the central 500px of the screen (or shrink if narrower)'),
 
-                            Input::make($name . '[o][class]', 'Template'),
+                            // Input::make($name . '[o][class]', 'Template'),
 
                             ValueWithUnits::make($name . '[s][min_height]', 'Height', ['px', 'vh']),
                                 // ->description('The width of the screen to use for the content. Leave blank for the default centralised portion, or enter values in % or px. <br/>

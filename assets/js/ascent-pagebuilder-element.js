@@ -43,6 +43,10 @@ var PageBuilderElement = {
         $(this.element).on('click', '.pbe-settings', function(e) {
 
             console.log($(obj).find('.pb-element-settings .modal')[0]); //.find('.pb-element-settings .modal')[0]);
+
+            // $(obj).find('.pb-element-settings .modal').first().modal('show');
+
+
             
             parent.$('.pagebuilder').trigger('show-modal', [$(obj).find('.pb-element-settings .modal')[0]]);
             e.preventDefault();

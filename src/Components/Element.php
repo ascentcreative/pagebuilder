@@ -64,20 +64,20 @@ class Element extends Component
 
         // dump($styles);
 
-        $this->style = $styles->transform(function($item, $key) {
-            if(trim($item) != '') {
-                return str_replace("_", '-', $key) . ': ' . $item;
-            }
-        })->join('; ');
+        // $this->style = $styles->transform(function($item, $key) {
+        //     if(trim($item) != '') {
+        //         return str_replace("_", '-', $key) . ': ' . $item;
+        //     }
+        // })->join('; ');
 
 
-        $innerstyles = collect($value->i ?? []);
+        // $innerstyles = collect($value->i ?? []);
       
-        $this->inner_style = $innerstyles->transform(function($item, $key) {
-            if(trim($item) != '') {
-                return str_replace("_", '-', $key) . ': ' . $item;
-            }
-        })->join('; ');
+        // $this->inner_style = $innerstyles->transform(function($item, $key) {
+        //     if(trim($item) != '') {
+        //         return str_replace("_", '-', $key) . ': ' . $item;
+        //     }
+        // })->join('; ');
 
         // dump($this->styles);
 

@@ -136,26 +136,26 @@ $name = 'content'
     {{-- @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-block.js') --}}
 
     <script>
-        $(document).on('show.bs.modal', function(e) {
-            // alert('modal');
+        // $(document).on('show.bs.modal', function(e) {
+        //     // alert('modal');
 
-            console.log(e);
+        //     // console.log(e);
 
-            let clone = $(e.target).clone(true); 
+        //     // let clone = $(e.target).clone(true); 
 
-            clone.addClass('modal-clone');
+        //     // clone.addClass('modal-clone');
 
-            parent.$('body').append(clone);
+        //     // parent.$('body').append(clone);
             
-            parent.$('body').find('.modal-clone').on('hidden.bs.modal', function() {
-                alert('proxy hidden');
-            }).modal(); //.modal('show'); //.show().addClass('show');
+        //     // parent.$('body').find('.modal-clone').on('hidden.bs.modal', function() {
+        //     //     alert('proxy hidden');
+        //     // }).modal(); //.modal('show'); //.show().addClass('show');
 
-            // parent.$('.pagebuilder').trigger('show-modal', [e.target, true]);
+        //     // parent.$('.pagebuilder').trigger('show-modal', [e.target, true]);
             
 
-            return false;
-        });
+        //     return false;
+        // });
     </script>
 
 @endpush
@@ -167,6 +167,11 @@ $name = 'content'
 <head>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @stack('styles')
+    {{-- @push('styles') --}}
+    <style id="pb-styles">
+        {!! renderPageCSS($value) !!}
+    </style>
+{{-- @endpush --}}
 </head>
 
 <body class="pb-edit">
@@ -246,13 +251,13 @@ $name = 'content'
             parent.$('.pagebuilder').trigger('pb-change');
         });
 
-        // $(document).ready(function() {
-            $('body')[0].scrollTop = $('#scrPos').val();
-        // });
+        $(document).ready(function() {
+            $(this).find('html')[0].scrollTop = $('#scrPos').val();
+        });
 
         $(document).on('scroll', function(e) {
-            $('#scrPos').val($(this).find('body')[0].scrollTop)
-            // console.log('scroll', ;
+            $('#scrPos').val($(this).find('html')[0].scrollTop)
+            // console.log('scroll', $('#scrPos').val());
         });
 
     </script>

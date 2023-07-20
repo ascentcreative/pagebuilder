@@ -26,8 +26,21 @@ class ImageSettings extends Form {
             Tabs::make('tabs', 'tabs')
                 ->styled(false)
                 ->children([
+
+                    Tab::make('tab_img', 'Image Options')
+                        ->children([
+
+                            Input::make($name . '[alt]', 'Alt Text'),
+                            Input::make($name . '[link]', 'Link URL'),
+                            Checkbox::make($name . '[newwindow]', 'Open in new tab/window'),
+
+                        ]),
+
                     Tab::make('tab_layout', 'Layout')
                         ->children([
+
+                            Input::make($name . '[s][aspect_ratio]', 'Aspect Ratio')
+                                ->description('Specifiy as width / height: i.e. 16/9, 4/3 etc'),
 
                             ValueWithUnits::make($name . '[s][width]', 'Width', ['px', '%'])
                                 ->description('The width of the screen to use for the image. Leave blank to match the container size. <br/>
