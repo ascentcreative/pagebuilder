@@ -2,7 +2,7 @@
 namespace AscentCreative\Pagebuilder\Forms\Subforms;
 
 use AscentCreative\Forms\Structure\Subform;
-use AscentCreative\Forms\Structure\Html;
+use AscentCreative\Forms\Structure\HTML;
 use AscentCreative\Forms\Fields\ForeignKeySelect;
 use AscentCreative\Forms\Fields\Input;
 use AscentCreative\Forms\Fields\Options;
