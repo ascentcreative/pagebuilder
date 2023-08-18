@@ -38,6 +38,7 @@ body.pb-display form {
 
 .pb-element.selected {
     outline: 3px solid lightskyblue !important;
+    outline-offset: -3px !important;
    
 }
 
