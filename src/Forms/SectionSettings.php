@@ -54,6 +54,9 @@ class SectionSettings extends Form {
                                 ->options(['flex-start' =>'Left', 'center' => 'Center', 'flex-end' => 'Right'])
                                 ->includeNullItem(false)->default('center'),
 
+                                ValueWithUnits::make($name . '[i][gap]', 'Child spacing', ['px', 'rem', '%'])
+                                ->description('The size of the gap between each child element'),
+
                         ]),
 
                     Tab::make('tab_spacing', 'Spacing')
