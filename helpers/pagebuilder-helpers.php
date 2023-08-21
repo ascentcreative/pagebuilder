@@ -69,6 +69,25 @@ function renderElementCSS($unid, $element) {
 
 }
 
+function resolveElementDescriptor($type) {
+
+    if($type=='empty')
+        return null;
+
+    $map = collect(discoverElementDescriptors())->mapWithKeys(function($item, $key) {
+        $ref = new ReflectionClass($item);
+        return [$item::getBladePath() => $item];
+    })->toArray();
+
+    if(isset($map[$type])) {
+        return ($map[$type]);
+    } else {
+        return null;
+    }
+
+}
+
+
 function oldRenderPageCSS($content) {
 
     $out = '';
@@ -124,6 +143,8 @@ function pagebuilderBladePaths($template, $action) {
         return $item . '.' . $template . '.' . $action;
 
     })->toArray();
+
+    $out[] = 'pagebuilder::null';
 
     return $out;
 

@@ -1,15 +1,22 @@
 @section('css')
 
+    {{-- /* #{{ $id }} = {{ $element->t }} */ --}}
+    {{-- /* Element Descriptor = {{ resolveElementDescriptor($element->t) }} */  --}}
+
+
     #{{$id}} {
         @php
 
             $ignore = [];
 
-
-
             $styles = collect($element->s ?? []);
             $innerstyles = collect($element->i ?? []);
             $options = collect($element->o ?? []);
+            $descriptor = null;
+            $cls = resolveElementDescriptor($element->t);
+            if($cls) {
+                $descriptor = new $cls();
+            }
 
 
             if(!Agent::isMobile() && isset($options->parallax) && $options->parallax == 1) {
@@ -30,7 +37,6 @@
                 }
 
             }
-
             
             $style = $styles->transform(function($item, $key) use ($ignore) {
                 if($item != '' && in_array($key, $ignore) === false) {
@@ -69,6 +75,13 @@
          {!! $innerstyle !!}
 
     }
+
+  
+    
+    @if($descriptor) 
+        {{-- /* Checking for '{{ $descriptor->getBladePath() . '.css'}}' */ --}}
+        @includeFirst(pagebuilderBladePaths($descriptor->getBladePath(), 'css'))
+    @endif
 
 @overwrite
 
