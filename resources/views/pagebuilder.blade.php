@@ -20,7 +20,7 @@
         <div class="flex flex-between">
 
             <div class="pb-actions-left">
-                <button id="btn-add-row" class="button btn btn-primary btn-sm">Add</button>
+                <button id="btn-add-row" class="button btn btn-primary btn-sm">Add Section</button>
             </div>
 
             <div class="pb-actions-mid">

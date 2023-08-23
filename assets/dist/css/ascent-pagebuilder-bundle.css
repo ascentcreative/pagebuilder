@@ -112,7 +112,7 @@ body.pb-display form {
 } 
 
 .pb-elementlist.empty:after {
-    content: "I'm empty - double click to add content";
+    content: "I'm empty - click [+] to add content";
     padding: 0.5rem;
     opacity: 0.5;
     text-align: center;
