@@ -72,11 +72,11 @@ body.pb-display form {
     align-items: stretch;
 }
 
-
+/* 
 .pb-stack .modal {
     display: block !important;
     opacity: 1 !important;
-}
+} */
 
 
 .pb-elementlist.empty {
