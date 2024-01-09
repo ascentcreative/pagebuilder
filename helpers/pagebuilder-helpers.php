@@ -200,27 +200,35 @@ function discoverElementDescriptors($model = null) : array {
     $paths = config('pagebuilder.discovery_paths');
 
     $disabled = config('pagebuilder.disabled_types');
-    // dump($paths);
+    // dd($paths);
 
     foreach($paths as $path) {
         // if the folder exists, find all the classes there and instantiate (or maybe we're calling static functions... not sure yet)
         $files = glob($path.'/*.php');
 
+        // dump($files);
+
         foreach ($files as $file) {
 
-            $class = getClassFullNameFromFile($file);
+            try {
 
-            $ref = new ReflectionClass($class);
+                $class = getClassFullNameFromFile($file);
 
-            if(!in_array($class, $disabled)) {
-                // - Not an abstract class
-                if (!$ref->isAbstract()) {
-                    // - Implements the correct interface (could be by extending the AbstractDescriptor class)
-                    if($ref->implementsInterface(\AscentCreative\PageBuilder\Contracts\ElementDescriptor::class)) {
-                        // - is deemed applicable (perhaps to the supplied model, but there may be wider, global conditions coded in too)
-                        $types[] = $class;
+                $ref = new ReflectionClass($class);
+
+                if(!in_array($class, $disabled)) {
+                    // - Not an abstract class
+                    if (!$ref->isAbstract()) {
+                        // - Implements the correct interface (could be by extending the AbstractDescriptor class)
+                        if($ref->implementsInterface(\AscentCreative\PageBuilder\Contracts\ElementDescriptor::class)) {
+                            // - is deemed applicable (perhaps to the supplied model, but there may be wider, global conditions coded in too)
+                            $types[] = $class;
+                        }
                     }
                 }
+
+            } catch (\Exception $e) {
+                
             }
 
         }
