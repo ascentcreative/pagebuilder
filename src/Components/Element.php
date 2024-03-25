@@ -98,12 +98,21 @@ class Element extends Component
      */
     public function render()
     {
+
+        // populate any required view data from the Descriptor
+        $descriptor = resolveElementDescriptor($this->value->t);
+
+        $data = [];
+        if($descriptor) {
+            $data = $descriptor::getViewData($this->value, $this->mode);
+        }
+
         // Allows for block blades to be in either the main project or loaded from the cms package
         // return view('pagebuilder::components.element.edit'); //, ['element'=>$this]); 
         // dump($this->value);
         foreach(pagebuilderBladePaths($this->value->t, $this->mode) as $path) {
             if(view()->exists($path)) {
-                return view($path);
+                return view($path, $data);
             }
         }
 

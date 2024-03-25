@@ -141,4 +141,13 @@ abstract class AbstractDescriptor implements Contract {
 
     }
 
+    /** 
+     * Builds extra data for the view, based on the stored value
+     * - i.e., perform a query based on parameters stored in the value
+     *  - mode is Show or Edit - these may have different data requirements
+     */
+    public static function getViewData($value, $mode):array {
+        return [];
+    }
+
 }
