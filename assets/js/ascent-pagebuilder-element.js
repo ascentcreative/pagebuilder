@@ -154,6 +154,7 @@ var PageBuilderElement = {
                 }
             }, 1);
           
+            self.select();
             
         }
         

@@ -602,6 +602,7 @@ var PageBuilderElement = {
           });
         }
       }, 1);
+      self.select();
     }
 
     // $('.pb-block').resizable({
@@ -1362,26 +1363,12 @@ var PageBuilder = {
     }).done(function (data) {
       console.log('OK', data);
       console.log('context', context);
+      var elm = $(data);
       if ($(context).hasClass('.pb-element')) {
-        var elm = $(data);
         $(context).after(elm);
-        console.log("ELKEMENT ADDED: ", elm);
-        // elm[0].scrollIntoView({
-        //     behavior: 'smooth',
-        //     block: 'end',
-        //     inline: 'nearest'
-        // });
       }
-
       if ($(context).hasClass('pb-elementlist')) {
-        console.log('appending');
-        var _elm = $(data);
-        $(context).append(_elm);
-        // elm[0].scrollIntoView({
-        //     behavior: 'smooth',
-        //     block: 'end',
-        //     inline: 'nearest'
-        // });
+        $(context).append(elm);
       }
     }).fail(function (data) {
       console.log("fail:", data);

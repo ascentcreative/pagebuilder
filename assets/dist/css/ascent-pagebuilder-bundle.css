@@ -108,7 +108,7 @@ body.pb-display form {
 
 
 .pb-elementlist.empty {
-    background: #ececec;
+    background: rgba(0,0,0,0.1);
 } 
 
 .pb-elementlist.empty:after {

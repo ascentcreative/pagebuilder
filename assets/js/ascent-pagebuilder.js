@@ -405,27 +405,15 @@ var PageBuilder = {
         }).done(function(data) {
             console.log('OK', data);
             console.log('context', context);
+            let elm = $(data);
             if($(context).hasClass('.pb-element')) {
-                let elm = $(data);
                 $(context).after(elm);
-                console.log("ELKEMENT ADDED: ", elm);
-                // elm[0].scrollIntoView({
-                //     behavior: 'smooth',
-                //     block: 'end',
-                //     inline: 'nearest'
-                // });
             }
 
             if($(context).hasClass('pb-elementlist')) {
-                console.log('appending');
-                let elm = $(data);
                 $(context).append(elm);
-                // elm[0].scrollIntoView({
-                //     behavior: 'smooth',
-                //     block: 'end',
-                //     inline: 'nearest'
-                // });
             }
+
 
         }).fail(function(data) {
             console.log("fail:", data);
