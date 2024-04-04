@@ -585,8 +585,23 @@ var PageBuilderElement = {
       e.preventDefault();
     });
     if ($(this.element).find('.pb-element-type').attr('name').startsWith('new')) {
-      console.log('unpathed new element detected');
+      console.log('unpathed new element detected', self.element);
       self.updatePath();
+
+      // scroll new element into view if needed
+      // needs to be done on a timeout to get correct height of added element, apparently.
+      window.setTimeout(function () {
+        // console.log('element top: ', self.element.offset().top);
+        // console.log('scroll posiution: ', window.parent.$('#pb-iframe')[0].scrollTop);
+        // console.log('frame height: ', window.parent.$('#pb-iframe').height());
+        if (self.element.offset().top > window.parent.$('#pb-iframe')[0].scrollTop + window.parent.$('#pb-iframe').height()) {
+          window.parent.$('#pb-iframe')[0].contentWindow.scrollTo({
+            top: self.element.offset().top + self.element.height(),
+            left: 0,
+            behavior: 'smooth'
+          });
+        }
+      }, 1);
     }
 
     // $('.pb-block').resizable({
@@ -1348,11 +1363,25 @@ var PageBuilder = {
       console.log('OK', data);
       console.log('context', context);
       if ($(context).hasClass('.pb-element')) {
-        $(context).after(data);
+        var elm = $(data);
+        $(context).after(elm);
+        console.log("ELKEMENT ADDED: ", elm);
+        // elm[0].scrollIntoView({
+        //     behavior: 'smooth',
+        //     block: 'end',
+        //     inline: 'nearest'
+        // });
       }
+
       if ($(context).hasClass('pb-elementlist')) {
         console.log('appending');
-        $(context).append(data);
+        var _elm = $(data);
+        $(context).append(_elm);
+        // elm[0].scrollIntoView({
+        //     behavior: 'smooth',
+        //     block: 'end',
+        //     inline: 'nearest'
+        // });
       }
     }).fail(function (data) {
       console.log("fail:", data);

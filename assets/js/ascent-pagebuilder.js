@@ -406,12 +406,25 @@ var PageBuilder = {
             console.log('OK', data);
             console.log('context', context);
             if($(context).hasClass('.pb-element')) {
-                $(context).after(data);
+                let elm = $(data);
+                $(context).after(elm);
+                console.log("ELKEMENT ADDED: ", elm);
+                // elm[0].scrollIntoView({
+                //     behavior: 'smooth',
+                //     block: 'end',
+                //     inline: 'nearest'
+                // });
             }
 
             if($(context).hasClass('pb-elementlist')) {
                 console.log('appending');
-                $(context).append(data);
+                let elm = $(data);
+                $(context).append(elm);
+                // elm[0].scrollIntoView({
+                //     behavior: 'smooth',
+                //     block: 'end',
+                //     inline: 'nearest'
+                // });
             }
 
         }).fail(function(data) {

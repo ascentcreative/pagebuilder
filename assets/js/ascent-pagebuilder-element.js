@@ -136,8 +136,25 @@ var PageBuilderElement = {
 
 
         if($(this.element).find('.pb-element-type').attr('name').startsWith('new')) {
-            console.log('unpathed new element detected');
+            console.log('unpathed new element detected', self.element);
             self.updatePath();
+           
+            // scroll new element into view if needed
+            // needs to be done on a timeout to get correct height of added element, apparently.
+            window.setTimeout(function() {
+                // console.log('element top: ', self.element.offset().top);
+                // console.log('scroll posiution: ', window.parent.$('#pb-iframe')[0].scrollTop);
+                // console.log('frame height: ', window.parent.$('#pb-iframe').height());
+                if(self.element.offset().top > (window.parent.$('#pb-iframe')[0].scrollTop + window.parent.$('#pb-iframe').height())) { 
+                    window.parent.$('#pb-iframe')[0].contentWindow.scrollTo({
+                        top: self.element.offset().top + self.element.height(),
+                        left: 0,
+                        behavior: 'smooth'
+                    });
+                }
+            }, 1);
+          
+            
         }
         
         
