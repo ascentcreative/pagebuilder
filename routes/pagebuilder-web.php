@@ -3,6 +3,7 @@
 use AscentCreative\Transact\Transact;
 
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 
 Route::middleware(['web'])->group(function() {
@@ -67,6 +68,36 @@ Route::middleware(['web'])->group(function() {
     
 
     });
+
+
+    /* 
+     * Route to allow attached files to be downloaded.
+     *  - File details are just stored as JSON properties in pagebuilder JSON, not proper models (although the format is the same)
+     *  - So, we'll use this to allow a file to be downloaded from that array data.
+     *  
+     * Notes / Caveats:
+     *  - Policies will not be activated.
+     *  - To protect other files, this route will only work when a file model does not exist for the hashed name
+     *  - There is no access control here - this is a very basic solution, which needs more work.
+     */
+    Route::get('/file-download/{hash}/{target}', function ($hash, $target) {
+
+        $file = \AscentCreative\Files\Models\File::where('hashed_filename', $hash)->first();
+        if ($file) {
+            // file model exists - abort!
+            abort(403);
+        }
+
+        $disk = Storage::disk('files');
+        if($disk->exists($hash)) {
+            return $disk->download($hash, $target);
+        } else {
+            abort(404);
+        }
+
+
+    })->name('pagebuilder.file.download');
+
 
   
 });

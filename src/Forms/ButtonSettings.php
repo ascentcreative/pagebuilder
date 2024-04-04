@@ -24,6 +24,8 @@ class ButtonSettings extends Form {
         $this->children([
 
             Input::make($name . '[link]', 'Link URL'),
+
+            FileUpload::make($name . '[file]', 'File Target'),
             
 
             Options::make($name . '[s][text_align]', 'Align')
