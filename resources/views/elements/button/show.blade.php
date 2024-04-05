@@ -5,7 +5,7 @@
     @php    
         $url = $value->link ?? "#";
 
-        if($value->file) {
+        if(isset($value->file) && $value->file) {
             $url = route('pagebuilder.file.download', ['hash'=>$value->file->hashed_filename, 'target'=>$value->file->original_filename]);
         } 
     @endphp
