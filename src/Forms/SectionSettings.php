@@ -114,7 +114,7 @@ class SectionSettings extends Form {
                                 ->default(1),
 
                             DateTime::make($name . '[o][visible][from]', 'Visible From'),
-                            DateTime::make($name . '[o][visible][to]', 'Visible To')
+                            DateTime::make($name . '[o][visible][to]', 'Visible Until')
                             
                         ]),
 
