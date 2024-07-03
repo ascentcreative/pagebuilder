@@ -28,6 +28,10 @@ body.pb-display form {
 
 }
 
+.pb-element .pb-element-invisible {
+    opacity: 0.5;
+}
+
 .pbe-addchild {
     display: none;
 }

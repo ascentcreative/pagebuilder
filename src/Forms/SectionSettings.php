@@ -15,6 +15,7 @@ use AscentCreative\Forms\Structure\Tabs;
 use AscentCreative\Forms\Structure\Tab;
 use AscentCreative\Forms\Structure\HTML;
 use AscentCreative\Forms\Fields\ValueWithUnits;
+use AscentCreative\Forms\Fields\DateTime;
 
 use AscentCreative\PageBuilder\Forms\Subforms\Background;
 
@@ -104,11 +105,26 @@ class SectionSettings extends Form {
                             Background::make($name)
                         ]),
 
+                    Tab::make('tab_publish', 'Publishing / Visibility')
+                        ->children([
+
+                            Checkbox::make($name .'[o][visible][status]', 'Visible')
+                                ->checkedValue(1)
+                                ->uncheckedValue(0)
+                                ->default(1),
+
+                            DateTime::make($name . '[o][visible][from]', 'Visible From'),
+                            DateTime::make($name . '[o][visible][to]', 'Visible To')
+                            
+                        ]),
+
                     Tab::make('tab_adv', 'Advanced')
                         ->children([
                             Code::make($name . '[o][custom_css]', 'Custom CSS'),
                         ]),
                 ]),
+
+
             
         ]);
 
@@ -130,5 +146,8 @@ class SectionSettings extends Form {
         $this->populate($data, $name);
         
     }
+
+  
+
 
 }

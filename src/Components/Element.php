@@ -91,6 +91,32 @@ class Element extends Component
     
     }
 
+
+    public function isVisible() {
+
+        $visible = $this->value->o->visible ?? [];
+
+        if(isset($visible->status)) {
+               
+            if($visible->status == 0) {
+                return false;
+            } else {
+               
+                if(!is_null($visible->from) && now() < $visible->from) {
+                    return false;
+                }
+                if(!is_null($visible->to) && now() > $visible->to) {
+                    return false;
+                }
+                  
+            }
+        }
+
+        return true;
+
+    }
+
+
     /**
      * Get the view / contents that represent the component.
      *
@@ -99,13 +125,23 @@ class Element extends Component
     public function render()
     {
 
+        $data = [];
+
         // populate any required view data from the Descriptor
         $descriptor = resolveElementDescriptor($this->value->t);
 
-        $data = [];
         if($descriptor) {
             $data = $descriptor::getViewData($this->value, $this->mode);
         }
+
+        if(!($data['visible'] = $this->isVisible())) {
+
+            if($this->mode == 'show') {
+                // just don't render
+                return;
+            }
+
+        } 
 
         // Allows for block blades to be in either the main project or loaded from the cms package
         // return view('pagebuilder::components.element.edit'); //, ['element'=>$this]); 
