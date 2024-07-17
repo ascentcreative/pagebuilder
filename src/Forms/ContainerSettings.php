@@ -70,7 +70,7 @@ class ContainerSettings extends Form {
                                         ])
                                    
                             ]),
-                            HTML::make('<div class="border p-2 mt-2"><strong>Margin:</strong>', '</div>')
+                            HTML::make('<div class="border p-2 mt-2 mb-2"><strong>Margin:</strong>', '</div>')
                                 ->children([
                                     HTML::make('<div class="flex">', '</div>')
                                         ->children([
@@ -86,7 +86,10 @@ class ContainerSettings extends Form {
                                                 ])
                                         ])
                                    
-                                ])
+                                                ]),
+
+
+                            Subforms\Borders::make($name),
 
                            
                         ]),

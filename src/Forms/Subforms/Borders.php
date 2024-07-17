@@ -39,6 +39,8 @@ class Borders extends Subform {
                                     Colour::make($this->name . '[s][border_color]', 'Colour')
                                         ->manualInit(true),
                                         // ->description('The colour will be behind any image specified above.'),
+
+                                    ValueWithUnits::make($this->name . '[s][border_radius]', 'Corner Radius', ['px', 'rem', 'em']),
                                  
                             ]),                       
                    
