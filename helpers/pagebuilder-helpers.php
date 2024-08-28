@@ -212,7 +212,7 @@ function discoverElementDescriptors($model = null) : array {
 
             try {
 
-                $class = getClassFullNameFromFile($file);
+                $class = \AscentCreative\PageBuilder\ReflectionHelper::getClassFullNameFromFile($file);
 
                 $ref = new ReflectionClass($class);
 
@@ -253,3 +253,6 @@ function resolveBlockDescriptor($type) {
     return ($map[$type]);
 
 }
+
+
+
