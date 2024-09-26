@@ -7,11 +7,11 @@
 @endpush
 
 @push('scripts')
-    @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder.js')
-    @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-stack.js')
+    @scripttag('/vendor/ascent/pagebuilder/js/ascent-pagebuilder.js')
+    @scripttag('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-stack.js')
 
-    {{-- @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-element.js') --}}
-    {{-- @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-elementlist.js') --}}
+    {{-- @scripttag('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-element.js') --}}
+    {{-- @scripttag('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-elementlist.js') --}}
 @endpush
 
 <div class="pagebuilder">

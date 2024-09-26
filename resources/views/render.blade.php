@@ -1,5 +1,5 @@
 @push('scripts')
-    @script('/vendor/ascent/pagebuilder/vendor/parallax.min.js')
+    @scripttag('/vendor/ascent/pagebuilder/vendor/parallax.min.js')
 @endpush
 
 
