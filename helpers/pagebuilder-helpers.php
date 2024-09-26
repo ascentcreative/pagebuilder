@@ -156,7 +156,7 @@ function discoverBlockDescriptors($model = null) : array {
 
         foreach ($files as $file) {
 
-            $class = getClassFullNameFromFile($file);
+            $class = \AscentCreative\PageBuilder\ReflectionHelper::getClassFullNameFromFile($file);
 
             $ref = new ReflectionClass($class);
 
