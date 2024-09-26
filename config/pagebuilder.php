@@ -8,7 +8,7 @@ return [
         app_path() . '/../vendor/ascentcreative/cms/src/PageBuilder/BlockDescriptors',
         app_path() . '/../vendor/ascentcreative/blog/src/PageBuilder/BlockDescriptors',
         app_path() . '/../vendor/ascentcreative/store/src/PageBuilder/BlockDescriptors',
-        app_path() . '/../vendor/ascentcreative/donate/src/PageBuilder/BlockDescriptors',
+        // app_path() . '/../vendor/ascentcreative/donate/src/PageBuilder/BlockDescriptors',
         app_path() .'/PageBuilder/BlockDescriptors',
     ],
 
@@ -19,7 +19,7 @@ return [
         'cms::pagebuilder',
         'blog::pagebuilder',
         'store::pagebuilder',
-        'donate::pagebuilder',
+        // 'donate::pagebuilder',
     ],
 
      // TypeDescriptor classes to ignore
