@@ -60,10 +60,10 @@ $name = 'content'
 @endpush
 
 @push('scripts')
-    @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-stack.js')
-    @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-row.js')
-    @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-container.js')
-    @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-block.js')
+    @scripttag('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-stack.js')
+    @scripttag('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-row.js')
+    @scripttag('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-container.js')
+    @scripttag('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-block.js')
 
     <script>
         $(document).on('show.bs.modal', function(e) {
@@ -124,16 +124,16 @@ $name = 'content'
 
     </form>
 
-    @script('/vendor/ascent/cms/js/jquery-3.5.1.min.js')
-    @script('/vendor/ascent/cms/js/jquery-ui.min.js')
-    @script('/vendor/ascent/cms/js/bootstrap.bundle.min.js')
+    @scripttag('/vendor/ascent/cms/js/jquery-3.5.1.min.js')
+    @scripttag('/vendor/ascent/cms/js/jquery-ui.min.js')
+    @scripttag('/vendor/ascent/cms/js/bootstrap.bundle.min.js')
    
 
-    @script('/vendor/ascent/cms/ckeditor/ckeditor.js', false)
-    @script('/vendor/ascent/cms/ckeditor/adapters/jquery.js', false)
+    @scripttag('/vendor/ascent/cms/ckeditor/ckeditor.js', false)
+    @scripttag('/vendor/ascent/cms/ckeditor/adapters/jquery.js', false)
 
-    @script('/vendor/ascent/cms/dist/js/ascent-cms-bundle.js')
-    @script('/vendor/ascent/forms/dist/js/ascent-forms-bundle.js')
+    @scripttag('/vendor/ascent/cms/dist/js/ascent-cms-bundle.js')
+    @scripttag('/vendor/ascent/forms/dist/js/ascent-forms-bundle.js')
 
 
 

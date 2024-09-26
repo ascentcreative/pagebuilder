@@ -7,8 +7,8 @@
 @endpush
 
 @push('scripts')
-    @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder.js')
-    @script('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-stack.js')
+    @scripttag('/vendor/ascent/pagebuilder/js/ascent-pagebuilder.js')
+    @scripttag('/vendor/ascent/pagebuilder/js/ascent-pagebuilder-stack.js')
 @endpush
 
 <div class="pagebuilder">
