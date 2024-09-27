@@ -120,6 +120,8 @@ class SectionSettings extends Form {
 
                     Tab::make('tab_adv', 'Advanced')
                         ->children([
+                            Input::make($name . '[o][css_classes]', 'CSS Classes'),
+                            Input::make($name . '[o][css_id]', 'CSS ID'),
                             Code::make($name . '[o][custom_css]', 'Custom CSS'),
                         ]),
                 ]),

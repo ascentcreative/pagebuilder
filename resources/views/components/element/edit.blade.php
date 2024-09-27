@@ -1,4 +1,4 @@
-<div class="pb-element pb-{{ $value->t }} {{ $value->o->class ?? ''}} @if(!($visible ?? true)) pb-element-invisible @endif" 
+<div class="pb-element pb-{{ $value->t }} {{ $value->o->class ?? ''}} {{ $value->o->css_classes ?? '' }} @if(!($visible ?? true)) pb-element-invisible @endif" 
     style="position: relative; {{ $style ?? '' }}"
     data-unid="{{ $unid }}"
     id="elm-{{ $unid }}"
