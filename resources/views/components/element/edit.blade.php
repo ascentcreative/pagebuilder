@@ -1,7 +1,22 @@
+@once
+@push('scripts')
+    @scripttag('/vendor/ascent/pagebuilder/vendor/parallax.min.js')
+@endpush
+@endonce
+
 <div class="pb-element pb-{{ $value->t }} {{ $value->o->class ?? ''}} {{ $value->o->css_classes ?? '' }} @if(!($visible ?? true)) pb-element-invisible @endif" 
     style="position: relative; {{ $style ?? '' }}"
     data-unid="{{ $unid }}"
     id="elm-{{ $unid }}"
+
+    @if(isset($value->s->background_image) && isset($value->s->background_size) && $value->s->background_size=='parallax')
+        data-android-fix="false" 
+        class="parallax-window" 
+        data-parallax="scroll" 
+        data-image-src="/image/max/{{ $value->s->background_image->hashed_filename }}"
+    @endif
+
+
     >
 
     <div class="pb-element-label">
