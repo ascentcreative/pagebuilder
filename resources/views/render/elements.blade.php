@@ -1,3 +1,9 @@
+@once
+@push('scripts')
+    @scripttag('/vendor/ascent/pagebuilder/vendor/parallax.min.js')
+@endpush
+@endonce
+
 <div class="pb-elementlist" id="elm-{{ $unid ?? '000' }}-inner">
 @foreach($elements as $unid=>$element)
 

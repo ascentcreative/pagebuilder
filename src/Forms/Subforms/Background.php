@@ -33,7 +33,8 @@ class Background extends Subform {
                                     Options::make($this->name . '[s][background_size]', 'Size')
                                         ->options([
                                             'contain' => "Show the whole image",
-                                            'cover' => "Fill the background"
+                                            'cover' => "Fill the background",
+                                            'parallax' => 'Parallax Motion'
                                         ])->default('cover'),
                                     // Checkbox::make($name . '[o][parallax]', 'Parallax?')
                                     //    ->checkedValue('1')->uncheckedValue('0')

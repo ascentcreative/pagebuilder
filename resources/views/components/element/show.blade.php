@@ -1,16 +1,12 @@
 <div class="pb-element pb-{{ str_replace('.', ' ', $value->t) ?? '' }} {{ $value->o->css_classes ?? '' }}" id="elm-{{ $unid }}"
 
-    @isset($value->s->background_image)
-     {{-- ($img = ) ?? false) --}}
+    @if(isset($value->s->background_image) && isset($value->s->background_size) && $value->s->background_size=='parallax')
         data-android-fix="false" 
         class="parallax-window" 
         data-parallax="scroll" 
-        data-image-src="/storage/{{ $value->s->background_image->hashed_filename }}"
-        @php unset($value->s->background_image); @endphp
+        data-image-src="/image/max/{{ $value->s->background_image->hashed_filename }}"
     @endif
     
-
-
     >
 
     {{-- @dump($value) --}}

@@ -18,13 +18,15 @@
                 $descriptor = new $cls();
             }
 
-
-            if(!Agent::isMobile() && isset($options->parallax) && $options->parallax == 1) {
-
+        
+        
+            if(!Agent::isMobile() && isset($styles['background_size']) && $styles['background_size'] == 'parallax') {
+               
                 // BG colour and image will break the parallax (by obscuring it)
                 // the image wil be rendered to parallax in the main view, so we'll just unset / ignore both here
                 // unset($data->styles->background_image);
                 // unset($data->styles->background_colour);
+                $ignore[] = 'background_size'; // parallax is a non-standard option, so ignore. (The element will render the options)
                 $ignore[] = 'background_image';
                 $ignore[] = 'background_color';
 
